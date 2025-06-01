@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR Daddy - Enhanced Timesheet System</title>
+<title>HR Daddy - Timesheet System</title>
 <style>
 :root {
   --primary: #6366f1;
@@ -32,25 +32,6 @@ body {
   background: var(--light);
   color: var(--dark);
   line-height: 1.6;
-}
-
-/* Security Badge */
-.security-badge {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: var(--success);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  z-index: 100;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
 }
 
 /* Auth Container */
@@ -193,31 +174,6 @@ body {
   color: white;
 }
 
-.btn-danger {
-  background: var(--danger);
-  color: white;
-}
-
-.btn-warning {
-  background: var(--warning);
-  color: white;
-}
-
-.btn-info {
-  background: var(--info);
-  color: white;
-}
-
-.btn-gray {
-  background: var(--gray);
-  color: white;
-}
-
-.btn-sm {
-  padding: 6px 12px;
-  font-size: 14px;
-}
-
 .btn-block {
   width: 100%;
 }
@@ -245,8 +201,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  flex-wrap: wrap;
-  gap: 16px;
 }
 
 .brand {
@@ -262,7 +216,6 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .user-avatar {
@@ -275,287 +228,31 @@ body {
   justify-content: center;
   color: white;
   font-weight: 600;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.user-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* Main Content */
 .main-content {
   flex: 1;
   padding: 24px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
 
-/* Page Header */
-.page-header {
-  margin-bottom: 32px;
+.welcome-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 40px;
   text-align: center;
+  margin-bottom: 24px;
 }
 
-.page-title {
+.welcome-title {
   font-size: 32px;
   font-weight: 700;
   color: var(--dark);
-  margin-bottom: 8px;
-}
-
-.page-subtitle {
-  color: var(--gray);
-  font-size: 18px;
-}
-
-/* Cards */
-.card {
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-
-.card-header {
-  padding: 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.card-title {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-/* Grid */
-.grid {
-  display: grid;
-  gap: 24px;
-}
-
-.grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.grid-4 {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-/* Stats Cards */
-.stat-card {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow);
-  text-align: center;
-  transition: transform 0.3s;
-}
-
-.stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.stat-value {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  color: var(--gray);
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Tables */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-}
-
-.table th,
-.table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-.table th {
-  background: var(--light);
-  font-weight: 600;
-  color: var(--gray);
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-}
-
-.table input {
-  border: 1px solid var(--border);
-  padding: 6px 8px;
-  border-radius: 4px;
-  width: 100%;
-}
-
-.table-total {
-  font-weight: 600;
-  background: var(--light);
-}
-
-/* Navigation Tabs */
-.nav-tabs {
-  display: flex;
-  border-bottom: 2px solid var(--border);
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.nav-tabs button {
-  padding: 12px 24px;
-  background: none;
-  border: none;
-  color: var(--gray);
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 16px;
-  border-bottom: 2px solid transparent;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-
-.nav-tabs button:hover {
-  color: var(--primary);
-}
-
-.nav-tabs button.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
-}
-
-/* Tab Content */
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-  animation: fadeIn 0.3s;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Time Off Controls */
-.time-off-controls {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.time-off-btn {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 10px;
-  cursor: pointer;
-  margin: 1px;
-  border: none;
-  transition: all 0.3s;
-}
-
-.time-off-btn.active {
-  transform: scale(1.05);
-}
-
-/* Status Badges */
-.status-badge {
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  display: inline-block;
-}
-
-.status-active {
-  background: #dcfce7;
-  color: var(--success);
-}
-
-.status-vault {
-  background: #dbeafe;
-  color: var(--primary);
-}
-
-.status-archived {
-  background: #f3f4f6;
-  color: var(--gray);
-}
-
-/* Period Group */
-.period-group {
-  margin-bottom: 32px;
-}
-
-.period-group-header {
-  background: var(--primary);
-  color: white;
-  padding: 16px 20px;
-  border-radius: 8px 8px 0 0;
-  font-weight: 600;
-  font-size: 18px;
-}
-
-.period-group-content {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 8px 8px;
-}
-
-/* Timesheet Item */
-.timesheet-item {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.timesheet-item:last-child {
-  border-bottom: none;
-}
-
-.timesheet-info {
-  flex: 1;
-}
-
-.timesheet-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  margin-bottom: 16px;
 }
 
 /* Toast Notifications */
@@ -581,493 +278,95 @@ body {
 
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
-.toast.warning { background: var(--warning); }
 .toast.info { background: var(--info); }
 
-/* Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+/* Error message */
+.error-message {
+  color: var(--danger);
+  font-size: 14px;
+  margin-top: 8px;
   display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 20px;
 }
 
-.modal-content {
-  background: var(--white);
-  border-radius: 12px;
-  width: 100%;
-  max-width: 800px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: var(--shadow-lg);
-}
-
-.modal-header {
-  padding: 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: var(--gray);
-}
-
-.modal-body {
-  padding: 20px;
-}
-
-.modal-footer {
-  padding: 20px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-/* Auto Save Indicator */
-.auto-save {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--success);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
+/* Password requirements */
+.password-requirements {
   font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.auto-save.saving {
-  opacity: 1;
-}
-
-/* Quick Actions */
-.quick-actions {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-
-.quick-action-btn {
-  padding: 8px 16px;
-  font-size: 14px;
-  border-radius: 20px;
-}
-
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
   color: var(--gray);
+  margin-top: 8px;
 }
 
-.empty-state-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-  opacity: 0.5;
-}
-
-/* Week Separator */
-.week-separator {
-  border-top: 3px solid var(--primary);
-  margin: 16px 0;
-  position: relative;
-}
-
-.week-separator::before {
-  content: 'Week 2';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--white);
-  padding: 0 12px;
-  color: var(--primary);
-  font-weight: 600;
-  font-size: 14px;
-}
-
-/* Time Off Row */
-.time-off-row {
-  background: #f0f9ff;
-}
-
-/* Dark Mode */
-body.dark-mode {
-  --light: #1f2937;
-  --white: #111827;
-  --dark: #f3f4f6;
-  --gray: #9ca3af;
-  --border: #374151;
-  background: #111827;
-  color: #f3f4f6;
-}
-
-/* Fun Animations */
-.fun-animation {
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.rainbow-text {
-  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-}
-
-/* Floating Action Button */
-.fab {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  border: none;
-  box-shadow: var(--shadow-lg);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  transition: all 0.3s;
-  z-index: 100;
-}
-
-.fab:hover {
-  transform: scale(1.1);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-/* Quick Menu */
-.quick-menu {
-  position: fixed;
-  bottom: 90px;
-  right: 24px;
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: var(--shadow-lg);
-  padding: 8px;
-  display: none;
-  z-index: 100;
-}
-
-.quick-menu.active {
-  display: block;
-  animation: slideUp 0.3s;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.quick-menu-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-  white-space: nowrap;
-}
-
-.quick-menu-item:hover {
-  background: var(--light);
-}
-
-/* Loading Spinner */
-.spinner {
-  border: 3px solid var(--border);
-  border-top: 3px solid var(--primary);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.password-requirements li {
+  margin-left: 20px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .grid-2, .grid-3, .grid-4 {
-    grid-template-columns: 1fr;
+  .auth-header {
+    padding: 30px 20px;
   }
   
-  .app-header {
-    padding: 12px 16px;
+  .auth-body {
+    padding: 20px;
   }
-  
-  .main-content {
-    padding: 16px;
-  }
-  
-  .nav-tabs {
-    overflow-x: auto;
-  }
-  
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .timesheet-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .timesheet-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-}
-
-/* Two Factor Form */
-.two-factor-form {
-  display: none;
-}
-
-.two-factor-form.active {
-  display: block;
-}
-
-/* Code Editor */
-.code-editor {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  background: #1e1e1e;
-  color: #d4d4d4;
-  padding: 16px;
-  border-radius: 8px;
-  overflow-x: auto;
-}
-
-.code-textarea {
-  width: 100%;
-  min-height: 400px;
-  background: #1e1e1e;
-  color: #d4d4d4;
-  border: none;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  padding: 16px;
-  border-radius: 8px;
-  resize: vertical;
-}
-
-/* Emoji Rain */
-.emoji-rain {
-  position: fixed;
-  top: -50px;
-  animation: fall 3s linear;
-  font-size: 24px;
-  z-index: 1000;
-  pointer-events: none;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(calc(100vh + 50px));
-  }
-}
-
-/* Footer */
-footer {
-  margin-top: 4rem;
-  padding: 1rem;
-  color: #999;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* Register Button Highlight */
-.register-highlight {
-  background: var(--success);
-  color: white;
-  font-weight: 700;
-  position: relative;
-  overflow: hidden;
-}
-
-.register-highlight::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #10b981, #3b82f6, #10b981);
-  z-index: -1;
-  animation: gradient 3s ease infinite;
-  background-size: 400% 400%;
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 </style>
 </head>
 <body>
 
-<div class="security-badge">🔒 AES-256 Encrypted</div>
-<div class="auto-save" id="autoSaveIndicator">💾 Auto-saving...</div>
-
 <!-- Auth Container -->
 <div class="auth-container" id="authContainer">
   <div class="auth-card">
     <div class="auth-header">
-      <div class="auth-logo fun-animation">👔</div>
+      <div class="auth-logo">👔</div>
       <h1 class="auth-title">HR Daddy</h1>
-      <p class="auth-subtitle">Enhanced Employee Time Tracking System</p>
+      <p class="auth-subtitle">Employee Time Tracking System</p>
     </div>
     <div class="auth-body">
       <div class="auth-tabs">
         <button class="active" onclick="showAuthTab('login')">Sign In</button>
-        <button class="register-highlight" onclick="showAuthTab('register')">🚀 REGISTER NEW ACCOUNT</button>
+        <button onclick="showAuthTab('register')">Register</button>
       </div>
       
       <!-- Login Form -->
       <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
         <div class="form-group">
-          <label class="form-label">Email or Employee ID</label>
-          <input type="text" class="form-control" id="loginEmail" required autocomplete="username" placeholder="your@email.com or EMP001">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="loginEmail" required placeholder="your@email.com">
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" class="form-control" id="loginPassword" required autocomplete="current-password" placeholder="Enter your password">
+          <input type="password" class="form-control" id="loginPassword" required placeholder="Enter your password">
         </div>
+        <div class="error-message" id="loginError"></div>
         <div class="form-group">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="adminAccess">
-            <span style="font-size: 14px;">🔧 Admin Access Mode (Logan Only)</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">🔐 Sign In</button>
-        </div>
-        <div style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 16px;">
-          <strong>🆘 Quick Help:</strong><br>
-          <span style="font-size: 13px;">
-            • Default password: <code style="background: white; padding: 2px 6px; border-radius: 3px;">SecurePass123!</code><br>
-            • New users: Click "REGISTER" above<br>
-            • Use email OR employee ID to login
-          </span>
-        </div>
-        <div style="text-align: center; margin-top: 16px;">
-          <span style="color: var(--gray);">Don't have an account?</span>
-          <a href="#" onclick="showAuthTab('register'); return false;" style="color: var(--primary); font-weight: 600; text-decoration: none;">Register Now!</a>
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
         </div>
       </form>
       
       <!-- Register Form -->
       <form id="registerForm" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
-        <div style="background: #dcfce7; border: 1px solid #10b981; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-          <strong>✨ Quick Registration - Get Started in 30 Seconds!</strong>
-          <p style="font-size: 14px; margin-top: 4px;">All new accounts get password: <code style="background: white; padding: 2px 6px; border-radius: 3px;">password123</code></p>
-        </div>
         <div class="form-group">
           <label class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="regFullName" required placeholder="John Smith">
+          <input type="text" class="form-control" id="regName" required placeholder="John Smith">
         </div>
         <div class="form-group">
-          <label class="form-label">Email Address</label>
+          <label class="form-label">Email</label>
           <input type="email" class="form-control" id="regEmail" required placeholder="john@company.com">
         </div>
         <div class="form-group">
-          <label class="form-label">Phone Number</label>
-          <input type="tel" class="form-control" id="regPhone" required placeholder="(555) 123-4567">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" id="regPassword" required placeholder="Create a password" minlength="8">
+          <div class="password-requirements">
+            Password must be at least 8 characters long
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Department</label>
-          <select class="form-control" id="regDepartment" required>
-            <option value="">Select Department...</option>
-            <option value="electrical">Electrical</option>
-            <option value="admin">Administration</option>
-            <option value="management">Management</option>
-            <option value="field">Field Operations</option>
-          </select>
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="regPasswordConfirm" required placeholder="Confirm your password">
         </div>
+        <div class="error-message" id="registerError"></div>
         <div class="form-group">
-          <label class="form-label">Position/Role</label>
-          <input type="text" class="form-control" id="regPosition" required placeholder="Electrician, Manager, etc.">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Pay Type</label>
-          <select class="form-control" id="regPayType" required onchange="toggleHourlyRate()">
-            <option value="">Select Pay Type...</option>
-            <option value="hourly">Hourly</option>
-            <option value="salaried">Salaried</option>
-          </select>
-        </div>
-        <div class="form-group" id="hourlyRateSection" style="display: none;">
-          <label class="form-label">Hourly Rate ($)</label>
-          <input type="number" class="form-control" id="regHourlyRate" step="0.01" min="0" placeholder="25.00">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-success btn-block" style="font-size: 18px; padding: 16px;">
-            🚀 Create Account Instantly
-          </button>
-        </div>
-        <div style="text-align: center; margin-top: 16px;">
-          <span style="color: var(--gray);">Already have an account?</span>
-          <a href="#" onclick="showAuthTab('login'); return false;" style="color: var(--primary); font-weight: 600; text-decoration: none;">Sign In</a>
-        </div>
-      </form>
-      
-      <!-- Two Factor Form -->
-      <form id="twoFactorForm" class="auth-form two-factor-form" onsubmit="handleTwoFactor(event)">
-        <div class="form-group">
-          <label class="form-label">Two-Factor Authentication</label>
-          <input type="text" class="form-control" id="twoFactorCode" required placeholder="Enter 6-digit code" maxlength="6" pattern="[0-9]{6}">
-        </div>
-        <div class="form-group">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="rememberDevice">
-            <span style="font-size: 14px;">Don't ask again for 30 days on this device</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">✅ Verify Code</button>
-          <button type="button" class="btn btn-gray btn-block" onclick="resendTwoFactor()" style="margin-top: 8px;">📧 Resend Code</button>
-        </div>
-        <div style="font-size: 12px; color: var(--gray); text-align: center; margin-top: 12px;">
-          Check your email for the 6-digit verification code
+          <button type="submit" class="btn btn-success btn-block">Create Account</button>
         </div>
       </form>
     </div>
@@ -1078,321 +377,29 @@ footer {
 <div class="app-container" id="appContainer">
   <header class="app-header">
     <div class="brand">
-      <button class="btn btn-sm btn-gray" onclick="toggleDarkMode()" style="font-size: 20px;">🌙</button>
-      <span class="fun-animation">👔</span>
+      <span>👔</span>
       <span>HR Daddy</span>
     </div>
     <div class="user-info">
-      <div class="user-avatar" id="userAvatar" onclick="showProfile()"></div>
+      <div class="user-avatar" id="userAvatar"></div>
       <div>
         <div id="userName" style="font-weight: 600;"></div>
-        <div id="userRole" style="font-size: 12px; color: var(--gray);"></div>
+        <div style="font-size: 12px; color: var(--gray);">Employee</div>
       </div>
-      <button class="btn btn-gray btn-sm" onclick="logout()">🚪 Logout</button>
+      <button class="btn btn-primary" onclick="logout()">Logout</button>
     </div>
   </header>
 
   <main class="main-content">
-    <div class="page-header">
-      <h1 class="page-title rainbow-text">Welcome to HR Daddy! 🎉</h1>
-      <p class="page-subtitle">Making HR fun and efficient since... right now!</p>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="grid grid-4" style="margin-bottom: 32px;">
-      <div class="stat-card">
-        <div class="stat-value" style="color: var(--primary);">
-          <span id="totalHoursBiweekly">0</span>h
-        </div>
-        <div class="stat-label">Hours This Period</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" style="color: var(--success);">
-          <span id="productivityScore">100</span>%
-        </div>
-        <div class="stat-label">Productivity Score</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" style="color: var(--warning);">
-          <span id="pendingApprovals">0</span>
-        </div>
-        <div class="stat-label">Pending Items</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" style="color: var(--info);">
-          <span id="streakDays">0</span>
-        </div>
-        <div class="stat-label">Day Streak</div>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-      <button class="btn btn-success quick-action-btn" onclick="fillStandardPeriod()">📅 Fill Period (8hrs/day)</button>
-      <button class="btn btn-info quick-action-btn" onclick="showProfile()">👤 My Profile</button>
-      <button class="btn btn-primary quick-action-btn" id="combinedExportBtn" onclick="exportCombinedADP()" style="display: none;">📥 Combined Hours</button>
-      <button class="btn btn-warning quick-action-btn" id="combinedTimeOffBtn" onclick="exportTimeOffWorksheet()" style="display: none;">🏖️ Combined Time Off</button>
-      <button class="btn btn-danger quick-action-btn" onclick="clearAllEntries()">🗑️ Clear All Entries</button>
-      <button class="btn btn-gray quick-action-btn" onclick="copyPreviousPeriod()">📋 Copy Previous</button>
-      <button class="btn btn-info quick-action-btn" onclick="setWorkSchedule()">⏰ Work Schedule</button>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <div class="nav-tabs">
-      <button class="active" onclick="showTab('current')">📋 Current Pay Periods</button>
-      <button onclick="showTab('viewer')">👁️ View All Timesheets</button>
-      <button onclick="showTab('vault')">🗄️ My Vault</button>
-      <button onclick="showTab('archive')">📦 My Archive</button>
-      <button onclick="showTab('analytics')">📊 Analytics</button>
-      <button onclick="showTab('calendar')">📅 Calendar View</button>
-      <button onclick="showTab('fun')">🎮 Fun Zone</button>
-      <button id="managerVaultTab" onclick="showTab('managerVault')" style="display: none;">👥 All Vaults</button>
-      <button id="managerArchiveTab" onclick="showTab('managerArchive')" style="display: none;">📚 All Archives</button>
-      <button id="adminTab" onclick="showTab('admin')" style="display: none;">🔧 Admin Panel</button>
-    </div>
-
-    <!-- Tab Content -->
-    <div id="current" class="tab-content active">
-      <div class="page-header">
-        <h1 class="page-title">Current Bi-Weekly Pay Periods</h1>
-        <p class="page-subtitle">Enter your hours for bi-weekly pay periods (2 weeks each)</p>
-      </div>
-      <div class="grid grid-2" id="activeTimesheets"></div>
-    </div>
-
-    <div id="viewer" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">All Timesheets Viewer</h1>
-        <p class="page-subtitle">View all your timesheets without downloading</p>
-      </div>
-      <div class="quick-actions">
-        <select id="viewerYearFilter" class="form-control" style="width: auto;" onchange="filterTimesheetViewer()">
-          <option value="">All Years</option>
-        </select>
-        <select id="viewerMonthFilter" class="form-control" style="width: auto;" onchange="filterTimesheetViewer()">
-          <option value="">All Months</option>
-          <option value="0">January</option>
-          <option value="1">February</option>
-          <option value="2">March</option>
-          <option value="3">April</option>
-          <option value="4">May</option>
-          <option value="5">June</option>
-          <option value="6">July</option>
-          <option value="7">August</option>
-          <option value="8">September</option>
-          <option value="9">October</option>
-          <option value="10">November</option>
-          <option value="11">December</option>
-        </select>
-        <select id="viewerStatusFilter" class="form-control" style="width: auto;" onchange="filterTimesheetViewer()">
-          <option value="">All Status</option>
-          <option value="active">Active</option>
-          <option value="vault">Vault</option>
-          <option value="archived">Archived</option>
-        </select>
-        <select id="viewerEmployeeFilter" class="form-control" style="width: auto; display: none;" onchange="filterTimesheetViewer()">
-          <option value="">All Employees</option>
-        </select>
-      </div>
-      <div id="timesheetViewerContent"></div>
-    </div>
-
-    <div id="vault" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">My Vault</h1>
-        <p class="page-subtitle">My completed bi-weekly pay periods (1-2 weeks old)</p>
-      </div>
-      <div id="myVaultContent"></div>
-    </div>
-
-    <div id="archive" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">My Archive</h1>
-        <p class="page-subtitle">My historical bi-weekly pay periods (2+ weeks old)</p>
-      </div>
-      <div id="myArchiveContent"></div>
-    </div>
-
-    <div id="analytics" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">📊 Analytics Dashboard</h1>
-        <p class="page-subtitle">Track your productivity and time patterns</p>
-      </div>
-      <div class="grid grid-4" style="margin-bottom: 32px;">
-        <div class="stat-card">
-          <div class="stat-value" style="color: var(--primary);" id="avgHoursPerWeek">40.0</div>
-          <div class="stat-label">Avg Hours/Week</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" style="color: var(--success);" id="overtimeThisPeriod">0.0</div>
-          <div class="stat-label">Overtime Hours</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" style="color: var(--warning);" id="timeOffUsed">0</div>
-          <div class="stat-label">Time Off Days</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" style="color: var(--info);" id="completionRate">100%</div>
-          <div class="stat-label">Completion Rate</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">📈 Time Trends</h3>
-        </div>
-        <div class="card-body">
-          <canvas id="timeChart" width="400" height="200"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">🏆 Achievements</h3>
-        </div>
-        <div class="card-body" id="achievementsList"></div>
-      </div>
-    </div>
-
-    <div id="calendar" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">📅 Calendar View</h1>
-        <p class="page-subtitle">Visual overview of your time tracking</p>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 class="card-title" id="calendarMonth">January 2025</h3>
-            <div>
-              <button class="btn btn-sm btn-gray" onclick="prevMonth()">‹</button>
-              <button class="btn btn-sm btn-gray" onclick="nextMonth()">›</button>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div id="calendarGrid"></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="fun" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">🎮 Fun Zone - Because Work Should Be Fun!</h3>
-        </div>
-        <div class="card-body" style="text-align: center;">
-          <div class="grid grid-3">
-            <button class="btn btn-primary" onclick="startEmojiRain()">🌧️ Emoji Rain</button>
-            <button class="btn btn-success" onclick="playMotivationalQuote()">💬 Get Motivated</button>
-            <button class="btn btn-warning" onclick="startProductivityGame()">🎮 Productivity Game</button>
-            <button class="btn btn-info" onclick="showDadJoke()">😂 Dad Joke</button>
-            <button class="btn btn-danger" onclick="startDanceParty()">🕺 Dance Party</button>
-            <button class="btn btn-primary" onclick="showTeamLeaderboard()">🏆 Leaderboard</button>
-          </div>
-          <div id="funContent" style="margin-top: 32px; font-size: 20px;"></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="managerVault" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">All Employee Vaults</h1>
-        <p class="page-subtitle">All completed bi-weekly pay periods (1-2 weeks old)</p>
-      </div>
-      <div class="quick-actions" style="background: var(--light); padding: 16px; border-radius: 8px; margin-bottom: 24px;">
-        <label style="font-weight: 600;">Bulk Actions:</label>
-        <button class="btn btn-success btn-sm" onclick="bulkEmailAll('vault')">📧 Email All</button>
-        <button class="btn btn-primary btn-sm" onclick="exportCombinedADP('vault')">📥 Combined Hours</button>
-        <button class="btn btn-warning btn-sm" onclick="exportTimeOffWorksheet('vault')">🏖️ Combined Time Off</button>
-        <button class="btn btn-info btn-sm" onclick="generateVaultReport()">📊 Report</button>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Filter by Employee:</label>
-        <select id="vaultEmployeeFilter" class="form-control" onchange="filterManagerVault()">
-          <option value="">All Employees</option>
-        </select>
-      </div>
-      <div id="managerVaultContent"></div>
-    </div>
-
-    <div id="managerArchive" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">All Employee Archives</h1>
-        <p class="page-subtitle">All historical bi-weekly pay periods (2+ weeks old)</p>
-      </div>
-      <div class="quick-actions" style="background: var(--light); padding: 16px; border-radius: 8px; margin-bottom: 24px;">
-        <label style="font-weight: 600;">Bulk Actions:</label>
-        <button class="btn btn-success btn-sm" onclick="bulkEmailAll('archive')">📧 Email All</button>
-        <button class="btn btn-primary btn-sm" onclick="exportCombinedADP('archive')">📥 Combined Hours</button>
-        <button class="btn btn-warning btn-sm" onclick="exportTimeOffWorksheet('archive')">🏖️ Combined Time Off</button>
-        <button class="btn btn-info btn-sm" onclick="generatePayrollReport()">📊 Report</button>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Filter by Employee:</label>
-        <select id="archiveEmployeeFilter" class="form-control" onchange="filterManagerArchive()">
-          <option value="">All Employees</option>
-        </select>
-      </div>
-      <div id="managerArchiveContent"></div>
-    </div>
-
-    <div id="admin" class="tab-content">
-      <div class="page-header">
-        <h1 class="page-title">🔧 Admin Control Panel</h1>
-        <p class="page-subtitle">Enhanced system management</p>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">System Controls</h3>
-        </div>
-        <div class="card-body">
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-            <button class="btn btn-primary" onclick="exportSystemData()">📤 Export All Data</button>
-            <button class="btn btn-success" onclick="exportCombinedADP('all')">📥 Master Hours Export</button>
-            <button class="btn btn-warning" onclick="exportTimeOffWorksheet('all')">🏖️ Master Time Off Export</button>
-            <button class="btn btn-danger" onclick="resetSystem()">🔄 Reset System</button>
-            <button class="btn btn-info" onclick="viewAuditLogs()">📋 Audit Logs</button>
-            <button class="btn btn-primary" onclick="showCodeEditor()">💻 Live Code Editor</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">User Management</h3>
-        </div>
-        <div class="card-body" id="userManagement"></div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">System Statistics</h3>
-        </div>
-        <div class="card-body" id="systemStats"></div>
+    <div class="welcome-card">
+      <h1 class="welcome-title">Welcome to HR Daddy!</h1>
+      <p style="font-size: 18px; color: var(--gray);">Your timesheet management system</p>
+      <div style="margin-top: 32px;">
+        <p>This is where your timesheet features would go.</p>
+        <p style="margin-top: 16px; color: var(--gray);">The full application functionality can be added here.</p>
       </div>
     </div>
   </main>
-
-  <footer>
-    © 2025 HR Daddy™. All rights reserved.<br>
-    All content, language, templates, and visuals are intellectual property.<br>
-    Copying, recreating, or distributing without permission is strictly prohibited.
-  </footer>
-</div>
-
-<!-- Floating Action Button -->
-<button class="fab" onclick="toggleQuickMenu()">⚡</button>
-
-<!-- Quick Menu -->
-<div class="quick-menu" id="quickMenu">
-  <div class="quick-menu-item" onclick="quickTimeEntry()">
-    ⏰ Quick Time Entry
-  </div>
-  <div class="quick-menu-item" onclick="requestTimeOff()">
-    🏖️ Request Time Off
-  </div>
-  <div class="quick-menu-item" onclick="viewPaystub()">
-    💰 View Paystub
-  </div>
-  <div class="quick-menu-item" onclick="startEmojiRain()">
-    🎉 Celebration Mode
-  </div>
 </div>
 
 <!-- Toast -->
@@ -1400,168 +407,32 @@ footer {
   <span id="toastMessage"></span>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="modal" onclick="closeModalOnOutsideClick(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <h3 class="modal-title" id="modalTitle"></h3>
-      <button class="modal-close" onclick="closeModal()">×</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-    <div class="modal-footer" id="modalFooter"></div>
-  </div>
-</div>
-
 <script>
-// HR Daddy Enhanced Timesheet System - Fixed Version
-const hrDaddy = {
-  // Core data
-  database: null,
-  currentUser: null,
-  sessionToken: null,
-  payPeriods: [],
-  currentCalendarDate: new Date(),
-  
-  // Settings
-  settings: {
-    soundEnabled: true,
-    darkMode: false,
-    autoSave: true
+// Simple, secure authentication system
+const auth = {
+  // Store users in localStorage (in production, this would be a backend database)
+  getUsers() {
+    return JSON.parse(localStorage.getItem('hrDaddyUsers') || '[]');
   },
   
-  // Initialize system
-  init() {
-    this.initDatabase();
-    this.initializePayPeriods();
-    this.setupEventListeners();
-    this.checkExistingSession();
+  saveUsers(users) {
+    localStorage.setItem('hrDaddyUsers', JSON.stringify(users));
   },
-
-  initDatabase() {
-    const saved = localStorage.getItem('hrDaddyDatabase');
-    if (saved) {
-      this.database = JSON.parse(saved);
-    } else {
-      this.database = {
-        users: this.getDefaultUsers(),
-        timesheets: [],
-        audit: []
-      };
-      this.saveDatabase();
-    }
-  },
-
-  getDefaultUsers() {
-    return [
-      {
-        id: 1,
-        name: 'Rachael Richards',
-        email: 'mrselectrictucson@gmail.com',
-        employeeId: 'EMP001',
-        isManager: true,
-        hourlyRate: 0.00,
-        overtimeRate: 0.00,
-        isSalaried: true,
-        department: 'management',
-        position: 'CEO',
-        phone: '(555) 001-0001',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: 2,
-        name: 'Brad Richards',
-        email: 'mr.electric.tucson@gmail.com',
-        employeeId: 'EMP002',
-        isManager: true,
-        hourlyRate: 0.00,
-        overtimeRate: 0.00,
-        isSalaried: true,
-        department: 'management',
-        position: 'President',
-        phone: '(555) 001-0002',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: 3,
-        name: 'Cherish Richards',
-        email: 'mrelectriccherish@gmail.com',
-        employeeId: 'EMP003',
-        isManager: true,
-        hourlyRate: 23.55,
-        overtimeRate: 35.33,
-        isSalaried: false,
-        department: 'management',
-        position: 'Office Manager',
-        phone: '(555) 001-0003',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: 4,
-        name: 'Logan Richards',
-        email: 'tucson@mrelectric.com',
-        employeeId: 'EMP004',
-        isManager: true,
-        hourlyRate: 28.55,
-        overtimeRate: 42.83,
-        isSalaried: false,
-        department: 'management',
-        position: 'Operations Manager',
-        phone: '(555) 001-0004',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: 5,
-        name: 'Anastosia Piggue',
-        email: 'mrelectricoffice2@gmail.com',
-        employeeId: 'EMP005',
-        isManager: false,
-        hourlyRate: 17.50,
-        overtimeRate: 26.25,
-        isSalaried: false,
-        department: 'admin',
-        position: 'Administrative Assistant',
-        phone: '(555) 001-0005',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: 6,
-        name: 'Bryce Tucker',
-        email: 'mrelectricoffice3@gmail.com',
-        employeeId: 'EMP006',
-        isManager: false,
-        hourlyRate: 17.35,
-        overtimeRate: 26.03,
-        isSalaried: false,
-        department: 'field',
-        position: 'Electrician',
-        phone: '(555) 001-0006',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: 7,
-        name: 'Ben Tucker',
-        email: 'mrelectricoffice4@gmail.com',
-        employeeId: 'EMP007',
-        isManager: false,
-        hourlyRate: 17.00,
-        overtimeRate: 25.50,
-        isSalaried: false,
-        department: 'field',
-        position: 'Apprentice Electrician',
-        phone: '(555) 001-0007',
-        password: 'hash_' + this.hashPassword('SecurePass123!'),
-        createdAt: new Date().toISOString()
+  
+  getCurrentUser() {
+    const session = localStorage.getItem('hrDaddySession');
+    if (session) {
+      const data = JSON.parse(session);
+      if (data.expiry > Date.now()) {
+        return data.user;
       }
-    ];
+    }
+    return null;
   },
-
+  
+  // Hash password (in production, use bcrypt on backend)
   hashPassword(password) {
+    // Simple hash for demo - DO NOT use in production
     let hash = 0;
     for (let i = 0; i < password.length; i++) {
       const char = password.charCodeAt(i);
@@ -1570,1669 +441,183 @@ const hrDaddy = {
     }
     return Math.abs(hash).toString(16);
   },
-
-  saveDatabase() {
-    localStorage.setItem('hrDaddyDatabase', JSON.stringify(this.database));
+  
+  // Check if user exists
+  userExists(email) {
+    const users = this.getUsers();
+    return users.some(u => u.email.toLowerCase() === email.toLowerCase());
   },
-
-  setupEventListeners() {
-    document.addEventListener('input', (e) => {
-      if (e.target.matches('.table input') && this.currentUser) {
-        this.autoSave();
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 's') {
-        e.preventDefault();
-        this.autoSave();
-      }
-    });
-  },
-
-  checkExistingSession() {
-    const session = localStorage.getItem('hrDaddySession');
-    if (session) {
-      const data = JSON.parse(session);
-      if (data.expiry > Date.now()) {
-        this.currentUser = data.user;
-        this.sessionToken = data.token;
-        this.showApp();
-      }
-    }
-  },
-
-  initializePayPeriods() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const startOfYear = new Date(currentYear, 0, 1);
-    
-    // Find first Sunday
-    let firstSunday = new Date(startOfYear);
-    while (firstSunday.getDay() !== 0) {
-      firstSunday.setDate(firstSunday.getDate() + 1);
-    }
-
-    // Generate bi-weekly periods
-    const periods = [];
-    let periodStart = new Date(firstSunday);
-    
-    while (periodStart.getFullYear() === currentYear) {
-      const periodEnd = new Date(periodStart);
-      periodEnd.setDate(periodEnd.getDate() + 13); // 2 weeks - 1 day
-      
-      periods.push({
-        id: this.formatDateForId(periodStart),
-        startDate: new Date(periodStart),
-        endDate: new Date(periodEnd)
-      });
-      
-      periodStart.setDate(periodStart.getDate() + 14);
-    }
-
-    this.payPeriods = periods;
-  },
-
-  formatDateForId(date) {
-    return date.toISOString().split('T')[0];
-  },
-
-  formatDate(date) {
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    }).format(date);
-  },
-
-  formatADPDate(date) {
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
-  },
-
-  showApp() {
-    document.getElementById('authContainer').style.display = 'none';
-    document.getElementById('appContainer').classList.add('active');
-
-    // Update UI
-    document.getElementById('userName').textContent = this.currentUser.name;
-    document.getElementById('userRole').textContent = this.currentUser.isManager ? 'Manager' : 'Employee';
-    document.getElementById('userAvatar').textContent = this.currentUser.name.charAt(0).toUpperCase();
-
-    // Show manager tabs
-    if (this.currentUser.isManager) {
-      document.getElementById('managerVaultTab').style.display = 'block';
-      document.getElementById('managerArchiveTab').style.display = 'block';
-      document.getElementById('combinedExportBtn').style.display = 'block';
-      document.getElementById('combinedTimeOffBtn').style.display = 'block';
-    }
-
-    // Show admin tab for Logan
-    if (this.currentUser.employeeId === 'EMP004') {
-      document.getElementById('adminTab').style.display = 'block';
-    }
-
-    this.loadAllContent();
-    this.updateQuickStats();
-    this.startAutoExportCheck();
-  },
-
-  loadAllContent() {
-    this.loadCurrentTimesheets();
-    this.processVaultAndArchive();
-  },
-
-  loadCurrentTimesheets() {
-    const now = new Date();
-    const activePeriods = this.payPeriods.filter(p => p.endDate >= now).slice(0, 2);
-    
-    const container = document.getElementById('activeTimesheets');
-    container.innerHTML = activePeriods.map((period, index) => {
-      const timesheet = this.getOrCreateTimesheet(this.currentUser.id, period.id);
-      return this.renderBiWeeklyTimesheetCard(timesheet, period, index + 1, true);
-    }).join('');
-  },
-
-  getOrCreateTimesheet(userId, periodId) {
-    let timesheet = this.database.timesheets.find(t => 
-      t.userId === userId && t.payPeriodId === periodId
-    );
-    
-    if (!timesheet) {
-      timesheet = {
-        id: `${userId}_${periodId}`,
-        userId: userId,
-        payPeriodId: periodId,
-        entries: this.createEmptyBiWeeklyEntries(),
-        createdAt: new Date().toISOString(),
-        lastModified: new Date().toISOString(),
-        status: 'active',
-        exported: false,
-        autoExported: false
-      };
-      
-      this.database.timesheets.push(timesheet);
-      this.saveDatabase();
+  
+  // Register new user
+  register(name, email, password) {
+    if (this.userExists(email)) {
+      throw new Error('Email already registered');
     }
     
-    return timesheet;
-  },
-
-  createEmptyBiWeeklyEntries() {
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const entries = {};
-    
-    for (let week = 1; week <= 2; week++) {
-      days.forEach(day => {
-        entries[`week${week}_${day}`] = {
-          hours: '',
-          overtime: '',
-          notes: '',
-          timeOffType: '',
-          timeOffHours: 0
-        };
-      });
-    }
-    
-    return entries;
-  },
-
-  renderBiWeeklyTimesheetCard(timesheet, period, periodNumber, editable = false) {
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    
-    return `
-      <div class="card" data-timesheet-id="${timesheet.id}">
-        <div class="card-header">
-          <div>
-            <h3 class="card-title">Pay Period ${periodNumber} - ${user?.name || 'Unknown'}</h3>
-            <p style="color: var(--gray); font-size: 14px;">
-              ${this.formatDate(period.startDate)} - ${this.formatDate(period.endDate)} (14 days)
-            </p>
-          </div>
-          <div style="text-align: right;">
-            <div class="status-badge status-active">Active</div>
-            <div style="margin-top: 8px; font-weight: 600;">
-              Pay Rate: ${user.isSalaried ? 'Salaried' : `${user.hourlyRate.toFixed(2)}/hr | OT: ${user.overtimeRate.toFixed(2)}/hr`}
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          ${this.renderBiWeeklyTimesheetTable(timesheet, period, editable)}
-          ${editable ? `
-            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
-              <button class="btn btn-primary" onclick="hrDaddy.exportTimesheet('${timesheet.id}')">📥 Download Timesheet</button>
-              <button class="btn btn-success" onclick="hrDaddy.exportIndividualTimeOff('${timesheet.id}')">🏖️ Download Time Off</button>
-              <button class="btn btn-gray" onclick="hrDaddy.emailTimesheet('${timesheet.id}')">📧 Email Both</button>
-              <button class="btn btn-info" onclick="hrDaddy.printTimesheet('${timesheet.id}')">🖨️ Print</button>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-    `;
-  },
-
-  renderBiWeeklyTimesheetTable(timesheet, period, editable = false) {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    const startDate = new Date(period.startDate);
-    
-    let tableHtml = `
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Date</th>
-            <th>Work Type</th>
-            <th>Regular Hours</th>
-            <th>Overtime Hours</th>
-            <th>Daily Total</th>
-            <th>Daily Earnings</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    let weekTotals = { regular: 0, overtime: 0, total: 0, earnings: 0, timeOff: 0 };
-
-    for (let week = 0; week < 2; week++) {
-      if (week === 1) {
-        tableHtml += `
-          <tr class="week-separator">
-            <td colspan="8"></td>
-          </tr>
-        `;
-      }
-
-      days.forEach((day, dayIndex) => {
-        const dayNumber = week * 7 + dayIndex;
-        const entryKey = `week${week + 1}_${day.toLowerCase()}`;
-        const entry = timesheet.entries[entryKey] || { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-        const currentDate = new Date(startDate.getTime() + (dayNumber * 24 * 60 * 60 * 1000));
-        
-        const isTimeOff = entry.timeOffType && entry.timeOffHours > 0;
-        const regularHours = isTimeOff ? 0 : (parseFloat(entry.hours) || 0);
-        const overtimeHours = isTimeOff ? 0 : (parseFloat(entry.overtime) || 0);
-        const timeOffHours = isTimeOff ? parseFloat(entry.timeOffHours) || 0 : 0;
-        const dailyTotal = regularHours + overtimeHours + timeOffHours;
-        const dailyEarnings = user.isSalaried ? 0 : isTimeOff ? 0 : 
-          (regularHours * user.hourlyRate) + (overtimeHours * user.overtimeRate);
-
-        weekTotals.regular += regularHours;
-        weekTotals.overtime += overtimeHours;
-        weekTotals.total += dailyTotal;
-        weekTotals.earnings += dailyEarnings;
-        weekTotals.timeOff += timeOffHours;
-
-        const timeOffDisplay = isTimeOff ? 
-          `🏖️ ${entry.timeOffType.charAt(0).toUpperCase() + entry.timeOffType.slice(1)} (${timeOffHours}h)` : 
-          'Work Day';
-        
-        const earningsDisplay = isTimeOff ? 
-          `🏖️ ${entry.timeOffType.charAt(0).toUpperCase() + entry.timeOffType.slice(1)}` :
-          user.isSalaried ? 'Salaried' : `${dailyEarnings.toFixed(2)}`;
-
-        tableHtml += `
-          <tr data-day="${entryKey}" ${isTimeOff ? 'class="time-off-row"' : ''}>
-            <td><strong>${day}</strong></td>
-            <td style="font-size: 12px;">${currentDate.toLocaleDateString()}</td>
-            <td>
-              ${editable ? `
-                <div class="time-off-controls">
-                  <button class="time-off-btn ${!isTimeOff ? 'active' : ''}" 
-                    onclick="hrDaddy.setWorkDay('${timesheet.id}', '${entryKey}')" 
-                    style="background: ${!isTimeOff ? '#16a34a' : '#e5e7eb'}; color: ${!isTimeOff ? 'white' : '#6b7280'};">
-                    Work
-                  </button>
-                  <button class="time-off-btn ${entry.timeOffType === 'sick' ? 'active' : ''}" 
-                    onclick="hrDaddy.setTimeOffDay('${timesheet.id}', '${entryKey}', 'sick')" 
-                    style="background: ${entry.timeOffType === 'sick' ? '#dc2626' : '#e5e7eb'}; color: ${entry.timeOffType === 'sick' ? 'white' : '#6b7280'};">
-                    Sick
-                  </button>
-                  <button class="time-off-btn ${entry.timeOffType === 'vacation' ? 'active' : ''}" 
-                    onclick="hrDaddy.setTimeOffDay('${timesheet.id}', '${entryKey}', 'vacation')" 
-                    style="background: ${entry.timeOffType === 'vacation' ? '#2563eb' : '#e5e7eb'}; color: ${entry.timeOffType === 'vacation' ? 'white' : '#6b7280'};">
-                    Vacation
-                  </button>
-                  <button class="time-off-btn ${entry.timeOffType === 'unpaid' ? 'active' : ''}" 
-                    onclick="hrDaddy.setTimeOffDay('${timesheet.id}', '${entryKey}', 'unpaid')" 
-                    style="background: ${entry.timeOffType === 'unpaid' ? '#d97706' : '#e5e7eb'}; color: ${entry.timeOffType === 'unpaid' ? 'white' : '#6b7280'};">
-                    Unpaid
-                  </button>
-                </div>
-                ${isTimeOff ? `
-                  <select onchange="hrDaddy.updateTimeOffHours('${timesheet.id}', '${entryKey}', this.value)" 
-                    style="width: 100%; margin-top: 4px; padding: 4px; font-size: 12px; border: 1px solid var(--border); border-radius: 4px;">
-                    <option value="0">Select hours...</option>
-                    ${this.generateTimeOffHourOptions(timeOffHours)}
-                  </select>
-                ` : ''}
-              ` : `
-                <span style="font-size: 11px; ${isTimeOff ? 'color: #2563eb; font-weight: 600;' : ''}">${timeOffDisplay}</span>
-              `}
-            </td>
-            <td>
-              ${isTimeOff ? '<span style="color: #6b7280; font-size: 12px;">Time Off</span>' : `
-                <input type="number" step="0.01" min="0" max="24" value="${entry.hours}" 
-                  ${editable ? `onchange="hrDaddy.updateEntry('${timesheet.id}', '${entryKey}', 'hours', this.value)"` : 'readonly'} 
-                  style="width: 80px;">
-              `}
-            </td>
-            <td>
-              ${isTimeOff ? '<span style="color: #6b7280; font-size: 12px;">Time Off</span>' : `
-                <input type="number" step="0.01" min="0" max="24" value="${entry.overtime}" 
-                  ${editable ? `onchange="hrDaddy.updateEntry('${timesheet.id}', '${entryKey}', 'overtime', this.value)"` : 'readonly'} 
-                  style="width: 80px;">
-              `}
-            </td>
-            <td style="font-weight: 600; text-align: center; ${isTimeOff ? 'color: #2563eb;' : ''}">
-              ${dailyTotal.toFixed(2)}h
-            </td>
-            <td style="font-weight: 600; text-align: center; color: ${isTimeOff ? '#2563eb' : 'var(--success)'};">
-              ${earningsDisplay}
-            </td>
-            <td>
-              <input type="text" value="${entry.notes || ''}" 
-                ${editable ? `onchange="hrDaddy.updateEntry('${timesheet.id}', '${entryKey}', 'notes', this.value)"` : 'readonly'} 
-                placeholder="Daily notes" style="width: 100%;">
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    tableHtml += `
-        </tbody>
-        <tfoot>
-          <tr class="table-total">
-            <td colspan="3"><strong>PAY PERIOD TOTALS</strong></td>
-            <td><strong>${weekTotals.regular.toFixed(2)}h</strong></td>
-            <td><strong>${weekTotals.overtime.toFixed(2)}h</strong></td>
-            <td style="text-align: center;"><strong>${weekTotals.total.toFixed(2)}h</strong></td>
-            <td style="text-align: center;"><strong>${user.isSalaried ? 'Salaried' : `${weekTotals.earnings.toFixed(2)}`}</strong></td>
-            <td><strong>Period Complete</strong></td>
-          </tr>
-          ${weekTotals.total > 80 ? `
-            <tr style="background: #fef3c7; border: 1px solid #f59e0b; color: #92400e;">
-              <td colspan="8" style="text-align: center;">
-                ⚠️ Warning: ${weekTotals.total.toFixed(1)} hours exceeds 80-hour bi-weekly threshold
-              </td>
-            </tr>
-          ` : ''}
-          ${weekTotals.timeOff > 0 ? `
-            <tr style="background: #dbeafe; border: 1px solid #3b82f6; color: #1e40af;">
-              <td colspan="8" style="text-align: center;">
-                ℹ️ Time Off: ${weekTotals.timeOff.toFixed(1)} hours recorded this period
-              </td>
-            </tr>
-          ` : ''}
-        </tfoot>
-      </table>
-    `;
-
-    return tableHtml;
-  },
-
-  generateTimeOffHourOptions(selectedHours) {
-    let options = '';
-    for (let i = 0.5; i <= 8; i += 0.5) {
-      const selected = i === selectedHours ? 'selected' : '';
-      options += `<option value="${i}" ${selected}>${i} hours</option>`;
-    }
-    return options;
-  },
-
-  setWorkDay(timesheetId, entryKey) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    if (!timesheet) return;
-
-    if (!timesheet.entries[entryKey]) {
-      timesheet.entries[entryKey] = { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-    }
-
-    timesheet.entries[entryKey].timeOffType = '';
-    timesheet.entries[entryKey].timeOffHours = 0;
-    timesheet.lastModified = new Date().toISOString();
-
-    this.saveDatabase();
-    this.loadCurrentTimesheets();
-    this.showToast('Day set to work day', 'success');
-  },
-
-  setTimeOffDay(timesheetId, entryKey, timeOffType) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    if (!timesheet) return;
-
-    if (!timesheet.entries[entryKey]) {
-      timesheet.entries[entryKey] = { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-    }
-
-    timesheet.entries[entryKey].timeOffType = timeOffType;
-    timesheet.entries[entryKey].timeOffHours = timesheet.entries[entryKey].timeOffHours || 8;
-    timesheet.entries[entryKey].hours = '';
-    timesheet.entries[entryKey].overtime = '';
-    timesheet.lastModified = new Date().toISOString();
-
-    this.saveDatabase();
-    this.loadCurrentTimesheets();
-    this.showToast(`Day set to ${timeOffType} leave`, 'success');
-  },
-
-  updateTimeOffHours(timesheetId, entryKey, hours) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    if (!timesheet) return;
-
-    if (!timesheet.entries[entryKey]) {
-      timesheet.entries[entryKey] = { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-    }
-
-    timesheet.entries[entryKey].timeOffHours = parseFloat(hours);
-    timesheet.lastModified = new Date().toISOString();
-
-    this.saveDatabase();
-    this.loadCurrentTimesheets();
-    
-    if (hours > 0) {
-      this.showToast(`${timesheet.entries[entryKey].timeOffType} time updated: ${hours} hours`, 'success');
-    }
-  },
-
-  updateEntry(timesheetId, entryKey, field, value) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    if (!timesheet) return;
-
-    if (!timesheet.entries[entryKey]) {
-      timesheet.entries[entryKey] = { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-    }
-
-    timesheet.entries[entryKey][field] = value;
-    timesheet.lastModified = new Date().toISOString();
-
-    this.saveDatabase();
-    this.updateQuickStats();
-  },
-
-  generateADPWorkforceNowFormat(timesheets) {
-    let csv = '# ADP WorkforceNow Time Import Format\n';
-    csv += '# © 2025 HR Daddy™. All rights reserved.\n';
-    csv += 'Company Code,File Number,Pay Code,Hours,Rate,Amount,Date\n';
-
-    timesheets.forEach(timesheet => {
-      const user = this.database.users.find(u => u.id === timesheet.userId);
-      const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-      
-      if (!user || !period) return;
-
-      const startDate = new Date(period.startDate);
-
-      for (let week = 1; week <= 2; week++) {
-        for (let day = 0; day < 7; day++) {
-          const dayIndex = (week - 1) * 7 + day;
-          const entryKey = `week${week}_${['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][day]}`;
-          const entry = timesheet.entries[entryKey] || { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-          const currentDate = new Date(startDate.getTime() + (dayIndex * 24 * 60 * 60 * 1000));
-          
-          const isTimeOff = entry.timeOffType && entry.timeOffHours > 0;
-          
-          if (!isTimeOff) {
-            // Regular hours
-            const regularHours = parseFloat(entry.hours) || 0;
-            if (regularHours > 0) {
-              csv += `MRE,${user.employeeId},REG,${regularHours.toFixed(2)},${user.hourlyRate.toFixed(2)},${(regularHours * user.hourlyRate).toFixed(2)},${this.formatADPDate(currentDate)}\n`;
-            }
-            
-            // Overtime hours
-            const overtimeHours = parseFloat(entry.overtime) || 0;
-            if (overtimeHours > 0) {
-              csv += `MRE,${user.employeeId},OT,${overtimeHours.toFixed(2)},${user.overtimeRate.toFixed(2)},${(overtimeHours * user.overtimeRate).toFixed(2)},${this.formatADPDate(currentDate)}\n`;
-            }
-          }
-        }
-      }
-    });
-
-    return csv;
-  },
-
-  generateTimeOffWorksheetFormat(timesheets) {
-    let csv = '# ADP WorkforceNow Time Off Import Format\n';
-    csv += '# © 2025 HR Daddy™. All rights reserved.\n';
-    csv += 'Company Code,File Number,Time Off Code,Date,Hours,Status\n';
-
-    timesheets.forEach(timesheet => {
-      const user = this.database.users.find(u => u.id === timesheet.userId);
-      const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-      
-      if (!user || !period) return;
-
-      const startDate = new Date(period.startDate);
-
-      for (let week = 1; week <= 2; week++) {
-        for (let day = 0; day < 7; day++) {
-          const dayIndex = (week - 1) * 7 + day;
-          const entryKey = `week${week}_${['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][day]}`;
-          const entry = timesheet.entries[entryKey] || { hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0 };
-          const currentDate = new Date(startDate.getTime() + (dayIndex * 24 * 60 * 60 * 1000));
-          
-          const isTimeOff = entry.timeOffType && entry.timeOffHours > 0;
-          
-          if (isTimeOff) {
-            const timeOffCodeMap = {
-              sick: 'SICK',
-              vacation: 'VAC',
-              unpaid: 'UNP'
-            };
-            const timeOffCode = timeOffCodeMap[entry.timeOffType] || 'OTHER';
-            
-            csv += `MRE,${user.employeeId},${timeOffCode},${this.formatADPDate(currentDate)},${entry.timeOffHours.toFixed(2)},APPROVED\n`;
-          }
-        }
-      }
-    });
-
-    return csv;
-  },
-
-  exportTimesheet(timesheetId) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-
-    const adpData = this.generateADPWorkforceNowFormat([timesheet]);
-    const blob = new Blob([adpData], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `ADP_Hours_${user.name.replace(/\s+/g, '_')}_${period.id}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    this.showToast('ADP WorkforceNow hours file downloaded', 'success');
-  },
-
-  exportIndividualTimeOff(timesheetId) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-
-    const timeOffData = this.generateTimeOffWorksheetFormat([timesheet]);
-    const blob = new Blob([timeOffData], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `ADP_TimeOff_${user.name.replace(/\s+/g, '_')}_${period.id}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    this.showToast('Time off worksheet downloaded', 'success');
-  },
-
-  emailTimesheet(timesheetId) {
-    const timesheet = this.database.timesheets.find(t => t.id === timesheetId);
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-    const totalHours = this.calculateTotalHours(timesheet);
-    const earnings = this.calculateEarnings(totalHours, user);
-
-    const hoursData = this.generateADPWorkforceNowFormat([timesheet]);
-    const timeOffData = this.generateTimeOffWorksheetFormat([timesheet]);
-
-    // Create email with actual data
-    const emailData = {
-      to: 'tucson@mrelectric.com',
-      cc: 'mrselectrictucson@gmail.com',
-      subject: `ADP Import Files - ${user.name} - ${this.formatDate(period.startDate)} to ${this.formatDate(period.endDate)}`,
-      body: `ADP WORKFORCENOW IMPORT FILES
-
-Employee: ${user.name} (${user.employeeId})
-Pay Period: ${this.formatDate(period.startDate)} - ${this.formatDate(period.endDate)}
-
-SUMMARY:
-Regular Hours: ${totalHours.regular}
-Overtime Hours: ${totalHours.overtime}
-Total Hours: ${totalHours.total}
-Total Earnings: ${earnings.total.toFixed(2)}
-
-Two files attached:
-1. ADP_Hours_${user.employeeId}.csv - Timesheet hours for ADP import
-2. ADP_TimeOff_${user.employeeId}.csv - Time off requests for ADP import
-
-Both files are formatted for direct import into ADP WorkforceNow.
-
-Generated by HR Daddy Enhanced Timesheet System
-© 2025 HR Daddy™. All rights reserved.`,
-      attachments: [
-        {
-          filename: `ADP_Hours_${user.employeeId}.csv`,
-          content: hoursData,
-          type: 'text/csv'
-        },
-        {
-          filename: `ADP_TimeOff_${user.employeeId}.csv`,
-          content: timeOffData,
-          type: 'text/csv'
-        }
-      ]
+    const users = this.getUsers();
+    const newUser = {
+      id: Date.now(),
+      name: name,
+      email: email.toLowerCase(),
+      password: this.hashPassword(password),
+      createdAt: new Date().toISOString()
     };
-
-    // Since we can't actually send emails from browser, we'll simulate it
-    this.simulateEmailSend(emailData);
     
-    // Log for debugging
-    console.log('EMAIL DATA:', emailData);
+    users.push(newUser);
+    this.saveUsers(users);
     
-    // Mark as emailed
-    timesheet.manuallyEmailed = true;
-    timesheet.lastEmailedAt = new Date().toISOString();
-    this.saveDatabase();
-
-    this.showToast('Timesheet emailed with both ADP files', 'success');
+    return newUser;
   },
-
-  calculateTotalHours(timesheet) {
-    let regular = 0;
-    let overtime = 0;
-    let total = 0;
-
-    Object.values(timesheet.entries).forEach(entry => {
-      const isTimeOff = entry.timeOffType && entry.timeOffHours > 0;
-      if (!isTimeOff) {
-        regular += parseFloat(entry.hours) || 0;
-        overtime += parseFloat(entry.overtime) || 0;
-      }
-      total += parseFloat(entry.hours || 0) + parseFloat(entry.overtime || 0) + parseFloat(entry.timeOffHours || 0);
-    });
-
-    return {
-      regular: regular.toFixed(2),
-      overtime: overtime.toFixed(2),
-      total: total.toFixed(2)
+  
+  // Login user
+  login(email, password) {
+    const users = this.getUsers();
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    if (user.password !== this.hashPassword(password)) {
+      throw new Error('Invalid password');
+    }
+    
+    // Create session
+    const sessionData = {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      },
+      token: Math.random().toString(36).substring(2),
+      expiry: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
     };
+    
+    localStorage.setItem('hrDaddySession', JSON.stringify(sessionData));
+    
+    return sessionData.user;
   },
-
-  calculateEarnings(totalHours, user) {
-    if (user.isSalaried) {
-      return {
-        regular: 0,
-        overtime: 0,
-        total: 0
-      };
-    }
-
-    const regularEarnings = parseFloat(totalHours.regular) * user.hourlyRate;
-    const overtimeEarnings = parseFloat(totalHours.overtime) * user.overtimeRate;
-
-    return {
-      regular: regularEarnings.toFixed(2),
-      overtime: overtimeEarnings.toFixed(2),
-      total: (regularEarnings + overtimeEarnings).toFixed(2)
-    };
-  },
-
-  simulateEmailSend(emailData) {
-    // Create a visual representation of the email
-    const emailModal = `
-      <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h4 style="margin-bottom: 16px;">📧 Email Preview (Simulated)</h4>
-        <div style="background: white; padding: 16px; border-radius: 6px; border: 1px solid #e5e7eb;">
-          <div style="margin-bottom: 12px;">
-            <strong>To:</strong> ${emailData.to}<br>
-            <strong>CC:</strong> ${emailData.cc}<br>
-            <strong>Subject:</strong> ${emailData.subject}
-          </div>
-          <div style="border-top: 1px solid #e5e7eb; padding-top: 12px; margin-bottom: 12px;">
-            <pre style="white-space: pre-wrap; font-family: Arial, sans-serif; font-size: 14px;">${emailData.body}</pre>
-          </div>
-          <div style="border-top: 1px solid #e5e7eb; padding-top: 12px;">
-            <strong>Attachments:</strong>
-            ${emailData.attachments.map(att => `
-              <div style="margin: 4px 0;">
-                📎 ${att.filename} (${att.content.length} bytes)
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      </div>
-      <div style="background: #fef3c7; border: 1px solid #f59e0b; padding: 12px; border-radius: 6px;">
-        <strong>⚠️ Note:</strong> This is a browser-based application. Actual email sending requires a backend server.
-        <br><br>
-        <strong>To implement real email:</strong>
-        <ol style="margin: 8px 0 0 20px;">
-          <li>Set up an email service (SendGrid, AWS SES, etc.)</li>
-          <li>Create a backend API endpoint</li>
-          <li>Replace simulateEmailSend with actual API call</li>
-        </ol>
-      </div>
-      <div style="margin-top: 16px;">
-        <button class="btn btn-primary" onclick="hrDaddy.downloadEmailPackage('${emailData.to}', '${emailData.subject}', \`${encodeURIComponent(emailData.body)}\`, '${btoa(JSON.stringify(emailData.attachments))}')">
-          💾 Download Email Package
-        </button>
-        <button class="btn btn-success" onclick="hrDaddy.copyEmailToClipboard(\`${encodeURIComponent(JSON.stringify(emailData))}\`)">
-          📋 Copy Email Data
-        </button>
-      </div>
-    `;
-
-    this.showModal('Email Simulation', emailModal);
-    
-    // Also create a downloadable email package
-    this.createEmailPackage(emailData);
-  },
-
-  createEmailPackage(emailData) {
-    // Create a comprehensive email package that can be saved
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const packageName = `HR_Daddy_Email_${timestamp}`;
-    
-    // Create email info file
-    const emailInfo = `HR DADDY EMAIL PACKAGE
-======================
-
-Generated: ${new Date().toLocaleString()}
-Package: ${packageName}
-
-TO: ${emailData.to}
-CC: ${emailData.cc}
-SUBJECT: ${emailData.subject}
-
-MESSAGE:
---------
-${emailData.body}
-
-ATTACHMENTS:
------------
-${emailData.attachments.map(att => `- ${att.filename}`).join('\n')}
-
-INSTRUCTIONS:
-------------
-1. This package contains all files ready for email
-2. Attach the CSV files to your email client
-3. Copy the message body above
-4. Send to the specified recipients
-
-© 2025 HR Daddy™. All rights reserved.
-`;
-
-    // Store in browser for download
-    this.pendingEmailPackage = {
-      info: emailInfo,
-      attachments: emailData.attachments,
-      emailData: emailData
-    };
-  },
-
-  downloadEmailPackage(to, subject, body, attachmentsBase64) {
-    const attachments = JSON.parse(atob(attachmentsBase64));
-    const body_decoded = decodeURIComponent(body);
-    
-    // Create a zip-like package (we'll create multiple downloads)
-    const timestamp = new Date().toISOString().split('T')[0];
-    
-    // Download email info
-    const emailInfo = `TO: ${to}
-SUBJECT: ${subject}
-
-${body_decoded}
-
-Files to attach:
-${attachments.map(att => `- ${att.filename}`).join('\n')}
-`;
-    
-    const infoBlob = new Blob([emailInfo], { type: 'text/plain' });
-    const infoUrl = URL.createObjectURL(infoBlob);
-    const infoLink = document.createElement('a');
-    infoLink.href = infoUrl;
-    infoLink.download = `Email_Instructions_${timestamp}.txt`;
-    infoLink.click();
-    
-    // Download each attachment
-    setTimeout(() => {
-      attachments.forEach((att, index) => {
-        setTimeout(() => {
-          const blob = new Blob([att.content], { type: 'text/csv' });
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = att.filename;
-          link.click();
-          URL.revokeObjectURL(url);
-        }, index * 500); // Stagger downloads
-      });
-    }, 500);
-    
-    this.showToast('Email package downloaded! Check your downloads folder.', 'success');
-    this.closeModal();
-  },
-
-  copyEmailToClipboard(encodedData) {
-    const emailData = JSON.parse(decodeURIComponent(encodedData));
-    
-    const clipboardText = `To: ${emailData.to}
-CC: ${emailData.cc}
-Subject: ${emailData.subject}
-
-${emailData.body}
-
-Note: ${emailData.attachments.length} CSV files need to be attached separately.`;
-    
-    navigator.clipboard.writeText(clipboardText).then(() => {
-      this.showToast('Email content copied to clipboard!', 'success');
-    }).catch(() => {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = clipboardText;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      this.showToast('Email content copied!', 'success');
-    });
-  },
-
-  sendAutoExportEmail(timesheet) {
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-    const totalHours = this.calculateTotalHours(timesheet);
-    const earnings = this.calculateEarnings(totalHours, user);
-    
-    const hoursData = this.generateADPWorkforceNowFormat([timesheet]);
-    const timeOffData = this.generateTimeOffWorksheetFormat([timesheet]);
-
-    const emailData = {
-      to: 'tucson@mrelectric.com',
-      cc: 'mrselectrictucson@gmail.com',
-      subject: `AUTO-EXPORT: ADP Files - ${user.name} - Period Ending ${this.formatDate(period.endDate)}`,
-      body: `AUTOMATED TIMESHEET EXPORT
-==========================
-
-This is an automated export as the pay period has ended.
-
-Employee: ${user.name} (${user.employeeId})
-Pay Period: ${this.formatDate(period.startDate)} - ${this.formatDate(period.endDate)}
-Status: Moving to Vault
-
-PERIOD SUMMARY:
---------------
-Regular Hours: ${totalHours.regular}
-Overtime Hours: ${totalHours.overtime}
-Total Hours: ${totalHours.total}
-Total Earnings: ${earnings.total}
-
-Two files attached:
-1. ADP_Hours_${user.employeeId}.csv - Timesheet hours for ADP import
-2. ADP_TimeOff_${user.employeeId}.csv - Time off requests for ADP import
-
-Both files are formatted for direct import into ADP WorkforceNow.
-
-This email was automatically generated when the pay period ended.
-No manual action was required.
-
-HR Daddy Enhanced Timesheet System
-© 2025 HR Daddy™. All rights reserved.`,
-      attachments: [
-        { filename: `ADP_Hours_${user.employeeId}.csv`, content: hoursData, type: 'text/csv' },
-        { filename: `ADP_TimeOff_${user.employeeId}.csv`, content: timeOffData, type: 'text/csv' }
-      ]
-    };
-
-    // Log the auto-export
-    console.log('AUTO-EXPORT EMAIL:', emailData);
-    
-    // In a real implementation, this would call your email API
-    // For now, we'll store it for manual retrieval
-    this.storeAutoExportForRetrieval(emailData);
-    
-    // Update the database
-    timesheet.autoExported = true;
-    timesheet.autoExportedAt = new Date().toISOString();
-    this.saveDatabase();
-  },
-
-  storeAutoExportForRetrieval(emailData) {
-    // Store auto-exports in local storage for manual retrieval
-    const autoExports = JSON.parse(localStorage.getItem('hrDaddyAutoExports') || '[]');
-    autoExports.push({
-      timestamp: new Date().toISOString(),
-      emailData: emailData
-    });
-    
-    // Keep only last 50 auto-exports
-    if (autoExports.length > 50) {
-      autoExports.shift();
-    }
-    
-    localStorage.setItem('hrDaddyAutoExports', JSON.stringify(autoExports));
-    
-    // Show notification
-    this.showToast(`Auto-export stored for ${emailData.subject.split(' - ')[1]}`, 'info');
-  },
-
-  showModal(title, content, footer = '') {
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalBody').innerHTML = content;
-    document.getElementById('modalFooter').innerHTML = footer || '<button class="btn btn-gray" onclick="hrDaddy.closeModal()">Close</button>';
-    document.getElementById('modal').style.display = 'flex';
-  },
-
-  closeModal() {
-    document.getElementById('modal').style.display = 'none';
-  },
-
-  updateQuickStats() {
-    const currentPeriod = this.payPeriods.filter(p => p.endDate >= new Date())[0];
-    let totalHours = 0;
-    let productivity = 0;
-    let pending = 0;
-    let streak = 0;
-
-    if (currentPeriod) {
-      const timesheet = this.database.timesheets.find(t => 
-        t.userId === this.currentUser.id && t.payPeriodId === currentPeriod.id
-      );
-      
-      if (timesheet) {
-        Object.values(timesheet.entries).forEach(entry => {
-          totalHours += parseFloat(entry.hours || 0) + parseFloat(entry.overtime || 0) + parseFloat(entry.timeOffHours || 0);
-        });
-      }
-    }
-
-    productivity = Math.min(Math.round((totalHours / 80) * 100), 100);
-    pending = this.database.timesheets.filter(t => 
-      t.userId === this.currentUser.id && t.status === 'active'
-    ).length;
-
-    document.getElementById('totalHoursBiweekly').textContent = totalHours.toFixed(1);
-    document.getElementById('productivityScore').textContent = productivity;
-    document.getElementById('pendingApprovals').textContent = pending;
-    document.getElementById('streakDays').textContent = streak;
-  },
-
-  processVaultAndArchive() {
-    const now = new Date();
-    const oneWeekAgo = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000));
-    const twoWeeksAgo = new Date(now.getTime() - (14 * 24 * 60 * 60 * 1000));
-
-    this.database.timesheets.forEach(timesheet => {
-      const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-      if (!period) return;
-
-      const endDatePlus1 = new Date(period.endDate.getTime() + (24 * 60 * 60 * 1000));
-
-      if (endDatePlus1 <= oneWeekAgo && endDatePlus1 > twoWeeksAgo) {
-        if (timesheet.status !== 'vault') {
-          this.autoExportTimesheet(timesheet);
-          timesheet.status = 'vault';
-          timesheet.movedToVaultAt = now.toISOString();
-        }
-      } else if (endDatePlus1 <= twoWeeksAgo) {
-        if (timesheet.status !== 'archived') {
-          timesheet.status = 'archived';
-          timesheet.movedToArchiveAt = now.toISOString();
-        }
-      } else {
-        if (!timesheet.status || timesheet.status === 'active') {
-          timesheet.status = 'active';
-        }
-      }
-    });
-
-    this.saveDatabase();
-  },
-
-  autoExportTimesheet(timesheet) {
-    if (!timesheet.autoExported) {
-      const user = this.database.users.find(u => u.id === timesheet.userId);
-      const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-      
-      console.log('AUTO-EXPORT: Sending ADP files for', user.name, 'Period:', this.formatDate(period.startDate), '-', this.formatDate(period.endDate));
-      
-      // Send email with both files
-      this.sendAutoExportEmail(timesheet);
-      
-      timesheet.autoExported = true;
-      timesheet.autoExportedAt = new Date().toISOString();
-    }
-  },
-
-  sendAutoExportEmail(timesheet) {
-    const user = this.database.users.find(u => u.id === timesheet.userId);
-    const period = this.payPeriods.find(p => p.id === timesheet.payPeriodId);
-    
-    const hoursData = this.generateADPWorkforceNowFormat([timesheet]);
-    const timeOffData = this.generateTimeOffWorksheetFormat([timesheet]);
-
-    console.log('AUTO-EMAIL SENT:', {
-      to: 'tucson@mrelectric.com',
-      cc: 'mrselectrictucson@gmail.com',
-      subject: `AUTO-EXPORT: ADP Files - ${user.name} - Period Ending ${this.formatDate(period.endDate)}`,
-      body: `This is an automated export as the pay period has ended.
-      
-Employee: ${user.name} (${user.employeeId})
-Pay Period: ${this.formatDate(period.startDate)} - ${this.formatDate(period.endDate)}
-Status: Moving to Vault
-
-Two files attached:
-1. ADP_Hours_${user.employeeId}.csv - Timesheet hours for ADP import
-2. ADP_TimeOff_${user.employeeId}.csv - Time off requests for ADP import
-
-Both files are formatted for direct import into ADP WorkforceNow.`,
-      attachments: [
-        { filename: `ADP_Hours_${user.employeeId}.csv`, content: hoursData },
-        { filename: `ADP_TimeOff_${user.employeeId}.csv`, content: timeOffData }
-      ]
-    });
-  },
-
-  startAutoExportCheck() {
-    // Check every hour
-    setInterval(() => {
-      this.processVaultAndArchive();
-    }, 60 * 60 * 1000);
-  },
-
-  autoSave() {
-    const indicator = document.getElementById('autoSaveIndicator');
-    indicator.classList.add('saving');
-    
-    this.saveDatabase();
-    
-    setTimeout(() => {
-      indicator.classList.remove('saving');
-    }, 1000);
-  },
-
-  showToast(message, type = 'info') {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    
-    toastMessage.textContent = message;
-    toast.className = `toast ${type}`;
-    toast.style.display = 'block';
-    
-    setTimeout(() => {
-      toast.style.display = 'none';
-    }, 3000);
-  },
-
-  // Additional functions
-  fillStandardPeriod() {
-    const activePeriods = this.payPeriods.filter(p => p.endDate >= new Date()).slice(0, 2);
-    
-    activePeriods.forEach(period => {
-      const timesheet = this.getOrCreateTimesheet(this.currentUser.id, period.id);
-      
-      for (let week = 1; week <= 2; week++) {
-        ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].forEach(day => {
-          this.updateEntry(timesheet.id, `week${week}_${day}`, 'hours', '8');
-        });
-      }
-    });
-
-    this.showToast('Standard 8-hour days filled for weekdays!', 'success');
-    this.loadCurrentTimesheets();
-  },
-
-  clearAllEntries() {
-    if (!confirm('Clear all timesheet entries? This cannot be undone.')) return;
-
-    const activePeriods = this.payPeriods.filter(p => p.endDate >= new Date()).slice(0, 2);
-    
-    activePeriods.forEach(period => {
-      const timesheet = this.getOrCreateTimesheet(this.currentUser.id, period.id);
-      timesheet.entries = this.createEmptyBiWeeklyEntries();
-    });
-
-    this.saveDatabase();
-    this.showToast('All entries cleared', 'success');
-    this.loadCurrentTimesheets();
-  },
-
-  copyPreviousPeriod() {
-    this.showToast('Copy previous period feature coming soon!', 'info');
-  },
-
-  setWorkSchedule() {
-    this.showToast('Work schedule feature coming soon!', 'info');
-  },
-
-  showProfile() {
-    this.showToast('Profile feature coming soon!', 'info');
-  },
-
-  exportCombinedADP(type = 'vault') {
-    let timesheets = [];
-    
-    if (type === 'vault') {
-      timesheets = this.database.timesheets.filter(t => t.status === 'vault');
-    } else if (type === 'archive') {
-      timesheets = this.database.timesheets.filter(t => t.status === 'archived');
-    } else if (type === 'all') {
-      timesheets = this.database.timesheets;
-    }
-
-    const adpData = this.generateADPWorkforceNowFormat(timesheets);
-    const blob = new Blob([adpData], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `ADP_Combined_Hours_${type}_${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    this.showToast(`Combined ADP hours file exported for ${type}`, 'success');
-  },
-
-  exportTimeOffWorksheet(type = 'vault') {
-    let timesheets = [];
-    
-    if (type === 'vault') {
-      timesheets = this.database.timesheets.filter(t => t.status === 'vault');
-    } else if (type === 'archive') {
-      timesheets = this.database.timesheets.filter(t => t.status === 'archived');
-    } else if (type === 'all') {
-      timesheets = this.database.timesheets;
-    }
-
-    const timeOffData = this.generateTimeOffWorksheetFormat(timesheets);
-    const blob = new Blob([timeOffData], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `ADP_Combined_TimeOff_${type}_${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    this.showToast(`Combined time off worksheet exported for ${type}`, 'success');
+  
+  // Logout
+  logout() {
+    localStorage.removeItem('hrDaddySession');
   }
 };
 
-// Auth functions
+// UI Functions
 function showAuthTab(tab) {
+  // Hide all forms
   document.querySelectorAll('.auth-form').forEach(form => {
     form.style.display = 'none';
     form.classList.remove('active');
   });
+  
+  // Remove active class from tabs
   document.querySelectorAll('.auth-tabs button').forEach(btn => {
     btn.classList.remove('active');
   });
   
+  // Show selected form and activate tab
   if (tab === 'login') {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('loginForm').classList.add('active');
     document.querySelector('.auth-tabs button:nth-child(1)').classList.add('active');
-  } else if (tab === 'register') {
+  } else {
     document.getElementById('registerForm').style.display = 'block';
     document.getElementById('registerForm').classList.add('active');
     document.querySelector('.auth-tabs button:nth-child(2)').classList.add('active');
   }
-}
-
-function toggleHourlyRate() {
-  const payType = document.getElementById('regPayType').value;
-  const hourlySection = document.getElementById('hourlyRateSection');
   
-  if (payType === 'hourly') {
-    hourlySection.style.display = 'block';
-  } else {
-    hourlySection.style.display = 'none';
-  }
+  // Clear errors
+  document.querySelectorAll('.error-message').forEach(err => {
+    err.style.display = 'none';
+    err.textContent = '';
+  });
 }
 
+function showError(formId, message) {
+  const errorEl = document.getElementById(formId + 'Error');
+  errorEl.textContent = message;
+  errorEl.style.display = 'block';
+}
+
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toastMessage');
+  
+  toastMessage.textContent = message;
+  toast.className = `toast ${type}`;
+  toast.style.display = 'block';
+  
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 3000);
+}
+
+function showApp(user) {
+  document.getElementById('authContainer').style.display = 'none';
+  document.getElementById('appContainer').classList.add('active');
+  
+  // Update user info
+  document.getElementById('userName').textContent = user.name;
+  document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+}
+
+// Event Handlers
 async function handleLogin(event) {
   event.preventDefault();
   
-  const email = document.getElementById('loginEmail').value.trim();
+  const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
-  const adminAccess = document.getElementById('adminAccess').checked;
   
-  console.log('Login attempt:', { email, password }); // Debug log
-  
-  // Find user by email OR employee ID
-  const user = hrDaddy.database.users.find(u => 
-    u.email.toLowerCase() === email.toLowerCase() || 
-    u.employeeId.toUpperCase() === email.toUpperCase()
-  );
-  
-  if (!user) {
-    hrDaddy.showToast('❌ User not found. Please check your email/ID or register first.', 'error');
-    
-    // Helpful message
-    setTimeout(() => {
-      hrDaddy.showToast('💡 Tip: Click "REGISTER NEW ACCOUNT" to create an account', 'info');
-    }, 2000);
-    return;
+  try {
+    const user = auth.login(email, password);
+    showToast(`Welcome back, ${user.name}!`, 'success');
+    showApp(user);
+  } catch (error) {
+    showError('login', error.message);
   }
-  
-  console.log('User found:', user); // Debug log
-  console.log('User password in DB:', user.password); // Debug log
-  console.log('Input password hash:', hrDaddy.hashPassword(password)); // Debug log
-  
-  // Check password - comparing hashed values directly
-  const hashedInput = hrDaddy.hashPassword(password);
-  
-  if (user.password !== hashedInput) {
-    hrDaddy.showToast('❌ Incorrect password', 'error');
-    
-    // Show hint for default users
-    if (user.id <= 7) {
-      setTimeout(() => {
-        hrDaddy.showToast('💡 Hint: Default password is "SecurePass123!"', 'info');
-      }, 2000);
-    } else {
-      setTimeout(() => {
-        hrDaddy.showToast('💡 Hint: New user password is "password123"', 'info');
-      }, 2000);
-    }
-    return;
-  }
-  
-  // Check admin access
-  if (adminAccess && user.employeeId !== 'EMP004') {
-    hrDaddy.showToast('🔒 Admin access is only available to Logan (EMP004)', 'error');
-    return;
-  }
-  
-  // Successful login!
-  hrDaddy.currentUser = user;
-  hrDaddy.sessionToken = Math.random().toString(36).substring(2);
-  
-  localStorage.setItem('hrDaddySession', JSON.stringify({
-    user: user,
-    token: hrDaddy.sessionToken,
-    expiry: Date.now() + (24 * 60 * 60 * 1000)
-  }));
-  
-  hrDaddy.showToast(`🎉 Welcome back, ${user.name}!`, 'success');
-  hrDaddy.showApp();
 }
 
 async function handleRegister(event) {
   event.preventDefault();
   
-  const userData = {
-    fullName: document.getElementById('regFullName').value,
-    email: document.getElementById('regEmail').value,
-    phone: document.getElementById('regPhone').value,
-    department: document.getElementById('regDepartment').value,
-    position: document.getElementById('regPosition').value,
-    payType: document.getElementById('regPayType').value,
-    hourlyRate: document.getElementById('regHourlyRate').value || 15.00
-  };
+  const name = document.getElementById('regName').value;
+  const email = document.getElementById('regEmail').value;
+  const password = document.getElementById('regPassword').value;
+  const passwordConfirm = document.getElementById('regPasswordConfirm').value;
   
-  // Check if email already exists
-  const existingUser = hrDaddy.database.users.find(u => 
-    u.email.toLowerCase() === userData.email.toLowerCase()
-  );
-  
-  if (existingUser) {
-    hrDaddy.showToast('This email is already registered', 'error');
+  // Validate passwords match
+  if (password !== passwordConfirm) {
+    showError('register', 'Passwords do not match');
     return;
   }
   
-  // Simple password - just "password123"
-  const simplePassword = 'password123';
-  
-  // Create new user with consistent password format
-  const newUser = {
-    id: Date.now(),
-    name: userData.fullName,
-    email: userData.email.toLowerCase(),
-    phone: userData.phone,
-    department: userData.department,
-    position: userData.position,
-    employeeId: 'EMP' + (1000 + hrDaddy.database.users.length).toString().padStart(3, '0'),
-    isManager: userData.department === 'management',
-    isSalaried: userData.payType === 'salaried',
-    hourlyRate: userData.payType === 'hourly' ? parseFloat(userData.hourlyRate) : 0,
-    overtimeRate: userData.payType === 'hourly' ? parseFloat(userData.hourlyRate) * 1.5 : 0,
-    password: hrDaddy.hashPassword(simplePassword), // No 'hash_' prefix
-    createdAt: new Date().toISOString()
-  };
-  
-  hrDaddy.database.users.push(newUser);
-  hrDaddy.saveDatabase();
-  
-  // Show the credentials immediately in a modal
-  const credentialsModal = `
-    <div style="text-align: center;">
-      <div style="font-size: 48px; margin-bottom: 20px;">✅</div>
-      <h3 style="color: var(--success); margin-bottom: 20px;">Registration Successful!</h3>
-      
-      <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <h4>Your Login Credentials:</h4>
-        <div style="margin: 16px 0; font-size: 18px;">
-          <div style="margin: 8px 0;"><strong>Email:</strong> ${userData.email}</div>
-          <div style="margin: 8px 0;"><strong>Employee ID:</strong> ${newUser.employeeId}</div>
-          <div style="margin: 8px 0; padding: 12px; background: #fef3c7; border-radius: 6px;">
-            <strong>Password:</strong> <span style="font-family: monospace; font-size: 20px;">${simplePassword}</span>
-          </div>
-        </div>
-      </div>
-      
-      <p style="color: var(--gray);">You can login with either your email or employee ID</p>
-      
-      <button class="btn btn-primary btn-block" onclick="hrDaddy.closeModal(); showAuthTab('login');">
-        🔐 Go to Login
-      </button>
-    </div>
-  `;
-  
-  hrDaddy.showModal('Welcome to HR Daddy!', credentialsModal);
-  
-  // Also show in a toast
-  hrDaddy.showToast(`✅ Account created! Password: ${simplePassword}`, 'success');
-  
-  // Reset the form
-  document.getElementById('registerForm').reset();
-}
-
-function handleTwoFactor(event) {
-  event.preventDefault();
-  hrDaddy.showToast('Two-factor authentication verified!', 'success');
-}
-
-function resendTwoFactor() {
-  hrDaddy.showToast('New code sent to your email', 'info');
-}
-
-function showTab(tabName) {
-  document.querySelectorAll('.tab-content').forEach(tab => {
-    tab.classList.remove('active');
-  });
-  document.querySelectorAll('.nav-tabs button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  
-  document.getElementById(tabName).classList.add('active');
-  event.target.classList.add('active');
-  
-  // Load content for specific tabs
-  if (tabName === 'viewer') hrDaddy.loadTimesheetViewer();
-  if (tabName === 'vault') hrDaddy.loadMyVault();
-  if (tabName === 'archive') hrDaddy.loadMyArchive();
-  if (tabName === 'analytics') hrDaddy.loadAnalytics();
-  if (tabName === 'calendar') hrDaddy.loadCalendar();
-  if (tabName === 'managerVault') hrDaddy.loadManagerVault();
-  if (tabName === 'managerArchive') hrDaddy.loadManagerArchive();
-  if (tabName === 'admin') hrDaddy.loadAdminPanel();
+  try {
+    const user = auth.register(name, email, password);
+    showToast('Account created successfully!', 'success');
+    
+    // Auto login
+    auth.login(email, password);
+    showApp(user);
+  } catch (error) {
+    showError('register', error.message);
+  }
 }
 
 function logout() {
-  localStorage.removeItem('hrDaddySession');
+  auth.logout();
   location.reload();
 }
 
-function toggleDarkMode() {
-  document.body.classList.toggle('dark-mode');
-  hrDaddy.settings.darkMode = document.body.classList.contains('dark-mode');
-  hrDaddy.showToast(hrDaddy.settings.darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'info');
-}
-
-function toggleQuickMenu() {
-  document.getElementById('quickMenu').classList.toggle('active');
-}
-
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-}
-
-function closeModalOnOutsideClick(event) {
-  if (event.target.id === 'modal') {
-    closeModal();
+// Check for existing session on load
+window.addEventListener('DOMContentLoaded', () => {
+  const user = auth.getCurrentUser();
+  if (user) {
+    showApp(user);
   }
-}
-
-// Fun Zone functions
-function startEmojiRain() {
-  const emojis = ['🎉', '🎊', '🌟', '✨', '🎈', '🎁', '🏆', '💎', '🌈', '🎯'];
-  
-  for (let i = 0; i < 20; i++) {
-    setTimeout(() => {
-      const emoji = document.createElement('div');
-      emoji.className = 'emoji-rain';
-      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      emoji.style.left = Math.random() * window.innerWidth + 'px';
-      emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
-      document.body.appendChild(emoji);
-      
-      setTimeout(() => emoji.remove(), 3000);
-    }, i * 100);
-  }
-  
-  hrDaddy.showToast('Let it rain! 🎉', 'success');
-}
-
-function playMotivationalQuote() {
-  const quotes = [
-    "You're crushing it today! 💪",
-    "Success is just a timesheet away! 📋",
-    "HR Daddy believes in you! 🌟",
-    "Keep calm and clock in! ⏰",
-    "You're the CEO of your own productivity! 👔"
-  ];
-  
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
-  document.getElementById('funContent').innerHTML = `<div style="font-size: 24px; color: var(--primary);">"${quote}"</div>`;
-}
-
-function startProductivityGame() {
-  hrDaddy.showToast('Productivity game coming soon!', 'info');
-}
-
-function showDadJoke() {
-  const jokes = [
-    "Why don't scientists trust atoms? Because they make up everything! 😄",
-    "I told my wife she was drawing her eyebrows too high. She looked surprised! 😲",
-    "Why did the scarecrow win an award? He was outstanding in his field! 🌾",
-    "I used to hate facial hair, but then it grew on me! 🧔",
-    "Why don't eggs tell jokes? They'd crack each other up! 🥚"
-  ];
-  
-  const joke = jokes[Math.floor(Math.random() * jokes.length)];
-  document.getElementById('funContent').innerHTML = `<div style="font-size: 20px;">${joke}</div>`;
-}
-
-function startDanceParty() {
-  document.body.style.animation = 'bounce 0.5s infinite';
-  setTimeout(() => {
-    document.body.style.animation = '';
-  }, 5000);
-  hrDaddy.showToast('Dance party! 🕺💃', 'success');
-}
-
-function showTeamLeaderboard() {
-  hrDaddy.showToast('Leaderboard coming soon!', 'info');
-}
-
-// Quick menu functions
-function quickTimeEntry() {
-  hrDaddy.showToast('Quick time entry coming soon!', 'info');
-}
-
-function requestTimeOff() {
-  hrDaddy.showToast('Time off request coming soon!', 'info');
-}
-
-function viewPaystub() {
-  hrDaddy.showToast('Paystub viewer coming soon!', 'info');
-}
-
-// Placeholder functions for remaining features
-function filterTimesheetViewer() {
-  hrDaddy.showToast('Filter applied', 'info');
-}
-
-function filterManagerVault() {
-  hrDaddy.showToast('Filter applied', 'info');
-}
-
-function filterManagerArchive() {
-  hrDaddy.showToast('Filter applied', 'info');
-}
-
-function bulkEmailAll(type) {
-  hrDaddy.showToast(`Bulk email for ${type} sent!`, 'success');
-}
-
-function generateVaultReport() {
-  hrDaddy.showToast('Vault report generated!', 'success');
-}
-
-function generatePayrollReport() {
-  hrDaddy.showToast('Payroll report generated!', 'success');
-}
-
-function exportSystemData() {
-  hrDaddy.showToast('System data exported!', 'success');
-}
-
-function resetSystem() {
-  if (confirm('Are you sure you want to reset the entire system?')) {
-    localStorage.clear();
-    location.reload();
-  }
-}
-
-// Additional admin features for viewing auto-exports
-hrDaddy.viewAutoExports = function() {
-  const autoExports = JSON.parse(localStorage.getItem('hrDaddyAutoExports') || '[]');
-  
-  if (autoExports.length === 0) {
-    this.showModal('Auto-Export History', '<div class="empty-state">No auto-exports yet. They will appear here when pay periods end.</div>');
-    return;
-  }
-  
-  const content = `
-    <div style="max-height: 400px; overflow-y: auto;">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date/Time</th>
-            <th>Employee</th>
-            <th>Period</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${autoExports.reverse().map((exp, index) => {
-            const subject = exp.emailData.subject;
-            const employee = subject.split(' - ')[1];
-            const period = subject.split(' - ')[2];
-            return `
-              <tr>
-                <td>${new Date(exp.timestamp).toLocaleString()}</td>
-                <td>${employee}</td>
-                <td>${period}</td>
-                <td>
-                  <button class="btn btn-primary btn-sm" onclick="hrDaddy.viewAutoExportDetails(${index})">View</button>
-                  <button class="btn btn-success btn-sm" onclick="hrDaddy.downloadAutoExport(${index})">Download</button>
-                </td>
-              </tr>
-            `;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>
-    <div style="margin-top: 16px; padding: 12px; background: #f3f4f6; border-radius: 6px;">
-      <strong>ℹ️ Auto-Export System:</strong> Timesheets are automatically exported when pay periods end (1 week after period end date).
-    </div>
-  `;
-  
-  this.showModal('Auto-Export History', content);
-};
-
-hrDaddy.viewAutoExportDetails = function(index) {
-  const autoExports = JSON.parse(localStorage.getItem('hrDaddyAutoExports') || '[]');
-  const exp = autoExports[autoExports.length - 1 - index]; // Reverse index
-  
-  if (!exp) return;
-  
-  this.simulateEmailSend(exp.emailData);
-};
-
-hrDaddy.downloadAutoExport = function(index) {
-  const autoExports = JSON.parse(localStorage.getItem('hrDaddyAutoExports') || '[]');
-  const exp = autoExports[autoExports.length - 1 - index]; // Reverse index
-  
-  if (!exp) return;
-  
-  const emailData = exp.emailData;
-  this.downloadEmailPackage(emailData.to, emailData.subject, encodeURIComponent(emailData.body), btoa(JSON.stringify(emailData.attachments)));
-};
-
-// Add button to admin panel
-function viewAuditLogs() {
-  hrDaddy.viewAutoExports();
-}
-
-function showCodeEditor() {
-  hrDaddy.showToast('Code editor coming soon!', 'info');
-}
-
-function prevMonth() {
-  hrDaddy.currentCalendarDate.setMonth(hrDaddy.currentCalendarDate.getMonth() - 1);
-  hrDaddy.loadCalendar();
-}
-
-function nextMonth() {
-  hrDaddy.currentCalendarDate.setMonth(hrDaddy.currentCalendarDate.getMonth() + 1);
-  hrDaddy.loadCalendar();
-}
-
-// Stub implementations for missing methods
-hrDaddy.loadTimesheetViewer = function() {
-  document.getElementById('timesheetViewerContent').innerHTML = '<div class="empty-state">Timesheet viewer loading...</div>';
-};
-
-hrDaddy.loadMyVault = function() {
-  const vaultTimesheets = this.database.timesheets.filter(t => 
-    t.userId === this.currentUser.id && t.status === 'vault'
-  );
-  
-  const content = document.getElementById('myVaultContent');
-  if (vaultTimesheets.length === 0) {
-    content.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🗄️</div><h3>No timesheets in vault yet</h3></div>';
-  } else {
-    content.innerHTML = '<div class="card"><div class="card-body">Vault timesheets will appear here after 1 week</div></div>';
-  }
-};
-
-hrDaddy.loadMyArchive = function() {
-  const archiveTimesheets = this.database.timesheets.filter(t => 
-    t.userId === this.currentUser.id && t.status === 'archived'
-  );
-  
-  const content = document.getElementById('myArchiveContent');
-  if (archiveTimesheets.length === 0) {
-    content.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><h3>No archived timesheets yet</h3></div>';
-  } else {
-    content.innerHTML = '<div class="card"><div class="card-body">Archived timesheets will appear here after 2 weeks</div></div>';
-  }
-};
-
-hrDaddy.loadAnalytics = function() {
-  document.getElementById('avgHoursPerWeek').textContent = '40.0';
-  document.getElementById('overtimeThisPeriod').textContent = '0.0';
-  document.getElementById('timeOffUsed').textContent = '0';
-  document.getElementById('completionRate').textContent = '100%';
-};
-
-hrDaddy.loadCalendar = function() {
-  const grid = document.getElementById('calendarGrid');
-  grid.innerHTML = '<div style="text-align: center; padding: 40px;">Calendar view coming soon!</div>';
-};
-
-hrDaddy.loadManagerVault = function() {
-  document.getElementById('managerVaultContent').innerHTML = '<div class="card"><div class="card-body">Manager vault view coming soon!</div></div>';
-};
-
-hrDaddy.loadManagerArchive = function() {
-  document.getElementById('managerArchiveContent').innerHTML = '<div class="card"><div class="card-body">Manager archive view coming soon!</div></div>';
-};
-
-hrDaddy.loadAdminPanel = function() {
-  document.getElementById('userManagement').innerHTML = '<div>User management interface coming soon!</div>';
-  document.getElementById('systemStats').innerHTML = '<div>System statistics coming soon!</div>';
-};
-
-// Initialize the system
-hrDaddy.init();
-
-// Add debug button to login screen for testing
-setTimeout(() => {
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm && !document.getElementById('debugBtn')) {
-    const debugDiv = document.createElement('div');
-    debugDiv.innerHTML = `
-      <div style="margin-top: 16px; padding: 12px; background: #fef3c7; border-radius: 6px;">
-        <strong>🔧 Debug Mode:</strong><br>
-        <button id="debugBtn" class="btn btn-warning btn-sm" style="margin-top: 8px;" onclick="
-          console.log('Users in database:', hrDaddy.database.users);
-          console.log('Test password hash:', hrDaddy.hashPassword('SecurePass123!'));
-          alert('Check browser console for user data');
-        ">Show All Users & Passwords</button>
-        <button class="btn btn-info btn-sm" style="margin-top: 8px;" onclick="
-          document.getElementById('loginEmail').value = 'tucson@mrelectric.com';
-          document.getElementById('loginPassword').value = 'SecurePass123!';
-          hrDaddy.showToast('Credentials filled!', 'success');
-        ">Auto-Fill Logan</button>
-        <button class="btn btn-danger btn-sm" style="margin-top: 8px;" onclick="
-          if(confirm('Reset all data?')) {
-            localStorage.clear();
-            location.reload();
-          }
-        ">Reset System</button>
-      </div>
-    `;
-    loginForm.appendChild(debugDiv);
-  }
-}, 100);
+});
 </script>
 
 </body>
 </html>
-
-  
