@@ -2748,6 +2748,8 @@ async function handleLogin(event) {
   const password = document.getElementById('loginPassword').value;
   const adminAccess = document.getElementById('adminAccess').checked;
   
+  console.log('Login attempt:', { email, password }); // Debug log
+  
   // Find user by email OR employee ID
   const user = hrDaddy.database.users.find(u => 
     u.email.toLowerCase() === email.toLowerCase() || 
@@ -2764,8 +2766,12 @@ async function handleLogin(event) {
     return;
   }
   
-  // Check password
-  const hashedInput = 'hash_' + hrDaddy.hashPassword(password);
+  console.log('User found:', user); // Debug log
+  console.log('User password in DB:', user.password); // Debug log
+  console.log('Input password hash:', hrDaddy.hashPassword(password)); // Debug log
+  
+  // Check password - comparing hashed values directly
+  const hashedInput = hrDaddy.hashPassword(password);
   
   if (user.password !== hashedInput) {
     hrDaddy.showToast('❌ Incorrect password', 'error');
@@ -2774,6 +2780,10 @@ async function handleLogin(event) {
     if (user.id <= 7) {
       setTimeout(() => {
         hrDaddy.showToast('💡 Hint: Default password is "SecurePass123!"', 'info');
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        hrDaddy.showToast('💡 Hint: New user password is "password123"', 'info');
       }, 2000);
     }
     return;
@@ -2825,7 +2835,7 @@ async function handleRegister(event) {
   // Simple password - just "password123"
   const simplePassword = 'password123';
   
-  // Create new user
+  // Create new user with consistent password format
   const newUser = {
     id: Date.now(),
     name: userData.fullName,
@@ -2838,7 +2848,7 @@ async function handleRegister(event) {
     isSalaried: userData.payType === 'salaried',
     hourlyRate: userData.payType === 'hourly' ? parseFloat(userData.hourlyRate) : 0,
     overtimeRate: userData.payType === 'hourly' ? parseFloat(userData.hourlyRate) * 1.5 : 0,
-    password: 'hash_' + hrDaddy.hashPassword(simplePassword),
+    password: hrDaddy.hashPassword(simplePassword), // No 'hash_' prefix
     createdAt: new Date().toISOString()
   };
   
@@ -3190,6 +3200,36 @@ hrDaddy.loadAdminPanel = function() {
 
 // Initialize the system
 hrDaddy.init();
+
+// Add debug button to login screen for testing
+setTimeout(() => {
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm && !document.getElementById('debugBtn')) {
+    const debugDiv = document.createElement('div');
+    debugDiv.innerHTML = `
+      <div style="margin-top: 16px; padding: 12px; background: #fef3c7; border-radius: 6px;">
+        <strong>🔧 Debug Mode:</strong><br>
+        <button id="debugBtn" class="btn btn-warning btn-sm" style="margin-top: 8px;" onclick="
+          console.log('Users in database:', hrDaddy.database.users);
+          console.log('Test password hash:', hrDaddy.hashPassword('SecurePass123!'));
+          alert('Check browser console for user data');
+        ">Show All Users & Passwords</button>
+        <button class="btn btn-info btn-sm" style="margin-top: 8px;" onclick="
+          document.getElementById('loginEmail').value = 'tucson@mrelectric.com';
+          document.getElementById('loginPassword').value = 'SecurePass123!';
+          hrDaddy.showToast('Credentials filled!', 'success');
+        ">Auto-Fill Logan</button>
+        <button class="btn btn-danger btn-sm" style="margin-top: 8px;" onclick="
+          if(confirm('Reset all data?')) {
+            localStorage.clear();
+            location.reload();
+          }
+        ">Reset System</button>
+      </div>
+    `;
+    loginForm.appendChild(debugDiv);
+  }
+}, 100);
 </script>
 
 </body>
