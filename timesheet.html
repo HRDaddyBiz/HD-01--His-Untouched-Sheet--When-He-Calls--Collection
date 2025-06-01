@@ -1,19 +1,2583 @@
-loadCurrentTimesheets() { // MODIFIED to use new rendering
-    console.log('loadCurrentTimesheets: Method called.'); // <-- ADD THIS
-    const n = new Date();
-    const app = this.pp.filter(p => new Date(p.endDate) >= n).slice(0, 4);
-    console.log('loadCurrentTimesheets: Filtered pay periods (app):', JSON.parse(JSON.stringify(app))); // <-- ADD THIS
-    const c = document.getElementById('ats');
-    if (!c) { // <-- ADD THIS BLOCK
-        console.error('loadCurrentTimesheets: ERROR - Target element with id "ats" not found!');
-        return;
-    }
-    c.innerHTML = app.map((p, i) => {
-        const t = this.getOrCreateTimesheet(this.cu.id, p.id);
-        console.log(`loadCurrentTimesheets: Processing pay period ${p.id}, Timesheet data for card ${i + 1}:`, JSON.parse(JSON.stringify(t))); // <-- ADD THIS
-        const cardHTML = this.renderWeeklyTimesheetCard(t, p, i + 1, true);
-        console.log(`loadCurrentTimesheets: Generated card HTML for week ${i+1}:`, cardHTML.length > 100 ? cardHTML.substring(0,100) + "..." : cardHTML); // <-- ADD THIS (shows a snippet)
-        return cardHTML; 
-    }).join('');
-    this.addPopupCloseListeners();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Daddy - Your Favorite HR System</title>
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --dark: #1f2937;
+  --gray: #6b7280;
+  --light: #f3f4f6;
+  --white: #ffffff;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* Auth Container */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.auth-card {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
+}
+
+.auth-header {
+  background: var(--primary);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.auth-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+.auth-body {
+  padding: 30px;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-info {
+  background: var(--info);
+  color: white;
+}
+
+.btn-gray {
+  background: var(--gray);
+  color: white;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* App Container */
+.app-container {
+  display: none;
+  min-height: 100vh;
+  background: var(--light);
+}
+
+.app-container.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* App Header */
+.app-header {
+  background: var(--white);
+  box-shadow: var(--shadow);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  color: var(--gray);
+  font-size: 18px;
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.card-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Stats Cards */
+.stat-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: var(--gray);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.table th {
+  background: var(--light);
+  font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.table input {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-tabs button {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.nav-tabs button:hover {
+  color: var(--primary);
+}
+
+.nav-tabs button.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  z-index: 1000;
+  animation: slideIn 0.3s;
+  max-width: 400px;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+.toast.warning { background: var(--warning); }
+.toast.info { background: var(--info); }
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--gray);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Code Editor */
+.code-editor {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.code-textarea {
+  width: 100%;
+  min-height: 400px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border: none;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 16px;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+/* Fun Elements */
+.fun-animation {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.rainbow-text {
+  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Shake Animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px) rotate(-1deg); }
+  75% { transform: translateX(5px) rotate(1deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .app-header {
+    padding: 12px 16px;
+  }
+  
+  .main-content {
+    padding: 16px;
+  }
+  
+  .nav-tabs {
+    overflow-x: auto;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --light: #1f2937;
+  --white: #111827;
+  --dark: #f3f4f6;
+  --gray: #9ca3af;
+  --border: #374151;
+  background: #111827;
+  color: #f3f4f6;
+}
+
+body.dark-mode .code-editor,
+body.dark-mode .code-textarea {
+  background: #000;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.3s;
+  z-index: 100;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Quick Actions Menu */
+.quick-actions {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  padding: 8px;
+  display: none;
+  z-index: 100;
+}
+
+.quick-actions.active {
+  display: block;
+  animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.quick-action-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.quick-action-item:hover {
+  background: var(--light);
+}
+
+/* Status Badges */
+.badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.badge-success {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.badge-warning {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.badge-info {
+  background: #dbeafe;
+  color: var(--info);
+}
+
+/* Loading Spinner */
+.spinner {
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tooltips */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  margin-bottom: 4px;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* Progress Bar */
+.progress {
+  width: 100%;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+/* Emoji Rain */
+.emoji-rain {
+  position: fixed;
+  top: -50px;
+  animation: fall 3s linear;
+  font-size: 24px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(calc(100vh + 50px));
+  }
+}
+
+/* Rainbow Animation */
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.fun-mode {
+  animation: rainbow 10s linear infinite;
+}
+
+/* Input with error */
+.form-control.error {
+  border-color: var(--danger);
+}
+
+.error-message {
+  color: var(--danger);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Notification badge */
+.notification-badge {
+  background: var(--danger);
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.loading-overlay.active {
+  display: flex;
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+
+<!-- Auth Container -->
+<div class="auth-container" id="authContainer">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo fun-animation">👔</div>
+      <h1 class="auth-title">HR Daddy</h1>
+      <p class="auth-subtitle">Your Favorite Workforce Management System</p>
+    </div>
+    <div class="auth-body">
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Username or Email</label>
+          <input type="text" class="form-control" id="loginUsername" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" id="loginPassword" required autocomplete="current-password">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">
+            🚀 Let's Go!
+          </button>
+        </div>
+        <div style="text-align: center; margin-top: 16px;">
+          <small style="color: var(--gray);">
+            Demo: admin / admin123 (for full features)<br>
+            Or: user / user123 (for employee view)
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- App Container -->
+<div class="app-container" id="appContainer">
+  <header class="app-header">
+    <div class="brand">
+      <span class="fun-animation">👔</span>
+      <span>HR Daddy</span>
+    </div>
+    <div class="user-info">
+      <button class="btn btn-sm btn-gray tooltip" data-tooltip="Toggle Dark Mode" onclick="toggleDarkMode()">🌙</button>
+      <button class="btn btn-sm btn-info tooltip" data-tooltip="Notifications" onclick="showNotifications()" style="position: relative;">
+        🔔 <span class="notification-badge" id="notificationBadge">3</span>
+      </button>
+      <div>
+        <div id="userName" style="font-weight: 600;"></div>
+        <div id="userRole" style="font-size: 12px; color: var(--gray);"></div>
+      </div>
+      <div class="user-avatar tooltip" data-tooltip="View Profile" id="userAvatar" onclick="showProfile()"></div>
+      <button class="btn btn-sm btn-danger" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title rainbow-text">Welcome to HR Daddy! 🎉</h1>
+      <p class="page-subtitle">Making HR fun and efficient since... right now!</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-4" style="margin-bottom: 32px;">
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--primary);">
+          <span id="totalHours">0</span>h
+        </div>
+        <div class="stat-label">Hours This Period</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--success);">
+          <span id="productivityScore">100</span>%
+        </div>
+        <div class="stat-label">Productivity Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--warning);">
+          <span id="pendingTasks">5</span>
+        </div>
+        <div class="stat-label">Pending Tasks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--info);">
+          <span id="teamMood">😊</span>
+        </div>
+        <div class="stat-label">Team Mood</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="active" onclick="showTab(event, 'dashboard')">📊 Dashboard</button>
+      <button onclick="showTab(event, 'timesheet')">⏰ Timesheet</button>
+      <button onclick="showTab(event, 'employees')">👥 Employees</button>
+      <button onclick="showTab(event, 'analytics')">📈 Analytics</button>
+      <button onclick="showTab(event, 'fun')">🎮 Fun Zone</button>
+      <button id="adminTab" onclick="showTab(event, 'admin')" style="display: none;">🛠️ Admin Panel</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="dashboard" class="tab-content active">
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📅 Current Period Overview</h3>
+            <button class="btn btn-sm btn-primary" onclick="quickFillTimesheet()">Quick Fill</button>
+          </div>
+          <div class="card-body">
+            <div id="periodOverview"></div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🏆 Achievements</h3>
+          </div>
+          <div class="card-body">
+            <div id="achievements"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">📢 Announcements</h3>
+        </div>
+        <div class="card-body">
+          <div style="padding: 20px; text-align: center; color: var(--gray);">
+            <p>🎉 Welcome to HR Daddy! Your new favorite HR system.</p>
+            <p>💡 Pro tip: Try the Fun Zone for some work-life balance!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="timesheet" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">⏰ Time Entry</h3>
+          <div>
+            <button class="btn btn-sm btn-success" onclick="saveTimesheet()">💾 Save</button>
+            <button class="btn btn-sm btn-info" onclick="exportTimesheet()">📥 Export</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="timesheetContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="employees" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">👥 Team Management</h3>
+          <button class="btn btn-sm btn-primary" onclick="addEmployee()">➕ Add Employee</button>
+        </div>
+        <div class="card-body">
+          <div id="employeeList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="analytics" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">📊 Analytics Dashboard</h3>
+        </div>
+        <div class="card-body">
+          <canvas id="analyticsChart" width="400" height="200"></canvas>
+          <div id="analyticsData" style="margin-top: 20px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="fun" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🎮 Fun Zone - Because Work Should Be Fun!</h3>
+        </div>
+        <div class="card-body" style="text-align: center;">
+          <div class="grid grid-3">
+            <button class="btn btn-primary" onclick="startEmojiRain()">🌧️ Emoji Rain</button>
+            <button class="btn btn-success" onclick="playMotivationalQuote()">💬 Get Motivated</button>
+            <button class="btn btn-warning" onclick="startProductivityGame()">🎮 Productivity Game</button>
+            <button class="btn btn-info" onclick="showDadJoke()">😂 Dad Joke</button>
+            <button class="btn btn-danger" onclick="startDanceParty()">🕺 Dance Party</button>
+            <button class="btn btn-primary" onclick="showTeamLeaderboard()">🏆 Leaderboard</button>
+          </div>
+          <div id="funContent" style="margin-top: 32px; font-size: 20px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🛠️ Admin Control Panel</h3>
+        </div>
+        <div class="card-body">
+          <div class="nav-tabs">
+            <button class="active" onclick="showAdminTab(event, 'settings')">⚙️ Settings</button>
+            <button onclick="showAdminTab(event, 'code')">💻 Live Code Editor</button>
+            <button onclick="showAdminTab(event, 'database')">🗄️ Database</button>
+            <button onclick="showAdminTab(event, 'logs')">📋 System Logs</button>
+          </div>
+          
+          <div id="adminSettings" class="tab-content active">
+            <h4>System Settings</h4>
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input type="text" class="form-control" id="companyName" value="HR Daddy Inc.">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Theme Color</label>
+              <input type="color" class="form-control" id="themeColor" value="#6366f1" style="height: 50px;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">
+                <input type="checkbox" id="enableFunMode" checked> Enable Fun Mode
+              </label>
+            </div>
+            <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+          </div>
+          
+          <div id="adminCode" class="tab-content">
+            <h4>Live Code Editor - Edit This Page in Real Time!</h4>
+            <div style="margin-bottom: 16px;">
+              <button class="btn btn-sm btn-primary" onclick="executeCode()">▶️ Run Code</button>
+              <button class="btn btn-sm btn-success" onclick="saveCode()">💾 Save</button>
+              <button class="btn btn-sm btn-warning" onclick="resetCode()">🔄 Reset</button>
+              <button class="btn btn-sm btn-info" onclick="loadSampleCode()">📝 Load Sample</button>
+            </div>
+            <textarea id="codeEditor" class="code-textarea" placeholder="// Write JavaScript code here...
+// Example: document.body.style.background = 'red';
+// Or add new features, modify existing ones, etc."></textarea>
+            <div id="codeOutput" style="margin-top: 16px; padding: 16px; background: var(--light); border-radius: 8px; display: none;">
+              <h5>Output:</h5>
+              <pre id="codeOutputContent"></pre>
+            </div>
+          </div>
+          
+          <div id="adminDatabase" class="tab-content">
+            <h4>Database Management</h4>
+            <div id="databaseContent"></div>
+            <div style="margin-top: 20px;">
+              <button class="btn btn-primary" onclick="exportDatabase()">📥 Export Database</button>
+              <button class="btn btn-warning" onclick="backupDatabase()">💾 Backup Database</button>
+              <button class="btn btn-danger" onclick="resetDatabase()">🔄 Reset Database</button>
+            </div>
+          </div>
+          
+          <div id="adminLogs" class="tab-content">
+            <h4>System Logs</h4>
+            <div style="margin-bottom: 16px;">
+              <button class="btn btn-sm btn-primary" onclick="refreshLogs()">🔄 Refresh</button>
+              <button class="btn btn-sm btn-warning" onclick="clearLogs()">🗑️ Clear Logs</button>
+              <button class="btn btn-sm btn-success" onclick="exportLogs()">📥 Export Logs</button>
+            </div>
+            <div id="logsContent" class="code-editor" style="max-height: 400px; overflow-y: auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Floating Action Button -->
+<button class="fab tooltip" data-tooltip="Quick Actions" onclick="toggleQuickActions()">⚡</button>
+
+<!-- Quick Actions Menu -->
+<div class="quick-actions" id="quickActions">
+  <div class="quick-action-item" onclick="quickTimeEntry()">
+    ⏰ Quick Time Entry
+  </div>
+  <div class="quick-action-item" onclick="requestTimeOff()">
+    🏖️ Request Time Off
+  </div>
+  <div class="quick-action-item" onclick="viewPaystub()">
+    💰 View Paystub
+  </div>
+  <div class="quick-action-item" onclick="startEmojiRain()">
+    🎉 Celebration Mode
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span id="toastMessage"></span>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal" onclick="closeModalOnOutsideClick(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script>
+// HR Daddy System - Fixed and Enhanced
+class HRDaddySystem {
+  constructor() {
+    this.currentUser = null;
+    this.isAdmin = false;
+    this.database = {
+      users: [
+        { id: 1, username: 'admin', password: 'admin123', name: 'Admin User', role: 'System Administrator', email: 'admin@hrdaddy.com', isAdmin: true },
+        { id: 2, username: 'user', password: 'user123', name: 'Regular User', role: 'Employee', email: 'user@hrdaddy.com', isAdmin: false }
+      ],
+      timesheets: [],
+      employees: [
+        { id: 1, name: 'John Doe', role: 'Developer', status: 'Active', mood: '😊', department: 'Engineering' },
+        { id: 2, name: 'Jane Smith', role: 'Designer', status: 'Active', mood: '😎', department: 'Design' },
+        { id: 3, name: 'Bob Johnson', role: 'Manager', status: 'On Vacation', mood: '🏖️', department: 'Management' }
+      ]
+    };
+    this.settings = {
+      companyName: 'HR Daddy Inc.',
+      themeColor: '#6366f1',
+      darkMode: false,
+      funMode: true,
+      motivationalQuotes: [
+        "You're crushing it today! 💪",
+        "Success is just a timesheet away! 📋",
+        "HR Daddy believes in you! 🌟",
+        "Keep calm and clock in! ⏰",
+        "You're the CEO of your own productivity! 👔"
+      ],
+      dadJokes: [
+        "Why don't scientists trust atoms? Because they make up everything! 😄",
+        "I told my wife she was drawing her eyebrows too high. She looked surprised! 😲",
+        "Why did the scarecrow win an award? He was outstanding in his field! 🌾",
+        "I used to hate facial hair, but then it grew on me! 🧔",
+        "Why don't eggs tell jokes? They'd crack each other up! 🥚"
+      ]
+    };
+    this.logs = [];
+    this.gameScore = 0;
+    this.init();
+  }
+
+  init() {
+    this.log('System initialized');
+    this.loadFromLocalStorage();
+    this.setupEventListeners();
+    this.checkSavedSession();
+  }
+
+  setupEventListeners() {
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        if (document.getElementById('timesheet').classList.contains('active')) {
+          this.saveTimesheet();
+        }
+      }
+      if (e.key === 'Escape') {
+        this.closeModal();
+        this.closeQuickActions();
+      }
+    });
+
+    // Click outside to close
+    window.addEventListener('click', (e) => {
+      const quickActions = document.getElementById('quickActions');
+      const fab = document.querySelector('.fab');
+      if (!quickActions.contains(e.target) && !fab.contains(e.target)) {
+        quickActions.classList.remove('active');
+      }
+    });
+  }
+
+  loadFromLocalStorage() {
+    try {
+      const savedSettings = localStorage.getItem('hrDaddySettings');
+      if (savedSettings) {
+        this.settings = { ...this.settings, ...JSON.parse(savedSettings) };
+        this.applySettings();
+      }
+
+      const savedDatabase = localStorage.getItem('hrDaddyDatabase');
+      if (savedDatabase) {
+        this.database = { ...this.database, ...JSON.parse(savedDatabase) };
+      }
+
+      const savedLogs = localStorage.getItem('hrDaddyLogs');
+      if (savedLogs) {
+        this.logs = JSON.parse(savedLogs);
+      }
+    } catch (error) {
+      this.log('Error loading from localStorage: ' + error.message, 'error');
+    }
+  }
+
+  saveToLocalStorage() {
+    try {
+      localStorage.setItem('hrDaddySettings', JSON.stringify(this.settings));
+      localStorage.setItem('hrDaddyDatabase', JSON.stringify(this.database));
+      localStorage.setItem('hrDaddyLogs', JSON.stringify(this.logs.slice(-100))); // Keep last 100 logs
+    } catch (error) {
+      this.log('Error saving to localStorage: ' + error.message, 'error');
+    }
+  }
+
+  checkSavedSession() {
+    const savedSession = localStorage.getItem('hrDaddySession');
+    if (savedSession) {
+      try {
+        const session = JSON.parse(savedSession);
+        if (session.expires > Date.now()) {
+          this.currentUser = session.user;
+          this.isAdmin = session.isAdmin;
+          this.showApp();
+        } else {
+          localStorage.removeItem('hrDaddySession');
+        }
+      } catch (error) {
+        localStorage.removeItem('hrDaddySession');
+      }
+    }
+  }
+
+  log(message, type = 'info') {
+    const timestamp = new Date().toISOString();
+    const logEntry = { timestamp, message, type };
+    this.logs.push(logEntry);
+    console.log(`[${timestamp}] [${type.toUpperCase()}] ${message}`);
+    
+    // Keep only last 1000 logs
+    if (this.logs.length > 1000) {
+      this.logs = this.logs.slice(-1000);
+    }
+    
+    this.saveToLocalStorage();
+    this.updateLogsDisplay();
+  }
+
+  authenticate(username, password) {
+    const user = this.database.users.find(u => 
+      u.username.toLowerCase() === username.toLowerCase() && 
+      u.password === password
+    );
+    
+    if (user) {
+      this.currentUser = user;
+      this.isAdmin = user.isAdmin;
+      
+      // Save session
+      const session = {
+        user: user,
+        isAdmin: user.isAdmin,
+        expires: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
+      };
+      localStorage.setItem('hrDaddySession', JSON.stringify(session));
+      
+      this.log(`User ${username} logged in successfully`);
+      return true;
+    }
+    
+    this.log(`Failed login attempt for username: ${username}`, 'warning');
+    return false;
+  }
+
+  showApp() {
+    document.getElementById('authContainer').style.display = 'none';
+    document.getElementById('appContainer').classList.add('active');
+    
+    // Update UI with user info
+    document.getElementById('userName').textContent = this.currentUser.name;
+    document.getElementById('userRole').textContent = this.currentUser.role;
+    document.getElementById('userAvatar').textContent = this.currentUser.name.charAt(0).toUpperCase();
+    
+    if (this.isAdmin) {
+      document.getElementById('adminTab').style.display = 'block';
+    }
+    
+    // Load initial content
+    this.showDashboard();
+    this.updateStats();
+    this.applySettings();
+  }
+
+  applySettings() {
+    document.documentElement.style.setProperty('--primary', this.settings.themeColor);
+    document.documentElement.style.setProperty('--primary-dark', this.adjustColor(this.settings.themeColor, -20));
+    
+    if (this.settings.darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+    
+    // Update company name in UI if needed
+    const companyElements = document.querySelectorAll('.company-name');
+    companyElements.forEach(el => {
+      el.textContent = this.settings.companyName;
+    });
+  }
+
+  adjustColor(color, amount) {
+    return '#' + color.replace(/^#/, '').replace(/../g, color => 
+      ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2)
+    );
+  }
+
+  showDashboard() {
+    const now = new Date();
+    const endDate = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
+    
+    const periodOverview = document.getElementById('periodOverview');
+    if (periodOverview) {
+      periodOverview.innerHTML = `
+        <div style="margin-bottom: 16px;">
+          <strong>Current Period:</strong> ${now.toLocaleDateString()} - ${endDate.toLocaleDateString()}
+        </div>
+        <div class="progress" style="margin-bottom: 8px;">
+          <div class="progress-bar" style="width: 65%;"></div>
+        </div>
+        <small>65% Complete (52/80 hours)</small>
+        <div style="margin-top: 16px;">
+          <button class="btn btn-sm btn-primary" onclick="hrDaddy.quickFillTimesheet()">Fill Standard Week</button>
+        </div>
+      `;
+    }
+
+    const achievements = document.getElementById('achievements');
+    if (achievements) {
+      achievements.innerHTML = `
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div class="badge badge-success">🏆 Perfect Attendance</div>
+          <div class="badge badge-info">⚡ Speed Demon</div>
+          <div class="badge badge-warning">🎯 Goal Crusher</div>
+          <div class="badge badge-primary">🌟 HR Daddy's Favorite</div>
+        </div>
+        <div style="margin-top: 16px; font-size: 14px; color: var(--gray);">
+          Complete more tasks to unlock achievements!
+        </div>
+      `;
+    }
+  }
+
+  loadTimesheet() {
+    const timesheetContent = document.getElementById('timesheetContent');
+    if (!timesheetContent) return;
+    
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    
+    let html = `
+      <div style="margin-bottom: 16px;">
+        <button class="btn btn-sm btn-warning" onclick="hrDaddy.quickFillTimesheet()">📝 Fill Standard Hours</button>
+        <button class="btn btn-sm btn-info" onclick="hrDaddy.clearTimesheet()">🗑️ Clear All</button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Date</th>
+            <th>Regular Hours</th>
+            <th>Overtime</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    
+    const today = new Date();
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - today.getDay() + 1);
+    
+    days.forEach((day, index) => {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + index);
+      const dateStr = date.toLocaleDateString();
+      const isWeekend = index >= 5;
+      
+      html += `
+        <tr>
+          <td><strong>${day}</strong></td>
+          <td>${dateStr}</td>
+          <td><input type="number" step="0.5" min="0" max="24" value="${isWeekend ? '0' : '8'}" class="form-control timesheet-hours" data-day="${day}"></td>
+          <td><input type="number" step="0.5" min="0" max="24" value="0" class="form-control timesheet-overtime" data-day="${day}"></td>
+          <td><input type="text" placeholder="Notes..." class="form-control timesheet-notes" data-day="${day}"></td>
+          <td>
+            <button class="btn btn-sm btn-info" onclick="hrDaddy.copyDay('${day}')">📋</button>
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += `
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"><strong>Total</strong></td>
+            <td><strong id="totalRegular">40</strong></td>
+            <td><strong id="totalOvertime">0</strong></td>
+            <td colspan="2"><strong id="totalHours">40 hours</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    `;
+    
+    timesheetContent.innerHTML = html;
+    
+    // Add change listeners to update totals
+    document.querySelectorAll('.timesheet-hours, .timesheet-overtime').forEach(input => {
+      input.addEventListener('change', () => this.updateTimesheetTotals());
+    });
+    
+    this.updateTimesheetTotals();
+  }
+
+  updateTimesheetTotals() {
+    let totalRegular = 0;
+    let totalOvertime = 0;
+    
+    document.querySelectorAll('.timesheet-hours').forEach(input => {
+      totalRegular += parseFloat(input.value) || 0;
+    });
+    
+    document.querySelectorAll('.timesheet-overtime').forEach(input => {
+      totalOvertime += parseFloat(input.value) || 0;
+    });
+    
+    const totalRegularEl = document.getElementById('totalRegular');
+    const totalOvertimeEl = document.getElementById('totalOvertime');
+    const totalHoursEl = document.getElementById('totalHours');
+    
+    if (totalRegularEl) totalRegularEl.textContent = totalRegular.toFixed(1);
+    if (totalOvertimeEl) totalOvertimeEl.textContent = totalOvertime.toFixed(1);
+    if (totalHoursEl) totalHoursEl.textContent = `${(totalRegular + totalOvertime).toFixed(1)} hours`;
+  }
+
+  quickFillTimesheet() {
+    document.querySelectorAll('.timesheet-hours').forEach((input, index) => {
+      input.value = index < 5 ? '8' : '0'; // Mon-Fri: 8 hours, Sat-Sun: 0
+    });
+    document.querySelectorAll('.timesheet-overtime').forEach(input => {
+      input.value = '0';
+    });
+    this.updateTimesheetTotals();
+    this.showToast('Timesheet filled with standard hours!', 'success');
+  }
+
+  clearTimesheet() {
+    if (confirm('Are you sure you want to clear all timesheet entries?')) {
+      document.querySelectorAll('.timesheet-hours, .timesheet-overtime').forEach(input => {
+        input.value = '0';
+      });
+      document.querySelectorAll('.timesheet-notes').forEach(input => {
+        input.value = '';
+      });
+      this.updateTimesheetTotals();
+      this.showToast('Timesheet cleared!', 'info');
+    }
+  }
+
+  copyDay(day) {
+    const hours = document.querySelector(`.timesheet-hours[data-day="${day}"]`).value;
+    const overtime = document.querySelector(`.timesheet-overtime[data-day="${day}"]`).value;
+    const notes = document.querySelector(`.timesheet-notes[data-day="${day}"]`).value;
+    
+    localStorage.setItem('copiedDay', JSON.stringify({ hours, overtime, notes }));
+    this.showToast(`Copied ${day}'s entries! Click another day to paste.`, 'info');
+  }
+
+  saveTimesheet() {
+    const timesheet = {
+      id: Date.now(),
+      userId: this.currentUser.id,
+      date: new Date().toISOString(),
+      entries: []
+    };
+    
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    days.forEach(day => {
+      const hours = document.querySelector(`.timesheet-hours[data-day="${day}"]`)?.value || '0';
+      const overtime = document.querySelector(`.timesheet-overtime[data-day="${day}"]`)?.value || '0';
+      const notes = document.querySelector(`.timesheet-notes[data-day="${day}"]`)?.value || '';
+      
+      timesheet.entries.push({ day, hours, overtime, notes });
+    });
+    
+    this.database.timesheets.push(timesheet);
+    this.saveToLocalStorage();
+    this.showToast('Timesheet saved successfully!', 'success');
+    this.log('Timesheet saved');
+  }
+
+  exportTimesheet() {
+    const entries = [];
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    
+    days.forEach(day => {
+      const hours = document.querySelector(`.timesheet-hours[data-day="${day}"]`)?.value || '0';
+      const overtime = document.querySelector(`.timesheet-overtime[data-day="${day}"]`)?.value || '0';
+      const notes = document.querySelector(`.timesheet-notes[data-day="${day}"]`)?.value || '';
+      entries.push({ day, hours, overtime, notes });
+    });
+    
+    const csv = 'Day,Regular Hours,Overtime,Notes\n' + 
+      entries.map(e => `${e.day},${e.hours},${e.overtime},"${e.notes}"`).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `timesheet_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    this.showToast('Timesheet exported to CSV!', 'success');
+    this.log('Timesheet exported');
+  }
+
+  loadEmployees() {
+    const employeeList = document.getElementById('employeeList');
+    if (!employeeList) return;
+    
+    let html = `
+      <div style="margin-bottom: 16px;">
+        <input type="text" id="employeeSearch" class="form-control" placeholder="Search employees..." onkeyup="hrDaddy.searchEmployees(this.value)">
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Department</th>
+            <th>Status</th>
+            <th>Mood</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="employeeTableBody">
+    `;
+    
+    this.database.employees.forEach(emp => {
+      html += this.renderEmployeeRow(emp);
+    });
+    
+    html += '</tbody></table>';
+    employeeList.innerHTML = html;
+  }
+
+  renderEmployeeRow(emp) {
+    return `
+      <tr data-employee-id="${emp.id}">
+        <td>${emp.name}</td>
+        <td>${emp.role}</td>
+        <td>${emp.department}</td>
+        <td><span class="badge badge-${emp.status === 'Active' ? 'success' : 'warning'}">${emp.status}</span></td>
+        <td style="font-size: 24px;">${emp.mood}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" onclick="hrDaddy.editEmployee(${emp.id})">Edit</button>
+          <button class="btn btn-sm btn-info" onclick="hrDaddy.viewEmployee(${emp.id})">View</button>
+          ${this.isAdmin ? `<button class="btn btn-sm btn-danger" onclick="hrDaddy.deleteEmployee(${emp.id})">Delete</button>` : ''}
+        </td>
+      </tr>
+    `;
+  }
+
+  searchEmployees(query) {
+    const rows = document.querySelectorAll('#employeeTableBody tr');
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+    });
+  }
+
+  loadAnalytics() {
+    const ctx = document.getElementById('analyticsChart');
+    if (ctx) {
+      // Simple bar chart
+      const context = ctx.getContext('2d');
+      context.clearRect(0, 0, ctx.width, ctx.height);
+      
+      const data = [65, 75, 80, 85, 90, 88, 92];
+      const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const barWidth = 50;
+      const spacing = 20;
+      
+      data.forEach((value, index) => {
+        const height = (value / 100) * 150;
+        const x = 50 + (index * (barWidth + spacing));
+        const y = 200 - height;
+        
+        // Draw bar
+        context.fillStyle = this.settings.themeColor;
+        context.fillRect(x, y, barWidth, height);
+        
+        // Draw label
+        context.fillStyle = '#666';
+        context.font = '12px Arial';
+        context.textAlign = 'center';
+        context.fillText(labels[index], x + barWidth/2, 220);
+        context.fillText(value + '%', x + barWidth/2, y - 5);
+      });
+    }
+    
+    const analyticsData = document.getElementById('analyticsData');
+    if (analyticsData) {
+      analyticsData.innerHTML = `
+        <div class="grid grid-3">
+          <div class="stat-card">
+            <div class="stat-value">92%</div>
+            <div class="stat-label">Average Productivity</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">156</div>
+            <div class="stat-label">Tasks Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">4.8</div>
+            <div class="stat-label">Team Rating</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  executeCode() {
+    const code = document.getElementById('codeEditor').value;
+    const outputDiv = document.getElementById('codeOutput');
+    const outputContent = document.getElementById('codeOutputContent');
+    
+    if (!code.trim()) {
+      this.showToast('Please enter some code to execute', 'warning');
+      return;
+    }
+    
+    outputDiv.style.display = 'block';
+    outputContent.textContent = '';
+    
+    // Create custom console for output
+    const customConsole = {
+      log: (...args) => {
+        outputContent.textContent += args.join(' ') + '\n';
+        console.log(...args);
+      },
+      error: (...args) => {
+        outputContent.textContent += 'ERROR: ' + args.join(' ') + '\n';
+        console.error(...args);
+      }
+    };
+    
+    try {
+      // Create a safe execution environment
+      const func = new Function('console', 'hrDaddy', code);
+      func(customConsole, this);
+      
+      this.showToast('Code executed successfully! 🎉', 'success');
+      this.log('Custom code executed');
+    } catch (error) {
+      outputContent.textContent = 'Error: ' + error.message;
+      this.showToast(`Error: ${error.message}`, 'error');
+      this.log(`Code execution error: ${error.message}`, 'error');
+    }
+  }
+
+  showToast(message, type = 'info') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    if (!toast || !toastMessage) return;
+    
+    toastMessage.textContent = message;
+    toast.className = `toast ${type}`;
+    toast.style.display = 'block';
+    
+    clearTimeout(this.toastTimeout);
+    this.toastTimeout = setTimeout(() => {
+      toast.style.display = 'none';
+    }, 3000);
+  }
+
+  updateLogsDisplay() {
+    const logsContent = document.getElementById('logsContent');
+    if (logsContent && document.getElementById('adminLogs').classList.contains('active')) {
+      logsContent.innerHTML = this.logs.slice(-50).reverse().map(log => 
+        `<div style="margin-bottom: 8px;">
+          <span style="color: #666;">[${new Date(log.timestamp).toLocaleTimeString()}]</span>
+          <span style="color: ${log.type === 'error' ? '#ef4444' : log.type === 'warning' ? '#f59e0b' : '#10b981'};">[${log.type.toUpperCase()}]</span>
+          <span>${log.message}</span>
+        </div>`
+      ).join('');
+    }
+  }
+
+  startEmojiRain() {
+    const emojis = ['🎉', '🎊', '🌟', '💰', '🏆', '🚀', '💪', '🎯', '👏', '🔥', '💼', '📈', '✨', '🎈'];
+    
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        const emoji = document.createElement('div');
+        emoji.className = 'emoji-rain';
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * window.innerWidth + 'px';
+        emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        document.body.appendChild(emoji);
+        
+        setTimeout(() => emoji.remove(), 4000);
+      }, i * 100);
+    }
+    
+    this.showToast('Let it rain! 🌧️', 'success');
+    this.log('Emoji rain activated');
+  }
+
+  playMotivationalQuote() {
+    const quote = this.settings.motivationalQuotes[Math.floor(Math.random() * this.settings.motivationalQuotes.length)];
+    const funContent = document.getElementById('funContent');
+    if (funContent) {
+      funContent.innerHTML = `<div class="fun-animation" style="font-size: 24px; padding: 20px;">${quote}</div>`;
+    }
+    this.showToast('You got this! 💪', 'success');
+  }
+
+  showDadJoke() {
+    const joke = this.settings.dadJokes[Math.floor(Math.random() * this.settings.dadJokes.length)];
+    const funContent = document.getElementById('funContent');
+    if (funContent) {
+      funContent.innerHTML = `<div style="font-size: 20px; padding: 20px;">${joke}</div>`;
+    }
+    this.showToast('Ba dum tss! 🥁', 'info');
+  }
+
+  startProductivityGame() {
+    this.gameScore = 0;
+    const funContent = document.getElementById('funContent');
+    if (funContent) {
+      funContent.innerHTML = `
+        <div style="text-align: center;">
+          <h3>Productivity Challenge!</h3>
+          <p>Click as fast as you can! Reach 50 to win!</p>
+          <button class="btn btn-primary btn-block" onclick="hrDaddy.gameClick()" style="font-size: 24px; padding: 20px;">
+            CLICK ME! 👆
+          </button>
+          <div style="margin-top: 16px; font-size: 24px;">
+            Score: <span id="gameScore">0</span>
+          </div>
+          <div id="gameMessage" style="margin-top: 16px; font-size: 18px;"></div>
+        </div>
+      `;
+    }
+    this.showToast('Game started! Click fast! 🎮', 'info');
+  }
+
+  gameClick() {
+    this.gameScore++;
+    const scoreEl = document.getElementById('gameScore');
+    const messageEl = document.getElementById('gameMessage');
+    
+    if (scoreEl) scoreEl.textContent = this.gameScore;
+    
+    if (this.gameScore === 10) {
+      if (messageEl) messageEl.textContent = "You're getting warmed up! 🔥";
+    } else if (this.gameScore === 25) {
+      if (messageEl) messageEl.textContent = "Halfway there! Keep going! 💪";
+    } else if (this.gameScore === 40) {
+      if (messageEl) messageEl.textContent = "Almost there! Don't stop! 🚀";
+    } else if (this.gameScore === 50) {
+      if (messageEl) messageEl.innerHTML = "<strong>🏆 YOU WIN! You're a productivity champion! 🏆</strong>";
+      this.showToast('Congratulations! You win! 🏆', 'success');
+      this.startEmojiRain();
+      this.log('User won the productivity game!');
+    }
+  }
+
+  startDanceParty() {
+    document.body.style.animation = 'shake 0.5s infinite';
+    const originalBg = document.body.style.background;
+    
+    // Disco lights effect
+    let colorIndex = 0;
+    const colors = ['#ff0080', '#00ff80', '#80ff00', '#ff8000', '#0080ff', '#8000ff'];
+    
+    const discoInterval = setInterval(() => {
+      document.body.style.background = colors[colorIndex % colors.length];
+      colorIndex++;
+    }, 200);
+    
+    setTimeout(() => {
+      document.body.style.animation = '';
+      document.body.style.background = originalBg;
+      clearInterval(discoInterval);
+    }, 5000);
+    
+    this.showToast('Dance party activated! 🕺💃', 'success');
+    this.startEmojiRain();
+    this.log('Dance party started!');
+  }
+
+  showTeamLeaderboard() {
+    const funContent = document.getElementById('funContent');
+    if (funContent) {
+      funContent.innerHTML = `
+        <div style="text-align: center;">
+          <h3>🏆 Team Leaderboard - This Month</h3>
+          <div style="margin-top: 20px;">
+            <div style="font-size: 20px; padding: 10px;">🥇 John Doe - 95 points</div>
+            <div style="font-size: 18px; padding: 10px;">🥈 Jane Smith - 92 points</div>
+            <div style="font-size: 18px; padding: 10px;">🥉 ${this.currentUser.name} - 89 points</div>
+            <div style="font-size: 16px; padding: 10px;">4️⃣ Bob Johnson - 85 points</div>
+            <div style="font-size: 16px; padding: 10px;">5️⃣ Alice Brown - 82 points</div>
+          </div>
+          <div style="margin-top: 20px; color: var(--gray);">
+            Complete tasks and log hours to earn points!
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  closeModal() {
+    const modal = document.getElementById('modal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  closeQuickActions() {
+    const quickActions = document.getElementById('quickActions');
+    if (quickActions) quickActions.classList.remove('active');
+  }
+
+  editEmployee(id) {
+    const employee = this.database.employees.find(e => e.id === id);
+    if (!employee) return;
+    
+    this.showModal('Edit Employee', `
+      <form id="editEmployeeForm" onsubmit="hrDaddy.saveEmployee(event, ${id})">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" id="editName" value="${employee.name}" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role</label>
+          <input type="text" class="form-control" id="editRole" value="${employee.role}" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Department</label>
+          <select class="form-control" id="editDepartment">
+            <option ${employee.department === 'Engineering' ? 'selected' : ''}>Engineering</option>
+            <option ${employee.department === 'Design' ? 'selected' : ''}>Design</option>
+            <option ${employee.department === 'Marketing' ? 'selected' : ''}>Marketing</option>
+            <option ${employee.department === 'Sales' ? 'selected' : ''}>Sales</option>
+            <option ${employee.department === 'Management' ? 'selected' : ''}>Management</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control" id="editStatus">
+            <option ${employee.status === 'Active' ? 'selected' : ''}>Active</option>
+            <option ${employee.status === 'On Vacation' ? 'selected' : ''}>On Vacation</option>
+            <option ${employee.status === 'Sick Leave' ? 'selected' : ''}>Sick Leave</option>
+            <option ${employee.status === 'Remote' ? 'selected' : ''}>Remote</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Mood</label>
+          <select class="form-control" id="editMood">
+            <option value="😊" ${employee.mood === '😊' ? 'selected' : ''}>😊 Happy</option>
+            <option value="😎" ${employee.mood === '😎' ? 'selected' : ''}>😎 Cool</option>
+            <option value="😴" ${employee.mood === '😴' ? 'selected' : ''}>😴 Tired</option>
+            <option value="🤓" ${employee.mood === '🤓' ? 'selected' : ''}>🤓 Focused</option>
+            <option value="🥳" ${employee.mood === '🥳' ? 'selected' : ''}>🥳 Celebrating</option>
+            <option value="😤" ${employee.mood === '😤' ? 'selected' : ''}>😤 Stressed</option>
+            <option value="🏖️" ${employee.mood === '🏖️' ? 'selected' : ''}>🏖️ Vacation</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    `);
+  }
+
+  saveEmployee(event, id = null) {
+    event.preventDefault();
+    
+    const name = document.getElementById(id ? 'editName' : 'addName').value;
+    const role = document.getElementById(id ? 'editRole' : 'addRole').value;
+    const department = document.getElementById(id ? 'editDepartment' : 'addDepartment').value;
+    const status = document.getElementById(id ? 'editStatus' : 'addStatus')?.value || 'Active';
+    const mood = document.getElementById(id ? 'editMood' : 'addMood')?.value || '😊';
+    
+    if (id) {
+      // Edit existing employee
+      const employee = this.database.employees.find(e => e.id === id);
+      if (employee) {
+        employee.name = name;
+        employee.role = role;
+        employee.department = department;
+        employee.status = status;
+        employee.mood = mood;
+        this.log(`Employee ${name} updated`);
+      }
+    } else {
+      // Add new employee
+      const newEmployee = {
+        id: Date.now(),
+        name,
+        role,
+        department,
+        status,
+        mood
+      };
+      this.database.employees.push(newEmployee);
+      this.log(`New employee ${name} added`);
+    }
+    
+    this.saveToLocalStorage();
+    this.closeModal();
+    this.loadEmployees();
+    this.showToast(id ? 'Employee updated successfully!' : 'Employee added successfully!', 'success');
+  }
+
+  viewEmployee(id) {
+    const employee = this.database.employees.find(e => e.id === id);
+    if (!employee) return;
+    
+    this.showModal(`Employee Profile: ${employee.name}`, `
+      <div style="text-align: center;">
+        <div style="font-size: 72px; margin-bottom: 20px;">${employee.mood}</div>
+        <h3>${employee.name}</h3>
+        <p style="color: var(--gray);">${employee.role} - ${employee.department}</p>
+        <div class="badge badge-${employee.status === 'Active' ? 'success' : 'warning'}" style="margin-top: 10px;">
+          ${employee.status}
+        </div>
+        
+        <div style="margin-top: 30px; text-align: left;">
+          <h4>Recent Activity</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li>✅ Completed timesheet for this week</li>
+            <li>🏆 Earned "Speed Demon" achievement</li>
+            <li>📊 Productivity score: 92%</li>
+            <li>⏰ Average hours/week: 42</li>
+          </ul>
+        </div>
+        
+        <div style="margin-top: 20px;">
+          <button class="btn btn-primary" onclick="hrDaddy.editEmployee(${id})">Edit Profile</button>
+          <button class="btn btn-info" onclick="hrDaddy.sendMessage(${id})">Send Message</button>
+        </div>
+      </div>
+    `);
+  }
+
+  deleteEmployee(id) {
+    if (!this.isAdmin) {
+      this.showToast('Only admins can delete employees', 'error');
+      return;
+    }
+    
+    const employee = this.database.employees.find(e => e.id === id);
+    if (!employee) return;
+    
+    if (confirm(`Are you sure you want to delete ${employee.name}? This action cannot be undone.`)) {
+      this.database.employees = this.database.employees.filter(e => e.id !== id);
+      this.saveToLocalStorage();
+      this.loadEmployees();
+      this.showToast('Employee deleted successfully', 'success');
+      this.log(`Employee ${employee.name} deleted`);
+    }
+  }
+
+  sendMessage(employeeId) {
+    const employee = this.database.employees.find(e => e.id === employeeId);
+    if (!employee) return;
+    
+    this.showModal(`Send Message to ${employee.name}`, `
+      <form onsubmit="hrDaddy.sendMessageSubmit(event, ${employeeId})">
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" id="messageContent" rows="4" placeholder="Type your message..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    `);
+  }
+
+  sendMessageSubmit(event, employeeId) {
+    event.preventDefault();
+    const message = document.getElementById('messageContent').value;
+    const employee = this.database.employees.find(e => e.id === employeeId);
+    
+    if (employee && message) {
+      this.log(`Message sent to ${employee.name}: ${message.substring(0, 50)}...`);
+      this.showToast(`Message sent to ${employee.name}!`, 'success');
+      this.closeModal();
+    }
+  }
+
+  showModal(title, content) {
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    
+    if (modal && modalTitle && modalBody) {
+      modalTitle.textContent = title;
+      modalBody.innerHTML = content;
+      modal.style.display = 'flex';
+    }
+  }
+
+  loadDatabaseContent() {
+    const databaseContent = document.getElementById('databaseContent');
+    if (!databaseContent) return;
+    
+    const dbSize = JSON.stringify(this.database).length;
+    const userCount = this.database.users.length;
+    const employeeCount = this.database.employees.length;
+    const timesheetCount = this.database.timesheets.length;
+    
+    databaseContent.innerHTML = `
+      <div class="grid grid-4">
+        <div class="stat-card">
+          <div class="stat-value">${userCount}</div>
+          <div class="stat-label">Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${employeeCount}</div>
+          <div class="stat-label">Employees</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${timesheetCount}</div>
+          <div class="stat-label">Timesheets</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${(dbSize / 1024).toFixed(1)}KB</div>
+          <div class="stat-label">Database Size</div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 20px;">
+        <h5>Database Tables</h5>
+        <ul>
+          <li>Users: ${userCount} records</li>
+          <li>Employees: ${employeeCount} records</li>
+          <li>Timesheets: ${timesheetCount} records</li>
+          <li>Settings: Active</li>
+          <li>Logs: ${this.logs.length} entries</li>
+        </ul>
+      </div>
+    `;
+  }
+}
+
+// Initialize the system
+const hrDaddy = new HRDaddySystem();
+
+// Global functions
+function handleLogin(event) {
+  event.preventDefault();
+  
+  const username = document.getElementById('loginUsername').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  if (hrDaddy.authenticate(username, password)) {
+    hrDaddy.showApp();
+    hrDaddy.showToast(`Welcome to HR Daddy, ${hrDaddy.currentUser.name}! 🎉`, 'success');
+  } else {
+    hrDaddy.showToast('Invalid credentials! Try admin/admin123 or user/user123', 'error');
+    document.getElementById('loginPassword').value = '';
+  }
+}
+
+function logout() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.removeItem('hrDaddySession');
+    hrDaddy.log('User logged out');
+    location.reload();
+  }
+}
+
+function showTab(event, tabName) {
+  // Hide all tab content
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Remove active class from all nav buttons
+  document.querySelectorAll('.nav-tabs button').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Show selected tab
+  const selectedTab = document.getElementById(tabName);
+  if (selectedTab) {
+    selectedTab.classList.add('active');
+    event.target.classList.add('active');
+    
+    // Load content based on tab
+    switch(tabName) {
+      case 'dashboard':
+        hrDaddy.showDashboard();
+        break;
+      case 'timesheet':
+        hrDaddy.loadTimesheet();
+        break;
+      case 'employees':
+        hrDaddy.loadEmployees();
+        break;
+      case 'analytics':
+        hrDaddy.loadAnalytics();
+        break;
+      case 'admin':
+        hrDaddy.updateLogsDisplay();
+        loadDatabaseContent();
+        break;
+    }
+    
+    hrDaddy.log(`Navigated to ${tabName} tab`);
+  }
+}
+
+function showAdminTab(event, tabName) {
+  // Hide all admin sub-tabs
+  document.querySelectorAll('#admin .tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Remove active from admin nav buttons
+  event.target.parentElement.querySelectorAll('button').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Show selected admin tab
+  const adminTabId = 'admin' + tabName.charAt(0).toUpperCase() + tabName.slice(1);
+  const selectedAdminTab = document.getElementById(adminTabId);
+  if (selectedAdminTab) {
+    selectedAdminTab.classList.add('active');
+    event.target.classList.add('active');
+    
+    if (tabName === 'logs') {
+      hrDaddy.updateLogsDisplay();
+    } else if (tabName === 'database') {
+      loadDatabaseContent();
+    }
+  }
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  hrDaddy.settings.darkMode = document.body.classList.contains('dark-mode');
+  hrDaddy.saveToLocalStorage();
+  hrDaddy.showToast(hrDaddy.settings.darkMode ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 'info');
+}
+
+function showNotifications() {
+  hrDaddy.showModal('Notifications', `
+    <div style="max-height: 400px; overflow-y: auto;">
+      <div style="padding: 12px; border-bottom: 1px solid var(--border);">
+        <strong>🎉 Welcome to HR Daddy!</strong><br>
+        <small>Just now</small>
+      </div>
+      <div style="padding: 12px; border-bottom: 1px solid var(--border);">
+        <strong>📋 Timesheet reminder</strong><br>
+        <small>Don't forget to submit your timesheet by Friday!</small><br>
+        <small>2 hours ago</small>
+      </div>
+      <div style="padding: 12px;">
+        <strong>🏆 You earned a new achievement!</strong><br>
+        <small>"Perfect Attendance" - Great job!</small><br>
+        <small>Yesterday</small>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 16px;">
+      <button class="btn btn-primary" onclick="clearNotifications()">Clear All</button>
+    </div>
+  `);
+}
+
+function clearNotifications() {
+  document.getElementById('notificationBadge').textContent = '0';
+  hrDaddy.showToast('Notifications cleared', 'info');
+  hrDaddy.closeModal();
+}
+
+function showProfile() {
+  const user = hrDaddy.currentUser;
+  hrDaddy.showModal('My Profile', `
+    <div style="text-align: center;">
+      <div style="width: 100px; height: 100px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 48px;">
+        ${user.name.charAt(0).toUpperCase()}
+      </div>
+      <h3>${user.name}</h3>
+      <p>${user.role}</p>
+      <p>${user.email}</p>
+      <div style="margin-top: 20px;">
+        <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>
+        <button class="btn btn-gray" onclick="changePassword()">Change Password</button>
+      </div>
+      <div style="margin-top: 30px; text-align: left;">
+        <h4>Statistics</h4>
+        <div class="grid grid-2">
+          <div>Total Hours: <strong>164</strong></div>
+          <div>Overtime: <strong>12</strong></div>
+          <div>Days Off: <strong>5</strong></div>
+          <div>Achievements: <strong>7</strong></div>
+        </div>
+      </div>
+    </div>
+  `);
+}
+
+function editProfile() {
+  hrDaddy.showToast('Profile editing coming soon!', 'info');
+}
+
+function changePassword() {
+  hrDaddy.showToast('Password change feature coming soon!', 'info');
+}
+
+function toggleQuickActions() {
+  const quickActions = document.getElementById('quickActions');
+  quickActions.classList.toggle('active');
+}
+
+function quickTimeEntry() {
+  hrDaddy.showModal('Quick Time Entry', `
+    <form onsubmit="saveQuickTime(event)">
+      <div class="form-group">
+        <label class="form-label">Hours Today</label>
+        <input type="number" class="form-control" id="quickHours" value="8" step="0.5" min="0" max="24" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <input type="text" class="form-control" id="quickNotes" placeholder="What did you work on?">
+      </div>
+      <button type="submit" class="btn btn-primary">Save Entry</button>
+    </form>
+  `);
+  toggleQuickActions();
+}
+
+function saveQuickTime(event) {
+  event.preventDefault();
+  const hours = document.getElementById('quickHours').value;
+  const notes = document.getElementById('quickNotes').value;
+  
+  hrDaddy.log(`Quick time entry: ${hours} hours - ${notes}`);
+  hrDaddy.showToast(`${hours} hours logged for today!`, 'success');
+  hrDaddy.closeModal();
+  updateStats();
+}
+
+function requestTimeOff() {
+  hrDaddy.showModal('Request Time Off', `
+    <form onsubmit="submitTimeOff(event)">
+      <div class="form-group">
+        <label class="form-label">Start Date</label>
+        <input type="date" class="form-control" id="timeOffStart" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">End Date</label>
+        <input type="date" class="form-control" id="timeOffEnd" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-control" id="timeOffType">
+          <option>Vacation 🏖️</option>
+          <option>Sick Leave 🤒</option>
+          <option>Personal Day 🏠</option>
+          <option>Mental Health Day 🧘</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-control" id="timeOffNotes" rows="3" placeholder="Optional notes..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Request</button>
+    </form>
+  `);
+  toggleQuickActions();
+}
+
+function submitTimeOff(event) {
+  event.preventDefault();
+  const start = document.getElementById('timeOffStart').value;
+  const end = document.getElementById('timeOffEnd').value;
+  const type = document.getElementById('timeOffType').value;
+  
+  hrDaddy.log(`Time off request: ${type} from ${start} to ${end}`);
+  hrDaddy.showToast('Time off request submitted!', 'success');
+  hrDaddy.closeModal();
+}
+
+function viewPaystub() {
+  const salary = 3846.15;
+  const taxes = 961.54;
+  const netPay = salary - taxes;
+  
+  hrDaddy.showModal('Latest Paystub', `
+    <div style="text-align: center; padding: 20px;">
+      <h3>💰 Paystub for ${new Date().toLocaleDateString()}</h3>
+      <div style="margin-top: 20px;">
+        <div style="margin-bottom: 10px;">Gross Pay: <strong>${salary.toFixed(2)}</strong></div>
+        <div style="margin-bottom: 10px;">Taxes: <strong>-${taxes.toFixed(2)}</strong></div>
+        <hr>
+        <div style="font-size: 24px; color: var(--success); margin-top: 10px;">
+          Net Pay: <strong>${netPay.toFixed(2)}</strong>
+        </div>
+      </div>
+      <div style="margin-top: 20px;">
+        <button class="btn btn-primary" onclick="downloadPaystub()">Download PDF</button>
+      </div>
+    </div>
+  `);
+  toggleQuickActions();
+}
+
+function downloadPaystub() {
+  hrDaddy.showToast('Paystub downloaded!', 'success');
+  hrDaddy.closeModal();
+}
+
+function updateStats() {
+  document.getElementById('totalHours').textContent = Math.floor(Math.random() * 40) + 40;
+  document.getElementById('productivityScore').textContent = Math.floor(Math.random() * 20) + 80;
+  document.getElementById('pendingTasks').textContent = Math.floor(Math.random() * 10);
+  
+  const moods = ['😊', '😎', '🤓', '😴', '🤯', '🥳', '🔥', '💪'];
+  document.getElementById('teamMood').textContent = moods[Math.floor(Math.random() * moods.length)];
+}
+
+function quickFillTimesheet() {
+  hrDaddy.quickFillTimesheet();
+}
+
+function saveTimesheet() {
+  hrDaddy.saveTimesheet();
+}
+
+function exportTimesheet() {
+  hrDaddy.exportTimesheet();
+}
+
+function addEmployee() {
+  hrDaddy.showModal('Add New Employee', `
+    <form onsubmit="hrDaddy.saveEmployee(event)">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" id="addName" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" id="addEmail" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <input type="text" class="form-control" id="addRole" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Department</label>
+        <select class="form-control" id="addDepartment">
+          <option>Engineering</option>
+          <option>Design</option>
+          <option>Marketing</option>
+          <option>Sales</option>
+          <option>Management</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Employee</button>
+    </form>
+  `);
+}
+
+function startEmojiRain() {
+  hrDaddy.startEmojiRain();
+}
+
+function playMotivationalQuote() {
+  hrDaddy.playMotivationalQuote();
+}
+
+function startProductivityGame() {
+  hrDaddy.startProductivityGame();
+}
+
+function showDadJoke() {
+  hrDaddy.showDadJoke();
+}
+
+function startDanceParty() {
+  hrDaddy.startDanceParty();
+}
+
+function showTeamLeaderboard() {
+  hrDaddy.showTeamLeaderboard();
+}
+
+function executeCode() {
+  hrDaddy.executeCode();
+}
+
+function saveCode() {
+  const code = document.getElementById('codeEditor').value;
+  localStorage.setItem('hrDaddyCustomCode', code);
+  hrDaddy.showToast('Code saved! It will run on next load.', 'success');
+  hrDaddy.log('Custom code saved');
+}
+
+function resetCode() {
+  if (confirm('Are you sure you want to reset the code editor?')) {
+    document.getElementById('codeEditor').value = '';
+    localStorage.removeItem('hrDaddyCustomCode');
+    const outputDiv = document.getElementById('codeOutput');
+    if (outputDiv) outputDiv.style.display = 'none';
+    hrDaddy.showToast('Code reset!', 'info');
+  }
+}
+
+function loadSampleCode() {
+  const sampleCode = `// Sample code - try running this!
+console.log('Hello from HR Daddy! 👋');
+
+// Change the page title
+document.querySelector('.page-title').textContent = 'HR Daddy Rocks! 🚀';
+
+// Add a custom stat card
+const statsGrid = document.querySelector('.grid.grid-4');
+if (statsGrid) {
+  const newCard = document.createElement('div');
+  newCard.className = 'stat-card';
+  newCard.innerHTML = \`
+    <div class="stat-value" style="color: var(--danger);">🔥</div>
+    <div class="stat-label">On Fire!</div>
+  \`;
+  statsGrid.appendChild(newCard);
+}
+
+// Start emoji rain
+hrDaddy.startEmojiRain();
+
+console.log('Sample code executed successfully!');`;
+  
+  document.getElementById('codeEditor').value = sampleCode;
+  hrDaddy.showToast('Sample code loaded!', 'info');
+}
+
+function saveSettings() {
+  hrDaddy.settings.companyName = document.getElementById('companyName').value;
+  hrDaddy.settings.themeColor = document.getElementById('themeColor').value;
+  hrDaddy.settings.funMode = document.getElementById('enableFunMode').checked;
+  
+  hrDaddy.saveToLocalStorage();
+  hrDaddy.applySettings();
+  hrDaddy.showToast('Settings saved!', 'success');
+  hrDaddy.log('Settings updated');
+}
+
+function loadDatabaseContent() {
+  hrDaddy.loadDatabaseContent();
+}
+
+function exportDatabase() {
+  const data = JSON.stringify(hrDaddy.database, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hr_daddy_database_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  hrDaddy.showToast('Database exported!', 'success');
+  hrDaddy.log('Database exported');
+}
+
+function backupDatabase() {
+  const backup = {
+    timestamp: new Date().toISOString(),
+    database: hrDaddy.database,
+    settings: hrDaddy.settings
+  };
+  
+  localStorage.setItem('hrDaddyBackup', JSON.stringify(backup));
+  hrDaddy.showToast('Database backed up locally!', 'success');
+  hrDaddy.log('Database backup created');
+}
+
+function resetDatabase() {
+  if (confirm('Are you sure you want to reset the database? This will delete all data!')) {
+    if (confirm('This action cannot be undone. Are you absolutely sure?')) {
+      localStorage.clear();
+      hrDaddy.showToast('Database reset! Reloading...', 'warning');
+      hrDaddy.log('Database reset initiated', 'warning');
+      setTimeout(() => location.reload(), 2000);
+    }
+  }
+}
+
+function refreshLogs() {
+  hrDaddy.updateLogsDisplay();
+  hrDaddy.showToast('Logs refreshed', 'info');
+}
+
+function clearLogs() {
+  if (confirm('Are you sure you want to clear all logs?')) {
+    hrDaddy.logs = [];
+    hrDaddy.saveToLocalStorage();
+    hrDaddy.updateLogsDisplay();
+    hrDaddy.showToast('Logs cleared', 'info');
+    hrDaddy.log('Logs cleared by user');
+  }
+}
+
+function exportLogs() {
+  const logData = hrDaddy.logs.map(log => 
+    `[${log.timestamp}] [${log.type.toUpperCase()}] ${log.message}`
+  ).join('\n');
+  
+  const blob = new Blob([logData], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hr_daddy_logs_${new Date().toISOString().split('T')[0]}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  hrDaddy.showToast('Logs exported!', 'success');
+}
+
+function closeModal() {
+  hrDaddy.closeModal();
+}
+
+function closeModalOnOutsideClick(event) {
+  if (event.target.id === 'modal') {
+    hrDaddy.closeModal();
+  }
+}
+
+// Load custom code on startup
+window.addEventListener('load', () => {
+  const customCode = localStorage.getItem('hrDaddyCustomCode');
+  if (customCode) {
+    const codeEditor = document.getElementById('codeEditor');
+    if (codeEditor) {
+      codeEditor.value = customCode;
+    }
+    
+    // Only auto-execute if user is admin
+    if (hrDaddy.isAdmin) {
+      try {
+        const func = new Function('console', 'hrDaddy', customCode);
+        func(console, hrDaddy);
+        console.log('Custom code loaded and executed');
+      } catch (error) {
+        console.error('Error executing saved custom code:', error);
+      }
+    }
+  }
+});
+
+// Periodic stats update
+setInterval(() => {
+  if (document.getElementById('appContainer').classList.contains('active')) {
+    updateStats();
+  }
+}, 30000); // Update every 30 seconds
+</script>
+
+</body>
+</html>
