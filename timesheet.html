@@ -1,4 +1,1982 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>MRE Enhanced Timesheet</title><style>:root{--p:#2563eb;--pd:#1d4ed8;--s:#16a34a;--d:#dc2626;--w:#d97706;--i:#0ea5e9;--dk:#1f2937;--g:#6b7280;--l:#f8fafc;--wh:#fff;--b:#e5e7eb;--sh:0 1px 3px 0 rgba(0,0,0,0.1)}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--l);color:var(--dk);line-height:1.6}.sb{position:fixed;bottom:20px;left:20px;background:var(--s);color:#fff;padding:8px 16px;border-radius:20px;font-size:12px;z-index:100;animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}.ac{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px}.acd{background:var(--wh);border-radius:16px;box-shadow:var(--sh);width:100%;max-width:400px;overflow:hidden}.ah{background:var(--p);color:#fff;padding:40px 30px;text-align:center}.al{width:80px;height:80px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px}.at{font-size:24px;font-weight:700;margin-bottom:8px}.as{opacity:0.9;font-size:14px}.ab{padding:30px}.fg{margin-bottom:20px}.fl{display:block;margin-bottom:6px;font-weight:600;color:var(--dk)}.fc{width:100%;padding:12px 16px;border:2px solid var(--b);border-radius:8px;font-size:16px;transition:border-color 0.3s}.fc:focus{outline:none;border-color:var(--p)}.btn{padding:12px 24px;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}.btn:hover{transform:translateY(-1px)}.bp{background:var(--p);color:#fff}.bp:hover{background:var(--pd)}.bs{background:var(--s);color:#fff}.bd{background:var(--d);color:#fff}.bw{background:var(--w);color:#fff}.bi{background:var(--i);color:#fff}.bg{background:var(--g);color:#fff}.bsm{padding:6px 12px;font-size:12px}.bb{width:100%}.apc{display:none;min-height:100vh;background:var(--l)}.apc.active{display:flex;flex-direction:column}.aph{background:var(--wh);box-shadow:var(--sh);padding:16px 24px;display:flex;justify-content:space-between;align-items:center}.br{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;color:var(--p)}.ui{display:flex;align-items:center;gap:16px}.ua{width:40px;height:40px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;cursor:pointer;overflow:hidden}.ua img{width:100%;height:100%;object-fit:cover}.lb{padding:8px 16px;font-size:14px}.am{flex:1;padding:24px;max-width:1200px;margin:0 auto;width:100%}.ph{margin-bottom:32px;text-align:center}.pt{font-size:28px;font-weight:700;color:var(--dk);margin-bottom:8px}.ps{color:var(--g)}.cd{background:var(--wh);border-radius:12px;box-shadow:var(--sh);overflow:hidden;margin-bottom:24px}.ch{padding:20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}.ct{font-size:18px;font-weight:600}.cb{padding:20px}.gr{display:grid;gap:24px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.sb{padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;text-transform:uppercase}.sa{background:#dcfce7;color:var(--s)}.sv{background:#dbeafe;color:var(--p)}.sar{background:#f3f4f6;color:var(--g)}.tt{width:100%;border-collapse:collapse;margin-top:16px}.tt th,.tt td{padding:12px;text-align:left;border-bottom:1px solid var(--b)}.tt th{background:var(--l);font-weight:600}.tt input{border:1px solid var(--b);padding:6px 8px;border-radius:4px;width:100%}.tr{font-weight:600;background:var(--l)}.as{position:fixed;top:20px;right:20px;background:var(--s);color:#fff;padding:8px 16px;border-radius:20px;font-size:12px;opacity:0;transition:opacity 0.3s}.as.saving{opacity:1}.to{position:fixed;bottom:24px;right:24px;background:var(--dk);color:#fff;padding:16px 24px;border-radius:8px;box-shadow:var(--sh);display:none;z-index:1000}.to.success{background:var(--s)}.to.error{background:var(--d)}.to.warning{background:var(--w)}.md{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}.mc{background:var(--wh);border-radius:12px;width:100%;max-width:800px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh)}.mh{padding:20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}.mt{font-size:18px;font-weight:600}.mcl{background:none;border:none;font-size:24px;cursor:pointer;color:var(--g)}.mb{padding:20px}.mf{padding:20px;border-top:1px solid var(--b);display:flex;justify-content:flex-end;gap:12px}.nt{display:flex;border-bottom:2px solid var(--b);margin-bottom:24px;flex-wrap:wrap}.nt button{padding:12px 24px;background:none;border:none;color:var(--g);cursor:pointer;font-weight:500;border-bottom:2px solid transparent;transition:all 0.3s;white-space:nowrap}.nt button:hover{color:var(--p)}.nt button.active{color:var(--p);border-bottom-color:var(--p)}.tc{display:none}.tc.active{display:block}.pg{margin-bottom:32px}.pgh{background:var(--p);color:#fff;padding:16px 20px;border-radius:8px 8px 0 0;font-weight:600;font-size:18px}.pgc{background:var(--wh);border:1px solid var(--b);border-top:none;border-radius:0 0 8px 8px}.ti{padding:16px 20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}.ti:last-child{border-bottom:none}.tif{flex:1}.tia{display:flex;gap:8px}.vi{background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:8px 12px;font-size:12px;color:var(--p);font-weight:600}.ai{background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:8px 12px;font-size:12px;color:var(--g);font-weight:600}.eb{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.fs{background:var(--wh);padding:20px;border-radius:12px;box-shadow:var(--sh);margin-bottom:24px}.qa{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}.qab{padding:8px 16px;font-size:14px;border-radius:20px}.ba{background:var(--l);padding:16px;border-radius:8px;margin-bottom:24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.es{text-align:center;padding:60px 20px;color:var(--g)}.esi{font-size:48px;margin-bottom:16px;opacity:0.5}.tv{max-height:500px;overflow-y:auto;border:1px solid var(--b);border-radius:8px}.vf{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}.mt{border:1px solid var(--b);border-radius:8px;margin-bottom:16px;overflow:hidden}.mth{background:var(--l);padding:12px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}.mtb{padding:12px}.wc{border:1px solid var(--b);border-radius:8px;padding:16px;margin-bottom:16px}.wh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}@media (max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr}.aph{padding:12px 16px;flex-direction:column;gap:12px}.am{padding:16px}.tt{font-size:14px}.nt{overflow-x:auto}.ti{flex-direction:column;align-items:flex-start;gap:12px}.tia{width:100%;justify-content:flex-start}.eb{justify-content:center}.qa{justify-content:center}}</style></head><body><div class="sb">🔒 AES-256 Encrypted</div><div class="as" id="asi">💾 Auto-saving...</div><div class="ac" id="authContainer"><div class="acd"><div class="ah"><div class="al">📋</div><h1 class="at">MRE Timesheet</h1><p class="as">Enhanced Employee Time Tracking</p></div><div class="ab"><form id="loginForm" onsubmit="handleLogin(event)"><div class="fg"><label class="fl">Email or Employee ID</label><input type="text" class="fc" id="loginEmail" required autocomplete="username"></div><div class="fg"><label class="fl">Password</label><input type="password" class="fc" id="loginPassword" required autocomplete="current-password"></div><div class="fg"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="adminAccess"><span style="font-size:14px;">🔧 Admin Access Mode (Logan Only)</span></label></div><div class="fg"><button type="submit" class="btn bp bb">🔐 Sign In Securely</button></div></form></div></div></div><div class="apc" id="appContainer"><header class="aph"><div class="br"><span>📋</span><span>MRE Enhanced Timesheet</span></div><div class="ui"><div class="ua" id="ua" onclick="ts.showProfile()"></div><div><div id="un" style="font-weight:600;"></div><div id="ur" style="font-size:12px;color:var(--g);"></div></div><button class="btn bg lb" onclick="ts.logout()">🚪 Logout</button></div></header><main class="am"><div class="qa"><button class="btn bs qab" onclick="ts.fillStandardWeek()">📅 Fill Week (8hrs/day)</button><button class="btn bi qab" onclick="ts.showProfile()">👤 My Profile</button><button class="btn bp qab" id="ceb" onclick="ts.exportCombinedADP()" style="display:none;">📥 Combined Hours</button><button class="btn bw qab" id="ctob" onclick="ts.exportTimeOffWorksheet()" style="display:none;">🏖️ Combined Time Off</button><button class="btn bd qab" onclick="ts.clearAllEntries()">🗑️ Clear All Entries</button></div><div class="nt"><button class="active" onclick="showTab('ct')">📋 Current Weeks</button><button onclick="showTab('tv')">👁️ View All Timesheets</button><button onclick="showTab('mv')">🗄️ My Vault</button><button onclick="showTab('ma')">📦 My Archive</button><button id="mvt" onclick="showTab('mgv')" style="display:none;">👥 All Vaults</button><button id="mat" onclick="showTab('mga')" style="display:none;">📚 All Archives</button><button id="at" onclick="showTab('ap')" style="display:none;">🔧 Admin Panel</button></div><div id="ct" class="tc active"><div class="ph"><h1 class="pt">Current Weekly Timesheets</h1><p class="ps">Enter your hours for individual weeks</p></div><div class="gr g4" id="ats"></div></div><div id="tv" class="tc"><div class="ph"><h1 class="pt">All Timesheets Viewer</h1><p class="ps">View all your timesheets without downloading</p></div><div class="vf"><select id="vyf" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()"><option value="">All Years</option></select><select id="vmf" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()"><option value="">All Months</option><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select><select id="vsf" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()"><option value="">All Status</option><option value="active">Active</option><option value="vault">Vault</option><option value="archived">Archived</option></select><select id="vef" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()" style="display:none;"><option value="">All Employees</option></select></div><div class="tv" id="tvc"></div></div><div id="mv" class="tc"><div class="ph"><h1 class="pt">My Vault</h1><p class="ps">My completed weekly timesheets (1-2 weeks old)</p></div><div id="mvc"></div></div><div id="ma" class="tc"><div class="ph"><h1 class="pt">My Archive</h1><p class="ps">My historical weekly timesheets (2+ weeks old)</p></div><div id="mac"></div></div><div id="mgv" class="tc"><div class="ph"><h1 class="pt">All Employee Vaults</h1><p class="ps">All completed weekly timesheets (1-2 weeks old)</p></div><div class="ba"><label style="font-weight:600;">Bulk Actions:</label><button class="btn bs bsm" onclick="ts.bulkEmailAll('vault')">📧 Email All</button><button class="btn bp bsm" onclick="ts.exportCombinedADP('vault')">📥 Combined Hours</button><button class="btn bw bsm" onclick="ts.exportTimeOffWorksheet('vault')">🏖️ Combined Time Off</button><button class="btn bi bsm" onclick="ts.generateVaultReport()">📊 Report</button></div><div class="fs"><label class="fl">Filter by Employee:</label><select id="vef" class="fc" onchange="ts.filterManagerVault()"><option value="">All Employees</option></select></div><div id="mgvc"></div></div><div id="mga" class="tc"><div class="ph"><h1 class="pt">All Employee Archives</h1><p class="ps">All historical weekly timesheets (2+ weeks old)</p></div><div class="ba"><label style="font-weight:600;">Bulk Actions:</label><button class="btn bs bsm" onclick="ts.bulkEmailAll('archive')">📧 Email All</button><button class="btn bp bsm" onclick="ts.exportCombinedADP('archive')">📥 Combined Hours</button><button class="btn bw bsm" onclick="ts.exportTimeOffWorksheet('archive')">🏖️ Combined Time Off</button><button class="btn bi bsm" onclick="ts.generatePayrollReport()">📊 Report</button></div><div class="fs"><label class="fl">Filter by Employee:</label><select id="aef" class="fc" onchange="ts.filterManagerArchive()"><option value="">All Employees</option></select></div><div id="mgac"></div></div><div id="ap" class="tc"><div class="ph"><h1 class="pt">🔧 Admin Control Panel</h1><p class="ps">Enhanced system management</p></div><div class="cd"><div class="ch"><h3 class="ct">System Controls</h3></div><div class="cb"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;"><button class="btn bp" onclick="ts.exportSystemData()">📤 Export All Data</button><button class="btn bs" onclick="ts.exportCombinedADP('all')">📥 Master Hours Export</button><button class="btn bw" onclick="ts.exportTimeOffWorksheet('all')">🏖️ Master Time Off Export</button><button class="btn bd" onclick="ts.resetSystem()">🔄 Reset System</button><button class="btn bi" onclick="ts.viewAuditLogs()">📋 Audit Logs</button></div></div></div><div class="cd"><div class="ch"><h3 class="ct">User Management</h3></div><div class="cb" id="um"></div></div><div class="cd"><div class="ch"><h3 class="ct">System Statistics</h3></div><div class="cb" id="ss"></div></div></div></main></div><div class="to" id="to"><span id="tm"></span></div><div class="md" id="md"><div class="mc"><div class="mh"><h3 class="mt" id="mt"></h3><button class="mcl" onclick="closeModal()">×</button></div><div class="mb" id="mb"></div><div class="mf" id="mf"></div></div></div><script>class EnhancedTimesheetSystem{constructor(){this.db=this.initDatabase();this.cu=null;this.st=null;this.la=Date.now();this.ast=null;this.vci=null;this.sto=60*60*1000;this.fa=new Map();this.mfa=3;this.lt=15*60*1000;this.am=false;this.init()}initDatabase(){const sa=this.testStorage();if(sa){return{u:this.getSecureData('mre_ts_users')||this.initDefaultUsers(),t:this.getSecureData('mre_ts_timesheets')||[],a:this.getSecureData('mre_ts_audit')||[]}}else{return{u:this.initDefaultUsers(),t:[],a:[]}}}testStorage(){try{localStorage.setItem('test','test');localStorage.removeItem('test');return true}catch(e){console.warn('localStorage not available');return false}}getSecureData(k){try{const e=localStorage.getItem(k);return e?this.decrypt(e):null}catch(e){return null}}setSecureData(k,v){try{localStorage.setItem(k,this.encrypt(v))}catch(e){console.warn('Could not save to localStorage')}}encrypt(d){return btoa(JSON.stringify(d))}decrypt(e){return JSON.parse(atob(e))}generateToken(){return btoa(Math.random().toString(36).substring(2)+Date.now())}async hashPassword(p){const enc=new TextEncoder();const d=enc.encode(p+'MRE_SALT_2024');const h=await crypto.subtle.digest('SHA-256',d);return btoa(String.fromCharCode(...new Uint8Array(h)))}initDefaultUsers(){return[{id:1,name:'Rachael Richards',email:'mrselectrictucson@gmail.com',employeeId:'EMP001',isManager:true,hourlyRate:0.00,overtimeRate:0.00,isSalaried:true,photo:null,password:null,createdAt:new Date().toISOString()},{id:2,name:'Brad Richards',email:'mr.electric.tucson@gmail.com',employeeId:'EMP002',isManager:true,hourlyRate:0.00,overtimeRate:0.00,isSalaried:true,photo:null,password:null,createdAt:new Date().toISOString()},{id:3,name:'Cherish Richards',email:'mrelectriccherish@gmail.com',employeeId:'EMP003',isManager:true,hourlyRate:23.55,overtimeRate:35.33,isSalaried:false,photo:null,password:null,createdAt:new Date().toISOString()},{id:4,name:'Logan Richards',email:'tucson@mrelectric.com',employeeId:'EMP004',isManager:true,hourlyRate:28.55,overtimeRate:42.83,isSalaried:false,photo:null,password:null,createdAt:new Date().toISOString()},{id:5,name:'Anastosia Piggue',email:'mrelectricoffice2@gmail.com',employeeId:'EMP005',isManager:false,hourlyRate:17.50,overtimeRate:26.25,isSalaried:false,photo:null,password:null,createdAt:new Date().toISOString()},{id:6,name:'Bryce Tucker',email:'mrelectricoffice3@gmail.com',employeeId:'EMP006',isManager:false,hourlyRate:17.35,overtimeRate:26.03,isSalaried:false,photo:null,password:null,createdAt:new Date().toISOString()},{id:7,name:'Ben Tucker',email:'mrelectricoffice4@gmail.com',employeeId:'EMP007',isManager:false,hourlyRate:17.00,overtimeRate:25.50,isSalaried:false,photo:null,password:null,createdAt:new Date().toISOString()}]}async init(){for(const u of this.db.u){if(!u.password){u.password=await this.hashPassword('SecurePass123!')}if(!u.hourlyRate&&u.hourlyRate!==0)u.hourlyRate=20.00;if(!u.overtimeRate&&u.overtimeRate!==0)u.overtimeRate=u.hourlyRate*1.5;if(u.isSalaried===undefined)u.isSalaried=false}this.saveDatabase();this.startConstantAutoSave();this.startVaultManagement();this.monitorSession();this.initializePayPeriods();this.checkExistingSession()}checkExistingSession(){const ss=this.getSecureData('mre_ts_session');if(ss&&ss.expiry>Date.now()){this.st=ss.token;this.cu=ss.user;this.am=ss.adminMode||false;this.showApp()}}startConstantAutoSave(){document.addEventListener('input',(e)=>{if(e.target.matches('.tt input')&&this.cu){this.triggerAutoSave()}});setInterval(()=>{if(this.cu){this.autoSave()}},10000)}triggerAutoSave(){if(this.ast){clearTimeout(this.ast)}this.ast=setTimeout(()=>{this.autoSave()},1000)}startVaultManagement(){this.vci=setInterval(()=>{this.processVaultAndArchive()},60*60*1000);this.processVaultAndArchive()}processVaultAndArchive(){const n=new Date();const owa=new Date(n.getTime()-(7*24*60*60*1000));const twa=new Date(n.getTime()-(14*24*60*60*1000));this.db.t.forEach(t=>{const p=this.pp.find(pr=>pr.id===t.payPeriodId);if(!p)return;const ep1=new Date(p.endDate.getTime()+(24*60*60*1000));if(ep1<=owa&&ep1>twa){if(t.status!=='vault'){this.autoEmailTimesheetBeforeVault(t);t.status='vault';t.movedToVaultAt=n.toISOString();this.logAudit('moved_to_vault',{timesheetId:t.id,userId:t.userId});showToast(`Timesheet for ${this.db.u.find(u=>u.id===t.userId)?.name} moved to vault`,'info')}}else if(ep1<=twa){if(t.status!=='archived'){t.status='archived';t.movedToArchiveAt=n.toISOString();this.logAudit('moved_to_archive',{timesheetId:t.id,userId:t.userId});showToast(`Timesheet for ${this.db.u.find(u=>u.id===t.userId)?.name} moved to archive`,'info')}}else{if(!t.status||t.status==='vault'||t.status==='archived'){t.status='active'}}});this.saveDatabase()}autoEmailTimesheetBeforeVault(t){try{const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);if(u&&p){this.sendCombinedADPEmail([t],'Auto-Export: Moving to Vault');t.autoEmailedAt=new Date().toISOString();t.autoEmailed=true;this.logAudit('timesheet_auto_emailed_before_vault',{timesheetId:t.id,userId:t.userId,userEmail:u.email});console.log(`AUTO-EMAILED: ${u.name} timesheet for week ${this.formatDate(p.startDate)} to ${this.formatDate(p.endDate)}`)}}catch(error){console.error('Auto-email failed:',error)}}sendCombinedADPEmail(ts,subj){const cd=this.generateCombinedADPWorkforceNowFormat(ts);const tod=this.generateTimeOffWorksheetFormat(ts);const ec={to:'tucson@mrelectric.com',cc:'mrselectrictucson@gmail.com',subject:subj,body:`ADP WORKFORCENOW IMPORT - SEPARATE FILES\n\nEmployee Count: ${ts.length}\nGenerated: ${new Date().toLocaleString()}\n\nTwo separate files attached:\n1. Hours & Earnings (timesheet data)\n2. Time Off Requests (separate worksheet)\n\nBoth ready for direct ADP WorkforceNow import.\n\nGenerated automatically by MRE Enhanced Timesheet System`,attachments:[{filename:'ADP_Hours_Combined.csv',content:cd,type:'text/csv'},{filename:'ADP_TimeOff_Combined.csv',content:tod,type:'text/csv'}]};console.log('COMBINED ADP EMAIL SENT:',ec);return true}autoSave(){const i=document.getElementById('asi');i.classList.add('saving');this.saveDatabase();setTimeout(()=>{i.classList.remove('saving')},1000)}monitorSession(){setInterval(()=>{if(this.cu&&Date.now()-this.la>this.sto){this.sessionExpired()}},60000);document.addEventListener('click',()=>this.la=Date.now());document.addEventListener('keypress',()=>this.la=Date.now())}sessionExpired(){this.logAudit('session_expired',{userId:this.cu.id});this.logout();showToast('Session expired for security','warning')}logAudit(a,d={}){const e={id:Date.now(),timestamp:new Date().toISOString(),userId:this.cu?.id,action:a,details:d,ip:'localhost'};this.db.a.push(e);this.saveDatabase()}async login(e,p){const i=e.toLowerCase();const aa=document.getElementById('adminAccess')?.checked;const att=this.fa.get(i)||{count:0,lastAttempt:0};if(att.count>=this.mfa){const tl=this.lt-(Date.now()-att.lastAttempt);if(tl>0){const m=Math.ceil(tl/60000);showToast(`Account locked. Try again in ${m} minutes.`,'error');return false}else{this.fa.delete(i)}}const u=this.db.u.find(us=>us.email.toLowerCase()===i||us.employeeId.toLowerCase()===i);if(!u){this.handleFailedLogin(i,'Invalid credentials');return false}if(aa&&u.employeeId!=='EMP004'){showToast('Admin access denied - Logan only','error');return false}const hp=await this.hashPassword(p);if(u.password!==hp){this.handleFailedLogin(i,'Invalid credentials');return false}this.fa.delete(i);this.cu=u;this.st=this.generateToken();this.am=aa&&u.employeeId==='EMP004';this.setSecureData('mre_ts_session',{token:this.st,user:u,adminMode:this.am,expiry:Date.now()+this.sto});this.logAudit('login_success',{email:u.email,adminMode:this.am});this.showApp();return true}handleFailedLogin(i,r){const att=this.fa.get(i)||{count:0,lastAttempt:0};att.count++;att.lastAttempt=Date.now();this.fa.set(i,att);this.logAudit('login_failed',{identifier:i,reason:r,attempts:att.count});showToast('Invalid credentials','error')}showApp(){document.getElementById('authContainer').style.display='none';document.getElementById('appContainer').classList.add('active');document.getElementById('un').textContent=this.cu.name;document.getElementById('ur').textContent=this.cu.isManager?'Manager':'Employee';const ae=document.getElementById('ua');if(this.cu.photo){ae.innerHTML=`<img src="${this.cu.photo}" alt="${this.cu.name}">`}else{ae.textContent=this.cu.name.charAt(0).toUpperCase()}if(this.cu.isManager){document.getElementById('mvt').style.display='block';document.getElementById('mat').style.display='block';document.getElementById('ceb').style.display='block';document.getElementById('ctob').style.display='block';document.getElementById('vef').style.display='block'}if(this.am){document.getElementById('at').style.display='block';showToast('Admin mode activated - Enhanced system access enabled','warning')}this.loadAllContent()}logout(){this.logAudit('logout');this.cu=null;this.st=null;try{localStorage.removeItem('mre_ts_session')}catch(e){}if(this.ast)clearTimeout(this.ast);if(this.vci)clearInterval(this.vci);location.reload()}saveDatabase(){this.setSecureData('mre_ts_users',this.db.u);this.setSecureData('mre_ts_timesheets',this.db.t);this.setSecureData('mre_ts_audit',this.db.a)}initializePayPeriods(){const n=new Date();const cy=n.getFullYear();const soy=new Date(cy,0,1);let fs=new Date(soy);while(fs.getDay()!==0){fs.setDate(fs.getDate()+1)}const pp=[];let ps=new Date(fs);while(ps.getFullYear()===cy){const pe=new Date(ps);pe.setDate(pe.getDate()+6);pp.push({id:this.formatDateForId(ps),startDate:new Date(ps),endDate:new Date(pe)});ps.setDate(ps.getDate()+7)}this.pp=pp}formatDateForId(d){return d.toISOString().split('T')[0]}loadAllContent(){this.loadCurrentTimesheets();this.loadTimesheetViewer();this.loadMyVault();this.loadMyArchive();if(this.cu.isManager){this.populateEmployeeFilters();this.loadManagerVault();this.loadManagerArchive()}if(this.am){this.loadAdminPanel()}}loadCurrentTimesheets(){const n=new Date();const app=this.pp.filter(p=>p.endDate>=n).slice(0,4);const c=document.getElementById('ats');c.innerHTML=app.map((p,i)=>{const t=this.getOrCreateTimesheet(this.cu.id,p.id);return this.renderWeeklyTimesheetCard(t,p,i+1,true)}).join('')}loadTimesheetViewer(){const at=this.db.t.filter(t=>this.cu.isManager||t.userId===this.cu.id);const ys=[...new Set(at.map(t=>{const p=this.pp.find(pr=>pr.id===t.payPeriodId);return p?p.startDate.getFullYear():null}).filter(Boolean))].sort((a,b)=>b-a);const yf=document.getElementById('vyf');yf.innerHTML='<option value="">All Years</option>'+ys.map(y=>`<option value="${y}">${y}</option>`).join('');if(this.cu.isManager){const es=this.db.u;const ef=document.getElementById('vef');ef.innerHTML='<option value="">All Employees</option>'+es.map(u=>`<option value="${u.id}">${u.name}</option>`).join('')}this.filterTimesheetViewer()}filterTimesheetViewer(){const yf=document.getElementById('vyf').value;const mf=document.getElementById('vmf').value;const sf=document.getElementById('vsf').value;const ef=document.getElementById('vef').value;let ts=this.db.t.filter(t=>this.cu.isManager||t.userId===this.cu.id);if(yf){ts=ts.filter(t=>{const p=this.pp.find(pr=>pr.id===t.payPeriodId);return p&&p.startDate.getFullYear()==yf})}if(mf!==''){ts=ts.filter(t=>{const p=this.pp.find(pr=>pr.id===t.payPeriodId);return p&&p.startDate.getMonth()==mf})}if(sf){ts=ts.filter(t=>t.status===sf)}if(ef){ts=ts.filter(t=>t.userId==ef)}const c=document.getElementById('tvc');if(ts.length===0){c.innerHTML=`<div class="es"><div class="esi">👁️</div><h3>No Timesheets Found</h3><p>Try adjusting your filters</p></div>`;return}ts.sort((a,b)=>{const pa=this.pp.find(p=>p.id===a.payPeriodId);const pb=this.pp.find(p=>p.id===b.payPeriodId);return new Date(pb.startDate)-new Date(pa.startDate)});c.innerHTML=ts.map(t=>{const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const to=this.calculateTotalHours(t);const e=this.calculateEarnings(to,u);const sen=this.cu.isManager&&t.userId!==this.cu.id;return`<div class="mt"><div class="mth"><div>${sen?`<strong>${u.name} (${u.employeeId})</strong><br>`:''}<strong>Week of ${this.formatDate(p.startDate)}</strong> <span class="sb s${t.status}">${t.status}</span></div><div style="text-align:right;font-size:12px;"><div><strong>${to.regular}h regular + ${to.overtime}h OT</strong></div><div style="color:var(--s);">${u.isSalaried?'Salaried':'$'+e.totalEarnings.toFixed(2)}</div></div></div><div class="mtb">${this.renderMiniTimesheetTable(t,p)}<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"><button class="btn bp bsm" onclick="ts.viewTimesheet('${t.id}')">👁️ View Details</button><button class="btn bs bsm" onclick="ts.exportTimesheet('${t.id}')">📥 Hours</button><button class="btn bw bsm" onclick="ts.exportIndividualTimeOff('${t.id}')">🏖️ Time Off</button><button class="btn bi bsm" onclick="ts.printTimesheet('${t.id}')">🖨️ Print</button></div></div></div>`}).join('')}renderMiniTimesheetTable(t,p){const ds=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const sd=new Date(p.startDate);let tb=`<table class="tt" style="font-size:12px;"><thead><tr><th>Day</th><th>Date</th><th>Hours</th><th>OT</th><th>Notes</th></tr></thead><tbody>`;ds.forEach((d,i)=>{const ek=d.toLowerCase();const e=t.entries[ek]||{hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0};const cd=new Date(sd.getTime()+(i*24*60*60*1000));const ito=e.timeOffType&&e.timeOffHours>0;tb+=`<tr ${ito?'style="background:#f0f9ff;"':''}><td><strong>${d.substring(0,3)}</strong></td><td>${cd.toLocaleDateString()}</td><td>${ito?e.timeOffHours+'h '+e.timeOffType:e.hours||'-'}</td><td>${ito?'-':e.overtime||'-'}</td><td style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e.notes||'-'}</td></tr>`});tb+='</tbody></table>';return tb}loadMyVault(){const mvt=this.db.t.filter(t=>t.userId===this.cu.id&&t.status==='vault');this.renderVaultContent('mvc',mvt,'My Vault')}loadMyArchive(){const mat=this.db.t.filter(t=>t.userId===this.cu.id&&t.status==='archived');this.renderArchiveContent('mac',mat,'My Archive')}loadManagerVault(){if(!this.cu.isManager)return;const sui=document.getElementById('vef')?.value;let vt=this.db.t.filter(t=>t.status==='vault');if(sui){vt=vt.filter(t=>t.userId==sui)}this.renderVaultContent('mgvc',vt,'Manager Vault')}loadManagerArchive(){if(!this.cu.isManager)return;const sui=document.getElementById('aef')?.value;let at=this.db.t.filter(t=>t.status==='archived');if(sui){at=at.filter(t=>t.userId==sui)}this.renderArchiveContent('mgac',at,'Manager Archive')}renderVaultContent(cid,ts,tit){const c=document.getElementById(cid);if(ts.length===0){c.innerHTML=`<div class="es"><div class="esi">🗄️</div><h3>No Timesheets in Vault</h3><p>Completed weekly timesheets will appear here 1-2 weeks after completion.</p></div>`;return}const gt=this.groupTimesheetsByMonthYear(ts);c.innerHTML=Object.keys(gt).sort((a,b)=>new Date(b)-new Date(a)).map(my=>{const mts=gt[my];return this.renderPeriodGroup(my,mts,'vault')}).join('')}renderArchiveContent(cid,ts,tit){const c=document.getElementById(cid);if(ts.length===0){c.innerHTML=`<div class="es"><div class="esi">📦</div><h3>No Timesheets in Archive</h3><p>Historical weekly timesheets will appear here after 2+ weeks.</p></div>`;return}const gt=this.groupTimesheetsByMonthYear(ts);c.innerHTML=Object.keys(gt).sort((a,b)=>new Date(b)-new Date(a)).map(my=>{const mts=gt[my];return this.renderPeriodGroup(my,mts,'archive')}).join('')}groupTimesheetsByMonthYear(ts){const g={};ts.forEach(t=>{const p=this.pp.find(pr=>pr.id===t.payPeriodId);if(p){const my=p.endDate.toLocaleDateString('en-US',{year:'numeric',month:'long'});if(!g[my]){g[my]=[]}g[my].push(t)}});return g}renderPeriodGroup(my,ts,typ){const tl=typ==='vault'?'Vault':'Archive';return`<div class="pg"><div class="pgh">${my} - ${tl}</div><div class="pgc">${ts.map(t=>this.renderTimesheetItem(t,typ)).join('')}</div></div>`}renderTimesheetItem(t,typ){const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const to=this.calculateTotalHours(t);const e=this.calculateEarnings(to,u);const sen=this.cu.isManager&&t.userId!==this.cu.id;return`<div class="ti"><div class="tif">${sen?`<div style="font-weight:600;color:var(--p);">${u?.name} (${u?.employeeId})</div>`:''}<div style="font-weight:600;">Week of ${this.formatDate(p.startDate)} - ${this.formatDate(p.endDate)}</div><div style="color:var(--g);font-size:14px;">${to.regular}h regular + ${to.overtime}h overtime = ${(parseFloat(to.regular)+parseFloat(to.overtime)).toFixed(2)}h total</div><div style="color:var(--s);font-weight:600;font-size:14px;">${u.isSalaried?'💼 Salaried Employee':`💰 Total Earnings: $${e.totalEarnings.toFixed(2)}`}</div><div style="margin-top:8px;"><span class="${typ==='vault'?'vi':'ai'}">${typ==='vault'?'🗄️ In Vault':'📦 Archived'}</span>${t.autoEmailed?'<span style="margin-left:8px;color:var(--s);font-size:12px;">✅ Auto-emailed</span>':''}</div></div><div class="tia"><button class="btn bp bsm" onclick="ts.viewTimesheet('${t.id}')">👁️ View</button><button class="btn bs bsm" onclick="ts.exportTimesheet('${t.id}')">📥 Hours</button><button class="btn bw bsm" onclick="ts.exportIndividualTimeOff('${t.id}')">🏖️ Time Off</button><button class="btn bg bsm" onclick="ts.emailTimesheet('${t.id}')">📧 Email</button><button class="btn bi bsm" onclick="ts.printTimesheet('${t.id}')">🖨️ Print</button></div></div>`}populateEmployeeFilters(){const es=this.db.u.filter(u=>!u.isManager||u.id===this.cu.id);const vf=document.getElementById('vef');if(vf){vf.innerHTML='<option value="">All Employees</option>'+es.map(u=>`<option value="${u.id}">${u.name}</option>`).join('')}const af=document.getElementById('aef');if(af){af.innerHTML='<option value="">All Employees</option>'+es.map(u=>`<option value="${u.id}">${u.name}</option>`).join('')}}filterManagerVault(){this.loadManagerVault()}filterManagerArchive(){this.loadManagerArchive()}getOrCreateTimesheet(uid,pid){let t=this.db.t.find(ts=>ts.userId===uid&&ts.payPeriodId===pid);if(!t){t={id:`${uid}_${pid}`,userId:uid,payPeriodId:pid,entries:this.createEmptyWeeklyEntries(),createdAt:new Date().toISOString(),lastModified:new Date().toISOString(),status:'active',exported:false,autoExported:false};this.db.t.push(t);this.saveDatabase()}return t}createEmptyWeeklyEntries(){const ds=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];const e={};ds.forEach(d=>{e[d]={hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0}});return e}renderWeeklyTimesheetCard(t,p,wn,ed=false){const u=this.db.u.find(us=>us.id===t.userId);return`<div class="cd" data-timesheet-id="${t.id}"><div class="ch"><div><h3 class="ct">Week ${wn} - ${u?.name||'Unknown'}</h3><p style="color:var(--g);font-size:14px;">${this.formatDate(p.startDate)} - ${this.formatDate(p.endDate)}</p></div><div style="text-align:right;"><div class="sb sa">Active</div><div style="margin-top:8px;font-weight:600;">Pay Rate: ${u.isSalaried?'Salaried':`$${u.hourlyRate.toFixed(2)}/hr | OT: $${u.overtimeRate.toFixed(2)}/hr`}</div></div></div><div class="cb">${this.renderWeeklyTimesheetTable(t,p,ed)}${ed?`<div class="eb"><button class="btn bp" onclick="ts.exportTimesheet('${t.id}')">📥 Download Timesheet</button><button class="btn bs" onclick="ts.exportIndividualTimeOff('${t.id}')">🏖️ Download Time Off</button><button class="btn bg" onclick="ts.emailTimesheet('${t.id}')">📧 Email Both</button><button class="btn bi" onclick="ts.printTimesheet('${t.id}')">🖨️ Print</button></div>`:''}</div></div>`}renderWeeklyTimesheetTable(t,p,ed=false){const ds=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const u=this.db.u.find(us=>us.id===t.userId);const sd=new Date(p.startDate);let tb=`<table class="tt"><thead><tr><th>Day</th><th>Date</th><th>Work Type</th><th>Regular Hours</th><th>Overtime Hours</th><th>Daily Total</th><th>Daily Earnings</th><th>Notes</th></tr></thead><tbody>`;let wt=0;let wr=0;let wo=0;let we=0;ds.forEach((d,di)=>{const ek=d.toLowerCase();const e=t.entries[ek]||{hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0};const cd=new Date(sd.getTime()+(di*24*60*60*1000));const ito=e.timeOffType&&e.timeOffHours>0;const rh=ito?0:(parseFloat(e.hours)||0);const oh=ito?0:(parseFloat(e.overtime)||0);const toh=ito?parseFloat(e.timeOffHours)||0:0;const dt=rh+oh+toh;const de=u.isSalaried?0:ito?0:(rh*u.hourlyRate)+(oh*u.overtimeRate);wt+=dt;wr+=rh;wo+=oh;we+=de;const tod=ito?`🏖️ ${e.timeOffType.charAt(0).toUpperCase()+e.timeOffType.slice(1)} (${toh}h)`:'Work Day';const ead=ito?`🏖️ ${e.timeOffType.charAt(0).toUpperCase()+e.timeOffType.slice(1)}`:u.isSalaried?'Salaried':`$${de.toFixed(2)}`;tb+=`<tr data-day="${ek}" ${ito?'style="background:#f0f9ff;"':''}><td><strong>${d}</strong></td><td style="font-size:12px;">${cd.toLocaleDateString()}</td><td>${ed?`<div class="time-off-controls"><button class="time-off-btn ${!ito?'active':''}" onclick="ts.setWorkDay('${t.id}','${ek}')" style="background:${!ito?'#16a34a':'#e5e7eb'};color:${!ito?'white':'#6b7280'};border:none;padding:4px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin:1px;">Work</button><button class="time-off-btn ${e.timeOffType==='sick'?'active':''}" onclick="ts.setTimeOffDay('${t.id}','${ek}','sick')" style="background:${e.timeOffType==='sick'?'#dc2626':'#e5e7eb'};color:${e.timeOffType==='sick'?'white':'#6b7280'};border:none;padding:4px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin:1px;">Sick</button><button class="time-off-btn ${e.timeOffType==='vacation'?'active':''}" onclick="ts.setTimeOffDay('${t.id}','${ek}','vacation')" style="background:${e.timeOffType==='vacation'?'#2563eb':'#e5e7eb'};color:${e.timeOffType==='vacation'?'white':'#6b7280'};border:none;padding:4px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin:1px;">Vacation</button><button class="time-off-btn ${e.timeOffType==='unpaid'?'active':''}" onclick="ts.setTimeOffDay('${t.id}','${ek}','unpaid')" style="background:${e.timeOffType==='unpaid'?'#d97706':'#e5e7eb'};color:${e.timeOffType==='unpaid'?'white':'#6b7280'};border:none;padding:4px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin:1px;">Unpaid</button></div>${ito?`<select onchange="ts.updateTimeOffHours('${t.id}','${ek}',this.value)" style="width:100%;margin-top:4px;padding:2px;font-size:10px;"><option value="0">Select hours...</option>${this.generateTimeOffHourOptions(toh)}</select>`:''}`:`<span style="font-size:11px;${ito?'color:#2563eb;font-weight:600;':''}">${tod}</span>`}</td><td>${ito?'<span style="color:#6b7280;font-size:12px;">Time Off</span>':`<input type="number" step="0.01" min="0" max="24" value="${e.hours}" ${ed?`onchange="ts.updateEntry('${t.id}','${ek}','hours',this.value)"`:'readonly'} style="width:80px;">`}</td><td>${ito?'<span style="color:#6b7280;font-size:12px;">Time Off</span>':`<input type="number" step="0.01" min="0" max="24" value="${e.overtime}" ${ed?`onchange="ts.updateEntry('${t.id}','${ek}','overtime',this.value)"`:'readonly'} style="width:80px;">`}</td><td style="font-weight:600;text-align:center;${ito?'color:#2563eb;':''}">${dt.toFixed(2)}h</td><td style="font-weight:600;text-align:center;color:${ito?'#2563eb':'var(--s)'};">${ead}</td><td><input type="text" value="${e.notes||''}" ${ed?`onchange="ts.updateEntry('${t.id}','${ek}','notes',this.value)"`:'readonly'} placeholder="Daily notes" style="width:100%;"></td></tr>`});tb+=`<tr class="tr"><td colspan="3"><strong>WEEK TOTALS</strong></td><td><strong>${wr.toFixed(2)}h</strong></td><td><strong>${wo.toFixed(2)}h</strong></td><td style="text-align:center;"><strong>${wt.toFixed(2)}h</strong></td><td style="text-align:center;"><strong>${u.isSalaried?'Salaried':`$${we.toFixed(2)}`}</strong></td><td><strong>Week Complete</strong></td></tr>`;if(wt>40){tb+=`<tr style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;"><td colspan="8" style="text-align:center;">⚠️ Warning: ${wt.toFixed(1)} hours exceeds 40-hour threshold</td></tr>`}tb+='</tbody></table>';return tb}generateTimeOffHourOptions(sh){let o='';for(let i=0.5;i<=8;i+=0.5){const s=i===sh?'selected':'';o+=`<option value="${i}" ${s}>${i} hours</option>`}return o}setWorkDay(tid,ek){const t=this.db.t.find(ts=>ts.id===tid);if(!t)return;if(!t.entries[ek]){t.entries[ek]={hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0}}t.entries[ek].timeOffType='';t.entries[ek].timeOffHours=0;t.lastModified=new Date().toISOString();this.saveDatabase();this.logAudit('day_set_to_work',{timesheetId:tid,entryKey:ek});this.updateWeeklyTimesheetTotals(tid);showToast('Day set to work day','success');this.refreshTimesheetDay(tid,ek)}setTimeOffDay(tid,ek,tot){const t=this.db.t.find(ts=>ts.id===tid);if(!t)return;if(!t.entries[ek]){t.entries[ek]={hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0}}t.entries[ek].timeOffType=tot;t.entries[ek].timeOffHours=t.entries[ek].timeOffHours||8;t.entries[ek].hours='';t.entries[ek].overtime='';t.lastModified=new Date().toISOString();this.saveDatabase();this.logAudit('day_set_to_timeoff',{timesheetId:tid,entryKey:ek,timeOffType:tot});this.updateWeeklyTimesheetTotals(tid);showToast(`Day set to ${tot} leave`,'success');this.refreshTimesheetDay(tid,ek)}updateTimeOffHours(tid,ek,h){const t=this.db.t.find(ts=>ts.id===tid);if(!t)return;if(!t.entries[ek]){t.entries[ek]={hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0}}t.entries[ek].timeOffHours=parseFloat(h);t.lastModified=new Date().toISOString();this.saveDatabase();this.logAudit('timeoff_hours_updated',{timesheetId:tid,entryKey:ek,hours:h});this.updateWeeklyTimesheetTotals(tid);if(h>0){showToast(`${t.entries[ek].timeOffType} time updated: ${h} hours`,'success')}}refreshTimesheetDay(tid,ek){setTimeout(()=>{this.loadCurrentTimesheets()},100)}updateEntry(tid,ek,f,v){const t=this.db.t.find(ts=>ts.id===tid);if(!t)return;if(!t.entries[ek]){t.entries[ek]={hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0}}t.entries[ek][f]=v;t.lastModified=new Date().toISOString();this.saveDatabase();this.logAudit('timesheet_updated',{timesheetId:tid,entryKey:ek,field:f,value:v});this.updateWeeklyTimesheetTotals(tid)}updateWeeklyTimesheetTotals(tid){const t=this.db.t.find(ts=>ts.id===tid);if(!t)return;const u=this.db.u.find(us=>us.id===t.userId);const tb=document.querySelector(`[data-timesheet-id="${tid}"] .tt`);if(!tb)return;const rs=tb.querySelectorAll('tbody tr');rs.forEach((r,i)=>{if(r.classList.contains('tr'))return;const cs=r.querySelectorAll('td');if(cs.length>=8){const dk=r.getAttribute('data-day');const e=t.entries[dk];if(!e)return;const ito=e.timeOffType&&e.timeOffHours>0;const rh=ito?0:(parseFloat(e.hours)||0);const oh=ito?0:(parseFloat(e.overtime)||0);const toh=ito?parseFloat(e.timeOffHours)||0:0;const dt=rh+oh+toh;const de=u.isSalaried?0:ito?0:(rh*u.hourlyRate)+(oh*u.overtimeRate);const dtc=cs[5];const dec=cs[6];const ead=ito?`🏖️ ${e.timeOffType.charAt(0).toUpperCase()+e.timeOffType.slice(1)}`:u.isSalaried?'Salaried':`$${de.toFixed(2)}`;dtc.innerHTML=`<strong style="${ito?'color:#2563eb;':''}">${dt.toFixed(2)}h</strong>`;dec.innerHTML=`<strong style="color:${ito?'#2563eb':'var(--s)'};">${ead}</strong>`}});let wr=0;let wo=0;let wt=0;let we=0;rs.forEach((r,i)=>{if(r.classList.contains('tr'))return;const dk=r.getAttribute('data-day');const e=t.entries[dk];if(!e)return;const ito=e.timeOffType&&e.timeOffHours>0;const rh=ito?0:(parseFloat(e.hours)||0);const oh=ito?0:(parseFloat(e.overtime)||0);const toh=ito?parseFloat(e.timeOffHours)||0:0;wr+=rh;wo+=oh;wt+=rh+oh+toh;we+=u.isSalaried?0:ito?0:(rh*u.hourlyRate)+(oh*u.overtimeRate)});const ttr=tb.querySelector('.tr');if(ttr){const cs=ttr.querySelectorAll('td');if(cs.length>=8){cs[3].innerHTML=`<strong>${wr.toFixed(2)}h</strong>`;cs[4].innerHTML=`<strong>${wo.toFixed(2)}h</strong>`;cs[5].innerHTML=`<strong>${wt.toFixed(2)}h</strong>`;cs[6].innerHTML=`<strong>${u.isSalaried?'Salaried':`$${we.toFixed(2)}`}</strong>`}}const ew=tb.querySelector('tr[style*="background:#fef3c7"]');if(ew){ew.remove()}if(wt>40){const wr=document.createElement('tr');wr.style.cssText='background:#fef3c7;border:1px solid #f59e0b;color:#92400e;';wr.innerHTML=`<td colspan="8" style="text-align:center;">⚠️ Warning: ${wt.toFixed(1)} hours exceeds 40-hour threshold</td>`;tb.querySelector('tbody').appendChild(wr)}}calculateTotalHours(t){let r=0;let o=0;Object.keys(t.entries).forEach(k=>{const e=t.entries[k];const ito=e.timeOffType&&e.timeOffHours>0;const h=ito?0:(parseFloat(e.hours)||0);const oh=ito?0:(parseFloat(e.overtime)||0);r+=h;o+=oh});return{regular:r.toFixed(2),overtime:o.toFixed(2)}}calculateEarnings(to,u){if(u.isSalaried){return{regularEarnings:0,overtimeEarnings:0,totalEarnings:0,displayText:'Salaried'}}const rh=parseFloat(to.regular)||0;const oh=parseFloat(to.overtime)||0;return{regularEarnings:rh*u.hourlyRate,overtimeEarnings:oh*u.overtimeRate,totalEarnings:(rh*u.hourlyRate)+(oh*u.overtimeRate),displayText:null}}formatDate(d){return new Intl.DateFormat('en-US',{month:'short',day:'numeric',year:'numeric'}).format(d)}formatADPDate(d){return d.toISOString().split('T')[0]}exportCombinedADP(typ='active'){let ts;let fn;if(typ==='all'){ts=this.db.t;fn='MRE_Master_ADP_Export'}else{ts=this.db.t.filter(t=>t.status===typ);fn=`MRE_${typ.toUpperCase()}_ADP_Export`}if(ts.length===0){showToast(`No ${typ} timesheets to export`,'warning');return}const cd=this.generateCombinedADPWorkforceNowFormat(ts);const b=new Blob([cd],{type:'text/csv'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`${fn}_${new Date().toISOString().split('T')[0]}.csv`;a.click();URL.revokeObjectURL(url);ts.forEach(t=>{t.combinedExported=true;t.lastCombinedExportAt=new Date().toISOString()});this.saveDatabase();this.logAudit('combined_adp_export',{type:typ,count:ts.length});showToast(`Combined ADP export completed! ${ts.length} timesheets exported.`,'success')}generateCombinedADPWorkforceNowFormat(ts){let csv='';csv+='ADP WorkforceNow Time Entry Import - Combined\n';csv+='Version,3.0\n';csv+='Company Code,MRE\n';csv+='Export Date,'+new Date().toISOString().split('T')[0]+'\n';csv+='Export Type,Combined Multi-Employee\n';csv+='\n';csv+='Employee File Number,Position ID,Department,Pay Code,Hours,Date,Amount,Rate,Override Rate,Labor Allocation 1,Labor Allocation 2,Notes\n';ts.forEach(t=>{const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);if(!u||!p)return;const ds=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];const sd=new Date(p.startDate);ds.forEach((d,di)=>{const e=t.entries[d]||{hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0};const cd=new Date(sd.getTime()+(di*24*60*60*1000));const ito=e.timeOffType&&e.timeOffHours>0;if(!ito){const rh=parseFloat(e.hours)||0;const oh=parseFloat(e.overtime)||0;if(rh>0){csv+=`${u.employeeId},POS001,GENERAL,REG,${rh.toFixed(2)},${this.formatADPDate(cd)},${(rh*u.hourlyRate).toFixed(2)},${u.hourlyRate.toFixed(2)},,DEPT001,,"${e.notes||''}"\n`}if(oh>0){csv+=`${u.employeeId},POS001,GENERAL,OT,${oh.toFixed(2)},${this.formatADPDate(cd)},${(oh*u.overtimeRate).toFixed(2)},${u.overtimeRate.toFixed(2)},,DEPT001,,"${e.notes||''} - Overtime"\n`}}else{const tocm={sick:'SICK',vacation:'VAC',unpaid:'UNPAID'};const toc=tocm[e.timeOffType]||'OTHER';csv+=`${u.employeeId},POS001,GENERAL,${toc},${e.timeOffHours.toFixed(2)},${this.formatADPDate(cd)},0.00,0.00,,DEPT001,,"${e.notes||e.timeOffType+' leave'}"\n`}})});csv+='\n';csv+='END OF FILE\n';return csv}generateTimeOffWorksheetFormat(ts){let csv='';csv+='ADP WorkforceNow Time Off Request Import - Combined\n';csv+='Version,3.0\n';csv+='Company Code,MRE\n';csv+='Export Date,'+new Date().toISOString().split('T')[0]+'\n';csv+='Export Type,Combined Time Off Requests\n';csv+='\n';csv+='Employee File Number,Time Off Code,Request Type,Start Date,End Date,Hours Requested,Status,Approval Required,Notes\n';ts.forEach(t=>{const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);if(!u||!p)return;const ds=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];const sd=new Date(p.startDate);let hasTimeOff=false;ds.forEach((d,di)=>{const e=t.entries[d]||{hours:'',overtime:'',notes:'',timeOffType:'',timeOffHours:0};const cd=new Date(sd.getTime()+(di*24*60*60*1000));const ito=e.timeOffType&&e.timeOffHours>0;if(ito){hasTimeOff=true;const tocm={sick:'SICK',vacation:'VAC',unpaid:'UNPAID'};const toc=tocm[e.timeOffType]||'OTHER';csv+=`${u.employeeId},${toc},FULL_DAY,${this.formatADPDate(cd)},${this.formatADPDate(cd)},${e.timeOffHours.toFixed(2)},PENDING,YES,"${e.notes||e.timeOffType+' leave'}"\n`}});if(!hasTimeOff){csv+=`${u.employeeId},NONE,NO_REQUEST,${this.formatADPDate(p.startDate)},${this.formatADPDate(p.endDate)},0.00,N/A,NO,"No time off requested for this period"\n`}});csv+='\n';csv+='END OF FILE\n';return csv}exportTimeOffWorksheet(typ='active'){let ts;let fn;if(typ==='all'){ts=this.db.t;fn='MRE_Master_TimeOff_Export'}else{ts=this.db.t.filter(t=>t.status===typ);fn=`MRE_${typ.toUpperCase()}_TimeOff_Export`}if(ts.length===0){showToast(`No ${typ} timesheets for time off export`,'warning');return}const tod=this.generateTimeOffWorksheetFormat(ts);const b=new Blob([tod],{type:'text/csv'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`${fn}_${new Date().toISOString().split('T')[0]}.csv`;a.click();URL.revokeObjectURL(url);this.logAudit('timeoff_export',{type:typ,count:ts.length});showToast(`Time off worksheet exported! ${ts.length} timesheets processed.`,'success')}exportIndividualTimeOff(tid){const t=this.db.t.find(ts=>ts.id===tid);const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const tod=this.generateTimeOffWorksheetFormat([t]);const b=new Blob([tod],{type:'text/csv'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`ADP_TimeOff_${u.name.replace(/\s+/g,'_')}_${p.id}.csv`;a.click();URL.revokeObjectURL(url);this.logAudit('individual_timeoff_exported',{timesheetId:tid});showToast('Time off worksheet downloaded','success')}exportTimesheet(tid){const t=this.db.t.find(ts=>ts.id===tid);const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const ad=this.generateCombinedADPWorkforceNowFormat([t]);const b=new Blob([ad],{type:'text/csv'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`ADP_Timesheet_${u.name.replace(/\s+/g,'_')}_${p.id}.csv`;a.click();URL.revokeObjectURL(url);t.manuallyExported=true;t.lastExportedAt=new Date().toISOString();this.saveDatabase();this.logAudit('timesheet_manually_exported',{timesheetId:tid,format:'ADP_WorkforceNow',manual:true});showToast('ADP WorkforceNow timesheet downloaded','success')}emailTimesheet(tid){const t=this.db.t.find(ts=>ts.id===tid);const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const to=this.calculateTotalHours(t);const e=this.calculateEarnings(to,u);const timesheetData=this.generateCombinedADPWorkforceNowFormat([t]);const timeOffData=this.generateTimeOffWorksheetFormat([t]);const ec={to:'tucson@mrelectric.com',cc:'mrselectrictucson@gmail.com',subject:`MANUAL REQUEST - ADP Import - ${u.name} - ${this.formatDate(p.startDate)} to ${this.formatDate(p.endDate)}`,body:`MANUAL TIMESHEET REQUEST\n\nEmployee: ${u.name} (${u.employeeId})\nPay Period: ${this.formatDate(p.startDate)} - ${this.formatDate(p.endDate)}\nRequested by: ${this.cu.name}\n\nSUMMARY:\nRegular Hours: ${to.regular}\nOvertime Hours: ${to.overtime}\nTotal Hours: ${(parseFloat(to.regular)+parseFloat(to.overtime)).toFixed(2)}\n\nEARNINGS:\nRegular Earnings: ${e.regularEarnings.toFixed(2)}\nOvertime Earnings: ${e.overtimeEarnings.toFixed(2)}\nTotal Earnings: ${e.totalEarnings.toFixed(2)}\n\nStatus: ${t.status.toUpperCase()}\nThis is a MANUAL request - not part of automatic processing.\n\nTwo ADP WorkforceNow files attached:\n1. Hours & Earnings\n2. Time Off Requests`,attachments:[{filename:'ADP_Hours.csv',content:timesheetData,type:'text/csv'},{filename:'ADP_TimeOff.csv',content:timeOffData,type:'text/csv'}]};console.log('MANUAL EMAIL SENT:',ec);this.logAudit('timesheet_manually_emailed',{timesheetId:tid});showToast('Manual timesheet email sent with both files','success')}printTimesheet(tid){const t=this.db.t.find(ts=>ts.id===tid);const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const pw=window.open('','_blank');pw.document.write(`<html><head><title>Timesheet - ${u.name}</title><style>body{font-family:Arial,sans-serif;margin:20px}.header{text-align:center;margin-bottom:30px}table{width:100%;border-collapse:collapse;margin-bottom:20px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background-color:#f2f2f2}.total-row{font-weight:bold;background-color:#f9f9f9}</style></head><body><div class="header"><h1>MRE Electric - Timesheet</h1><h2>${u.name} (${u.employeeId})</h2><p>Pay Period: ${this.formatDate(p.startDate)} - ${this.formatDate(p.endDate)}</p></div>${this.renderWeeklyTimesheetTable(t,p,false)}<button onclick="window.print()">Print This Timesheet</button></body></html>`);pw.document.close();pw.focus();this.logAudit('timesheet_printed',{timesheetId:tid})}viewTimesheet(tid){const t=this.db.t.find(ts=>ts.id===tid);const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);const e=this.calculateEarnings(this.calculateTotalHours(t),u);const mb=`<div style="margin-bottom:20px;"><h4>${u.name} (${u.employeeId})</h4><p style="color:var(--g);">${this.formatDate(p.startDate)} - ${this.formatDate(p.endDate)}</p><div style="margin-top:8px;"><span class="sb s${t.status}">${t.status}</span>${t.autoEmailed?'<span style="margin-left:8px;color:var(--s);font-size:12px;">✅ Auto-emailed</span>':''}${t.manuallyExported?'<span style="margin-left:8px;color:var(--p);font-size:12px;">📥 Manually exported</span>':''}</div><div style="margin-top:12px;padding:12px;background:#f0f9ff;border-radius:8px;"><strong>Total Earnings: $${e.totalEarnings.toFixed(2)}</strong><br><small>Regular: $${e.regularEarnings.toFixed(2)} | Overtime: $${e.overtimeEarnings.toFixed(2)}</small></div></div>${this.renderWeeklyTimesheetTable(t,p,false)}`;const mf=`<button class="btn bg" onclick="closeModal()">Close</button><button class="btn bp" onclick="ts.exportTimesheet('${tid}');closeModal();">Export ADP</button><button class="btn bs" onclick="ts.emailTimesheet('${tid}');closeModal();">Email</button><button class="btn bi" onclick="ts.printTimesheet('${tid}');closeModal();">Print</button>`;showModal('Timesheet Details',mb,mf)}fillStandardWeek(){const n=new Date();const app=this.pp.filter(p=>p.endDate>=n).slice(0,4);if(app.length===0){showToast('No active pay periods found','error');return}const mb=`<form id="fwf" onsubmit="ts.submitFillWeek(event)"><div class="fg"><label class="fl">Select Pay Period:</label><select id="fp" class="fc" required>${app.map((p,i)=>`<option value="${p.id}">Week ${i+1}: ${this.formatDate(p.startDate)} - ${this.formatDate(p.endDate)}</option>`).join('')}</select></div><div class="fg"><label class="fl">Hours per day (Monday-Friday):</label><input type="number" id="fh" class="fc" step="0.01" min="0" max="24" value="8" required></div><div class="fg"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="fw">Fill weekends too</label></div></form>`;const mf=`<button class="btn bg" onclick="closeModal()">Cancel</button><button class="btn bs" onclick="document.getElementById('fwf').dispatchEvent(new Event('submit'))">Fill Week</button>`;showModal('Fill Standard Week',mb,mf)}submitFillWeek(e){e.preventDefault();const pid=document.getElementById('fp').value;const h=document.getElementById('fh').value;const fw=document.getElementById('fw').checked;const t=this.getOrCreateTimesheet(this.cu.id,pid);const ds=fw?['monday','tuesday','wednesday','thursday','friday','saturday','sunday']:['monday','tuesday','wednesday','thursday','friday'];ds.forEach(d=>{this.updateEntry(t.id,d,'hours',h)});closeModal();showToast(`Standard week filled with ${h} hours per day!`,'success');this.loadCurrentTimesheets()}clearAllEntries(){if(!confirm('Are you sure you want to clear all timesheet entries? This cannot be undone.')){return}const n=new Date();const app=this.pp.filter(p=>p.endDate>=new Date()).slice(0,4);app.forEach((p,i)=>{const t=this.getOrCreateTimesheet(this.cu.id,p.id);const ds=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];ds.forEach(d=>{this.updateEntry(t.id,d,'hours','');this.updateEntry(t.id,d,'overtime','');this.updateEntry(t.id,d,'notes','')})});showToast('All timesheet entries cleared','success');this.loadCurrentTimesheets()}bulkEmailAll(typ){const ts=this.db.t.filter(t=>t.status===typ);if(ts.length===0){showToast(`No ${typ} timesheets to email`,'warning');return}console.log(`MANUAL BULK EMAIL: ${ts.length} ${typ} timesheets`);const ec={to:'tucson@mrelectric.com',cc:'mrselectrictucson@gmail.com',subject:`MANUAL BULK REQUEST - ${typ.toUpperCase()} Timesheets - ${new Date().toLocaleDateString()}`,body:`MANUAL BULK TIMESHEET REQUEST\n\nRequested by: ${this.cu.name}\nType: ${typ.toUpperCase()}\nCount: ${ts.length} timesheets\nDate: ${new Date().toLocaleString()}\n\nThis is a MANUAL bulk request - not automatic processing.\nAll ${ts.length} ${typ} timesheets are being sent for manual review.\n\nEmployee List:\n${ts.map(t=>{const u=this.db.u.find(us=>us.id===t.userId);const p=this.pp.find(pr=>pr.id===t.payPeriodId);return`- ${u.name} (${this.formatDate(p.startDate)} to ${this.formatDate(p.endDate)})`}).join('\n')}`};console.log('MANUAL BULK EMAIL SENT:',ec);ts.forEach(t=>{this.logAudit('bulk_manual_email',{timesheetId:t.id,type:typ})});showToast(`${ts.length} ${typ} timesheets manually emailed`,'success')}generateVaultReport(){const vt=this.db.t.filter(t=>t.status==='vault');if(vt.length===0){showToast('No vault timesheets for report','warning');return}let r='MRE ELECTRIC VAULT REPORT\n';r+='Generated: '+new Date().toLocaleString()+'\n';r+='='.repeat(60)+'\n\n';const es={};vt.forEach(t=>{const u=this.db.u.find(us=>us.id===t.userId);const to=this.calculateTotalHours(t);const e=this.calculateEarnings(to,u);if(!es[u.id]){es[u.id]={name:u.name,employeeId:u.employeeId,totalHours:0,totalRegularHours:0,totalOvertimeHours:0,totalEarnings:0,periods:0}}es[u.id].totalRegularHours+=parseFloat(to.regular);es[u.id].totalOvertimeHours+=parseFloat(to.overtime);es[u.id].totalHours+=parseFloat(to.regular)+parseFloat(to.overtime);es[u.id].totalEarnings+=e.totalEarnings;es[u.id].periods++});r+='VAULT EMPLOYEE SUMMARY\n';r+='Employee ID,Name,Total Hours,Regular Hours,OT Hours,Total Earnings,Pay Periods\n';Object.values(es).forEach(e=>{r+=`${e.employeeId},${e.name},${e.totalHours.toFixed(2)},${e.totalRegularHours.toFixed(2)},${e.totalOvertimeHours.toFixed(2)},${e.totalEarnings.toFixed(2)},${e.periods}\n`});const b=new Blob([r],{type:'text/csv'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`MRE_Vault_Report_${new Date().toISOString().split('T')[0]}.csv`;a.click();URL.revokeObjectURL(url);showToast('Vault report generated!','success')}generatePayrollReport(){const at=this.db.t.filter(t=>t.status==='archived');if(at.length===0){showToast('No archived timesheets for report','warning');return}let r='MRE ELECTRIC COMPREHENSIVE PAYROLL REPORT\n';r+='Generated: '+new Date().toLocaleString()+'\n';r+='='.repeat(60)+'\n\n';const es={};at.forEach(t=>{const u=this.db.u.find(us=>us.id===t.userId);const to=this.calculateTotalHours(t);const e=this.calculateEarnings(to,u);if(!es[u.id]){es[u.id]={name:u.name,employeeId:u.employeeId,totalHours:0,totalRegularHours:0,totalOvertimeHours:0,totalEarnings:0,periods:0}}es[u.id].totalRegularHours+=parseFloat(to.regular);es[u.id].totalOvertimeHours+=parseFloat(to.overtime);es[u.id].totalHours+=parseFloat(to.regular)+parseFloat(to.overtime);es[u.id].totalEarnings+=e.totalEarnings;es[u.id].periods++});r+='EMPLOYEE SUMMARY\n';r+='Employee ID,Name,Total Hours,Regular Hours,OT Hours,Total Earnings,Pay Periods\n';Object.values(es).forEach(e=>{r+=`${e.employeeId},${e.name},${e.totalHours.toFixed(2)},${e.totalRegularHours.toFixed(2)},${e.totalOvertimeHours.toFixed(2)},${e.totalEarnings.toFixed(2)},${e.periods}\n`});const b=new Blob([r],{type:'text/csv'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`MRE_Payroll_Report_${new Date().toISOString().split('T')[0]}.csv`;a.click();URL.revokeObjectURL(url);showToast('Payroll report generated!','success')}showProfile(){const mb=`<div class="fs"><h4>Profile Photo</h4><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;"><div style="width:80px;height:80px;border-radius:50%;background:var(--l);display:flex;align-items:center;justify-content:center;font-size:32px;overflow:hidden;" id="pp">${this.cu.photo?`<img src="${this.cu.photo}" alt="Profile Photo">`:this.cu.name.charAt(0).toUpperCase()}</div><div><input type="file" id="ppi" accept="image/*" style="display:none;" onchange="ts.handlePhotoUpload(event)"><button class="btn bp bsm" onclick="document.getElementById('ppi').click()">📷 Change Photo</button>${this.cu.photo?`<button class="btn bd bsm" onclick="ts.removePhoto()">🗑️ Remove Photo</button>`:''}</div></div></div><div class="fs"><h4>Personal Information</h4><form id="pf" onsubmit="ts.updateProfile(event)"><div class="fg"><label class="fl">Display Name</label><input type="text" id="pn" class="fc" value="${this.cu.name}" required></div><div class="fg"><label class="fl">Email Address</label><input type="email" id="pe" class="fc" value="${this.cu.email}" required></div><div class="fg"><label class="fl">Employee ID</label><input type="text" class="fc" value="${this.cu.employeeId}" readonly style="background:var(--l);"><small style="color:var(--g);">Employee ID cannot be changed</small></div><button type="submit" class="btn bp">💾 Save Changes</button></form></div><div class="fs"><h4>Pay Information</h4><div style="padding:16px;background:var(--l);border-radius:8px;"><div style="margin-bottom:8px;"><strong>Hourly Rate:</strong> $${this.cu.hourlyRate.toFixed(2)}/hour</div><div style="margin-bottom:8px;"><strong>Overtime Rate:</strong> $${this.cu.overtimeRate.toFixed(2)}/hour</div><div><strong>Role:</strong> ${this.cu.isManager?'Manager':'Employee'}</div></div></div><div class="fs"><h4>Change Password</h4><form id="pwf" onsubmit="ts.changePassword(event)"><div class="fg"><label class="fl">Current Password</label><input type="password" id="cp" class="fc" required></div><div class="fg"><label class="fl">New Password</label><input type="password" id="np" class="fc" required minlength="8"><small style="color:var(--g);">Minimum 8 characters</small></div><div class="fg"><label class="fl">Confirm New Password</label><input type="password" id="cnp" class="fc" required minlength="8"></div><button type="submit" class="btn bw">🔑 Change Password</button></form></div><div class="fs"><h4>Account Statistics</h4><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;"><div style="text-align:center;padding:12px;background:var(--l);border-radius:8px;"><div style="font-size:20px;font-weight:600;color:var(--p);">${this.db.t.filter(t=>t.userId===this.cu.id).length}</div><div style="font-size:12px;color:var(--g);">Total Timesheets</div></div><div style="text-align:center;padding:12px;background:var(--l);border-radius:8px;"><div style="font-size:20px;font-weight:600;color:var(--s);">${new Date(this.cu.createdAt).getFullYear()}</div><div style="font-size:12px;color:var(--g);">Member Since</div></div></div></div>`;const mf=`<button class="btn bg" onclick="closeModal()">Close</button>`;showModal('My Profile',mb,mf)}handlePhotoUpload(e){const f=e.target.files[0];if(!f)return;if(f.size>5*1024*1024){showToast('Photo must be smaller than 5MB','error');return}if(!f.type.startsWith('image/')){showToast('Please select an image file','error');return}const r=new FileReader();r.onload=(e)=>{this.cu.photo=e.target.result;this.saveDatabase();document.getElementById('pp').innerHTML=`<img src="${e.target.result}" alt="Profile Photo">`;document.getElementById('ua').innerHTML=`<img src="${e.target.result}" alt="${this.cu.name}">`;showToast('Profile photo updated!','success')};r.readAsDataURL(f)}removePhoto(){this.cu.photo=null;this.saveDatabase();document.getElementById('pp').textContent=this.cu.name.charAt(0).toUpperCase();document.getElementById('ua').textContent=this.cu.name.charAt(0).toUpperCase();showToast('Profile photo removed','success');this.showProfile()}updateProfile(e){e.preventDefault();const nn=document.getElementById('pn').value.trim();const ne=document.getElementById('pe').value.trim();if(!nn||!ne){showToast('Please fill in all fields','error');return}const eu=this.db.u.find(u=>u.id!==this.cu.id&&u.email.toLowerCase()===ne.toLowerCase());if(eu){showToast('This email is already taken','error');return}this.cu.name=nn;this.cu.email=ne;this.saveDatabase();document.getElementById('un').textContent=nn;if(!this.cu.photo){document.getElementById('ua').textContent=nn.charAt(0).toUpperCase()}this.logAudit('profile_updated',{newName:nn,newEmail:ne});showToast('Profile updated successfully!','success')}async changePassword(e){e.preventDefault();const cp=document.getElementById('cp').value;const np=document.getElementById('np').value;const cnp=document.getElementById('cnp').value;if(np!==cnp){showToast('New passwords do not match','error');return}if(np.length<8){showToast('Password must be at least 8 characters','error');return}const hc=await this.hashPassword(cp);if(hc!==this.cu.password){showToast('Current password is incorrect','error');return}this.cu.password=await this.hashPassword(np);this.saveDatabase();document.getElementById('pwf').reset();this.logAudit('password_changed');showToast('Password changed successfully!','success')}loadAdminPanel(){if(!this.am)return;this.loadUserManagement();this.loadSystemStats()}loadUserManagement(){const c=document.getElementById('um');c.innerHTML=`<div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:12px;border-radius:6px;margin-bottom:16px;font-weight:600;">⚠️ Admin Mode Active - Changes affect all users immediately</div><table class="tt"><thead><tr><th>Employee ID</th><th>Name</th><th>Email</th><th>Role</th><th>Pay Type</th><th>Hourly Rate</th><th>Actions</th></tr></thead><tbody>${this.db.u.map(u=>`<tr><td>${u.employeeId}</td><td><input type="text" value="${u.name}" onchange="ts.updateUserField(${u.id},'name',this.value)" style="border:none;background:transparent;width:100%;"></td><td><input type="email" value="${u.email}" onchange="ts.updateUserField(${u.id},'email',this.value)" style="border:none;background:transparent;width:100%;"></td><td><select onchange="ts.updateUserField(${u.id},'isManager',this.value==='true')" style="border:none;background:transparent;"><option value="false" ${!u.isManager?'selected':''}>Employee</option><option value="true" ${u.isManager?'selected':''}>Manager</option></select></td><td><select onchange="ts.updateUserField(${u.id},'isSalaried',this.value==='true')" style="border:none;background:transparent;"><option value="false" ${!u.isSalaried?'selected':''}>Hourly</option><option value="true" ${u.isSalaried?'selected':''}>Salaried</option></select></td><td>${u.isSalaried?'N/A':`<input type="number" value="${u.hourlyRate}" step="0.01" min="0" onchange="ts.updateUserField(${u.id},'hourlyRate',parseFloat(this.value))" style="border:none;background:transparent;width:80px;">`}</td><td><button class="btn bd bsm" onclick="ts.resetUserPassword(${u.id})">🔑 Reset Password</button></td></tr>`).join('')}</tbody></table>`}loadSystemStats(){const c=document.getElementById('ss');const tu=this.db.u.length;const tt=this.db.t.length;const ta=this.db.a.length;const ss=JSON.stringify(this.db).length;c.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;"><div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--p);">${tu}</div><div style="font-size:12px;color:var(--g);">Total Users</div></div><div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--s);">${tt}</div><div style="font-size:12px;color:var(--g);">Total Timesheets</div></div><div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--i);">${ta}</div><div style="font-size:12px;color:var(--g);">Audit Entries</div></div><div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--w);">${(ss/1024).toFixed(1)}KB</div><div style="font-size:12px;color:var(--g);">Data Size</div></div></div>`}updateUserField(uid,f,v){if(!this.am)return;const u=this.db.u.find(us=>us.id===uid);if(!u)return;u[f]=v;if(f==='isSalaried'){if(v){u.hourlyRate=0.00;u.overtimeRate=0.00}else{u.hourlyRate=15.00;u.overtimeRate=22.50}}if(f==='hourlyRate'&&!u.isSalaried){u.overtimeRate=v*1.5}this.saveDatabase();this.logAudit('admin_user_updated',{userId:uid,field:f,value:v});showToast(`${u.name}'s ${f} updated`,'success');this.loadUserManagement()}async resetUserPassword(uid){if(!this.am)return;const u=this.db.u.find(us=>us.id===uid);if(!u)return;if(!confirm(`Reset password for ${u.name}?`))return;u.password=await this.hashPassword('SecurePass123!');this.saveDatabase();this.logAudit('admin_password_reset',{userId:uid});showToast(`Password reset for ${u.name}. Default: SecurePass123!`,'warning')}exportSystemData(){if(!this.am)return;const sd={users:this.db.u,timesheets:this.db.t,auditLog:this.db.a,exportedAt:new Date().toISOString(),version:'1.0'};const b=new Blob([JSON.stringify(sd,null,2)],{type:'application/json'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`MRE_System_Backup_${new Date().toISOString().split('T')[0]}.json`;a.click();URL.revokeObjectURL(url);showToast('System data exported!','success')}resetSystem(){if(!this.am)return;if(!confirm('Reset entire system? ALL data will be deleted!'))return;if(prompt('Type RESET to confirm:')!=='RESET')return;localStorage.clear();showToast('System reset complete. Reloading...','warning');setTimeout(()=>location.reload(),2000)}viewAuditLogs(){if(!this.am)return;const mb=`<div style="max-height:400px;overflow-y:auto;"><table class="tt"><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Details</th></tr></thead><tbody>${this.db.a.slice(-50).reverse().map(e=>{const u=this.db.u.find(us=>us.id===e.userId);return`<tr><td style="font-size:12px;">${new Date(e.timestamp).toLocaleString()}</td><td>${u?.name||'System'}</td><td style="font-size:12px;">${e.action}</td><td style="font-size:11px;">${JSON.stringify(e.details).substring(0,50)}...</td></tr>`}).join('')}</tbody></table></div>`;showModal('System Audit Log (Last 50 entries)',mb)}}const ts=new EnhancedTimesheetSystem();function handleLogin(e){e.preventDefault();const em=document.getElementById('loginEmail').value;const pw=document.getElementById('loginPassword').value;ts.login(em,pw).then(s=>{if(!s)document.getElementById('loginPassword').value=''})}function showTab(tn){document.querySelectorAll('.tc').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nt button').forEach(t=>t.classList.remove('active'));document.getElementById(tn).classList.add('active');event.target.classList.add('active');switch(tn){case 'ct':ts.loadCurrentTimesheets();break;case 'tv':ts.loadTimesheetViewer();break;case 'mv':ts.loadMyVault();break;case 'ma':ts.loadMyArchive();break;case 'mgv':ts.loadManagerVault();break;case 'mga':ts.loadManagerArchive();break;case 'ap':ts.loadAdminPanel();break}}function showToast(m,t='info'){const to=document.getElementById('to');const tm=document.getElementById('tm');tm.textContent=m;to.className=`to ${t}`;to.style.display='block';setTimeout(()=>to.style.display='none',4000)}function showModal(ti,bo,fo=''){document.getElementById('mt').textContent=ti;document.getElementById('mb').innerHTML=bo;document.getElementById('mf').innerHTML=fo;document.getElementById('md').style.display='flex'}function closeModal(){document.getElementById('md').style.display='none'}document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))e.preventDefault()})
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>MRE Enhanced Timesheet</title>
+    <style>
+        :root {
+            --p: #2563eb; /* primary */
+            --pd: #1d4ed8; /* primary-dark */
+            --s: #16a34a; /* success */
+            --d: #dc2626; /* danger */
+            --w: #d97706; /* warning */
+            --i: #0ea5e9; /* info */
+            --dk: #1f2937; /* dark-gray */
+            --g: #6b7280; /* gray */
+            --l: #f8fafc; /* light-gray */
+            --wh: #fff; /* white */
+            --b: #e5e7eb; /* border-color */
+            --sh: 0 1px 3px 0 rgba(0,0,0,0.1); /* shadow */
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--l); color:var(--dk); line-height:1.6; }
+
+        /* Styles from Embeddable Timesheet Component - adapted and integrated */
+        .ets-timesheet-widget { /* Renamed to avoid conflict if any, though timesheet-widget was unique */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 100%;
+            margin: 0 auto; /* Adjusted margin for integration */
+            background: white;
+            border-radius: 8px; /* Match MRE style */
+            box-shadow: none; /* MRE cards have their own shadow */
+            overflow: hidden;
+            border: 1px solid var(--b); /* Match MRE style */
+        }
+        .ets-timesheet-header { /* Not directly used, MRE has its own card headers */
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white; padding: 15px; text-align: center;
+        }
+        .ets-timesheet-header h2 { margin: 0; font-size: 1.6em; font-weight: 600; }
+        .ets-period-display { font-size: 1em; font-weight: 600; color: #495057; } /* Not directly used */
+
+        .ets-table { /* Applied to tables generated by new method */
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 0.9em; /* Match MRE table font size */
+        }
+        .ets-table th {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white; padding: 10px 8px; text-align: center;
+            font-weight: 600; font-size: 0.85em; white-space: nowrap;
+        }
+        .ets-table td {
+            padding: 8px 6px; text-align: center;
+            border-bottom: 1px solid var(--b);
+            vertical-align: middle; font-size: 0.9em;
+        }
+        .ets-table tr:nth-child(even) { background-color: #f8f9fa; }
+        .ets-table tr:hover { background-color: #e3f2fd; }
+        .ets-date-column {
+            font-weight: 600; color: #495057; text-align: left !important;
+            padding-left: 10px !important; min-width: 100px; font-size: 0.85em;
+        }
+        .ets-time-field {
+            border: 1px solid #dee2e6; border-radius: 4px; padding: 6px 8px;
+            text-align: center; font-size: 0.85em; width: 75px; /* Increased width a bit */
+            transition: border-color 0.2s ease;
+        }
+        .ets-time-field:focus {
+            outline: none; border-color: #4facfe;
+            box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.1);
+        }
+        .ets-hours-btn {
+            padding: 4px 10px; border: none; border-radius: 15px; cursor: pointer;
+            font-weight: 600; font-size: 0.75em; transition: all 0.2s ease;
+            min-width: 65px; position: relative;
+        }
+        .ets-hours-btn:hover { transform: scale(1.05); }
+        .ets-sick-hours { background: #dc3545; color: white; }
+        .ets-vacation-hours { background: #fd7e14; color: white; } /* Orange for vacation */
+        .ets-unpaid-hours { background: #6c757d; color: white; }
+
+        .ets-hours-popup {
+            position: absolute; top: calc(100% + 5px); left: 50%;
+            transform: translateX(-50%); background: white;
+            border: 2px solid #dee2e6; border-radius: 8px; padding: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15); z-index: 1050; /* Higher z-index */
+            min-width: 130px; margin-top: 5px;
+        }
+        .ets-hours-popup::before {
+            content: ''; position: absolute; top: -7px; /* Adjusted for border */
+            left: 50%; transform: translateX(-50%); width: 0; height: 0;
+            border-left: 7px solid transparent; border-right: 7px solid transparent;
+            border-bottom: 7px solid #dee2e6;
+        }
+        .ets-hours-popup input {
+            width: 100%; padding: 6px 8px; border: 1px solid #dee2e6;
+            border-radius: 4px; text-align: center; font-size: 0.85em;
+        }
+        .ets-hours-popup label {
+            display: block; font-size: 0.75em; color: #6c757d;
+            margin-bottom: 4px; text-align: center;
+        }
+        .ets-total-cell { font-weight: 700; color: #495057; font-size: 0.95em; }
+        .ets-weekend-row { background-color: #fff3cd !important; } /* MRE uses this for warnings, reconsider if needed */
+        .ets-today-row { /* This specific styling might conflict with MRE's overall theme, use with caution or adapt */
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%) !important;
+            border: 2px solid #2196f3 !important;
+        }
+        .ets-summary-row { /* Not used from external, MRE has own summaries */
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+            font-weight: bold; border-top: 3px solid #4facfe;
+        }
+        .ets-summary-row td { padding: 12px 8px; font-size: 0.9em; }
+        .ets-summary-totals { color: #4facfe; font-size: 1.05em; }
+
+
+        /* MRE System Styles (Original) */
+        .sb{position:fixed;bottom:20px;left:20px;background:var(--s);color:#fff;padding:8px 16px;border-radius:20px;font-size:12px;z-index:100;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}
+        .ac{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px}
+        .acd{background:var(--wh);border-radius:16px;box-shadow:var(--sh);width:100%;max-width:400px;overflow:hidden}
+        .ah{background:var(--p);color:#fff;padding:40px 30px;text-align:center}
+        .al{width:80px;height:80px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px}
+        .at{font-size:24px;font-weight:700;margin-bottom:8px}
+        .as{opacity:0.9;font-size:14px} /* This is also an ID for auto-save indicator */
+        .ab{padding:30px}
+        .fg{margin-bottom:20px}
+        .fl{display:block;margin-bottom:6px;font-weight:600;color:var(--dk)}
+        .fc{width:100%;padding:12px 16px;border:2px solid var(--b);border-radius:8px;font-size:16px;transition:border-color 0.3s}
+        .fc:focus{outline:none;border-color:var(--p)}
+        .btn{padding:12px 24px;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+        .btn:hover{transform:translateY(-1px)}
+        .bp{background:var(--p);color:#fff}.bp:hover{background:var(--pd)}
+        .bs{background:var(--s);color:#fff}.bd{background:var(--d);color:#fff}
+        .bw{background:var(--w);color:#fff}.bi{background:var(--i);color:#fff}
+        .bg{background:var(--g);color:#fff}
+        .bsm{padding:6px 12px;font-size:12px}
+        .bb{width:100%}
+        .apc{display:none;min-height:100vh;background:var(--l)}
+        .apc.active{display:flex;flex-direction:column}
+        .aph{background:var(--wh);box-shadow:var(--sh);padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+        .br{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;color:var(--p)}
+        .ui{display:flex;align-items:center;gap:16px}
+        .ua{width:40px;height:40px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;cursor:pointer;overflow:hidden}
+        .ua img{width:100%;height:100%;object-fit:cover}
+        .lb{padding:8px 16px;font-size:14px}
+        .am{flex:1;padding:24px;max-width:1200px;margin:0 auto;width:100%}
+        .ph{margin-bottom:32px;text-align:center}
+        .pt{font-size:28px;font-weight:700;color:var(--dk);margin-bottom:8px}
+        .ps{color:var(--g)}
+        .cd{background:var(--wh);border-radius:12px;box-shadow:var(--sh);overflow:hidden;margin-bottom:24px}
+        .ch{padding:20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+        .ct{font-size:18px;font-weight:600}
+        .cb{padding:20px; overflow-x: auto;} /* Added overflow-x for potentially wide tables */
+        .gr{display:grid;gap:24px}
+        .g2{grid-template-columns:repeat(2,1fr)}
+        .g3{grid-template-columns:repeat(3,1fr)}
+        .g4{grid-template-columns:repeat(4,1fr)} /* This might need adjustment if new timesheets are wider */
+        .sb{padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;text-transform:uppercase} /* This is also a class for snackbar */
+        .sa{background:#dcfce7;color:var(--s)}
+        .sv{background:#dbeafe;color:var(--p)}
+        .sar{background:#f3f4f6;color:var(--g)}
+        .tt{width:100%;border-collapse:collapse;margin-top:16px}
+        .tt th,.tt td{padding:12px;text-align:left;border-bottom:1px solid var(--b)}
+        .tt th{background:var(--l);font-weight:600}
+        .tt input { /* Styles for old input fields, may not be directly used for new time entry */
+            border:1px solid var(--b);padding:6px 8px;border-radius:4px;width:100%;
+        }
+        .tr{font-weight:600;background:var(--l)} /* MRE Total Row */
+        .as#asi{position:fixed;top:20px;right:20px;background:var(--s);color:#fff;padding:8px 16px;border-radius:20px;font-size:12px;opacity:0;transition:opacity 0.3s}
+        .as#asi.saving{opacity:1} /* MRE Auto-save indicator */
+        .to{position:fixed;bottom:24px;right:24px;background:var(--dk);color:#fff;padding:16px 24px;border-radius:8px;box-shadow:var(--sh);display:none;z-index:1000}
+        .to.success{background:var(--s)}.to.error{background:var(--d)}.to.warning{background:var(--w)}
+        .md{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
+        .mc{background:var(--wh);border-radius:12px;width:100%;max-width:800px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh)}
+        .mh{padding:20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+        .mt{font-size:18px;font-weight:600} /* This is also a class for modal title */
+        .mcl{background:none;border:none;font-size:24px;cursor:pointer;color:var(--g)}
+        .mb{padding:20px}
+        .mf{padding:20px;border-top:1px solid var(--b);display:flex;justify-content:flex-end;gap:12px}
+        .nt{display:flex;border-bottom:2px solid var(--b);margin-bottom:24px;flex-wrap:wrap}
+        .nt button{padding:12px 24px;background:none;border:none;color:var(--g);cursor:pointer;font-weight:500;border-bottom:2px solid transparent;transition:all 0.3s;white-space:nowrap}
+        .nt button:hover{color:var(--p)}.nt button.active{color:var(--p);border-bottom-color:var(--p)}
+        .tc{display:none}.tc.active{display:block}
+        .pg{margin-bottom:32px}
+        .pgh{background:var(--p);color:#fff;padding:16px 20px;border-radius:8px 8px 0 0;font-weight:600;font-size:18px}
+        .pgc{background:var(--wh);border:1px solid var(--b);border-top:none;border-radius:0 0 8px 8px}
+        .ti{padding:16px 20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+        .ti:last-child{border-bottom:none}
+        .tif{flex:1}
+        .tia{display:flex;gap:8px}
+        .vi{background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:8px 12px;font-size:12px;color:var(--p);font-weight:600}
+        .ai{background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:8px 12px;font-size:12px;color:var(--g);font-weight:600}
+        .eb{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+        .fs{background:var(--wh);padding:20px;border-radius:12px;box-shadow:var(--sh);margin-bottom:24px}
+        .qa{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+        .qab{padding:8px 16px;font-size:14px;border-radius:20px}
+        .ba{background:var(--l);padding:16px;border-radius:8px;margin-bottom:24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+        .es{text-align:center;padding:60px 20px;color:var(--g)}
+        .esi{font-size:48px;margin-bottom:16px;opacity:0.5}
+        .tv{max-height:500px;overflow-y:auto;border:1px solid var(--b);border-radius:8px}
+        .vf{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+        .mt.vault-item {border:1px solid var(--b);border-radius:8px;margin-bottom:16px;overflow:hidden} /* Added vault-item to distinguish from modal title */
+        .mth{background:var(--l);padding:12px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+        .mtb{padding:12px}
+        .wc{border:1px solid var(--b);border-radius:8px;padding:16px;margin-bottom:16px}
+        .wh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+        @media (max-width:768px){
+            .g2,.g3,.g4{grid-template-columns:1fr}
+            .aph{padding:12px 16px;flex-direction:column;gap:12px}
+            .am{padding:16px}
+            .tt, .ets-table {font-size:0.8em;} /* Adjust MRE and ETS tables for mobile */
+            .ets-time-field { width: 60px; padding: 4px;}
+            .ets-hours-btn { padding: 3px 8px; font-size: 0.7em; min-width: 55px;}
+            .nt{overflow-x:auto}
+            .ti{flex-direction:column;align-items:flex-start;gap:12px}
+            .tia{width:100%;justify-content:flex-start}
+            .eb{justify-content:center}
+            .qa{justify-content:center}
+        }
+    </style>
+</head>
+<body>
+    <div class="sb">🔒 AES-256 Encrypted</div> <div class="as" id="asi">💾 Auto-saving...</div> <div class="ac" id="authContainer">
+        <div class="acd">
+            <div class="ah">
+                <div class="al">📋</div>
+                <h1 class="at">MRE Timesheet</h1>
+                <p class="as">Enhanced Employee Time Tracking</p>
+            </div>
+            <div class="ab">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="fg">
+                        <label class="fl">Email or Employee ID</label>
+                        <input type="text" class="fc" id="loginEmail" required autocomplete="username">
+                    </div>
+                    <div class="fg">
+                        <label class="fl">Password</label>
+                        <input type="password" class="fc" id="loginPassword" required autocomplete="current-password">
+                    </div>
+                    <div class="fg">
+                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                            <input type="checkbox" id="adminAccess">
+                            <span style="font-size:14px;">🔧 Admin Access Mode (Logan Only)</span>
+                        </label>
+                    </div>
+                    <div class="fg">
+                        <button type="submit" class="btn bp bb">🔐 Sign In Securely</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="apc" id="appContainer">
+        <header class="aph">
+            <div class="br"><span>📋</span><span>MRE Enhanced Timesheet</span></div>
+            <div class="ui">
+                <div class="ua" id="ua" onclick="ts.showProfile()"></div>
+                <div>
+                    <div id="un" style="font-weight:600;"></div>
+                    <div id="ur" style="font-size:12px;color:var(--g);"></div>
+                </div>
+                <button class="btn bg lb" onclick="ts.logout()">🚪 Logout</button>
+            </div>
+        </header>
+
+        <main class="am">
+            <div class="qa">
+                <button class="btn bs qab" onclick="ts.fillStandardWeek()">📅 Fill Week (8hrs/day)</button>
+                <button class="btn bi qab" onclick="ts.showProfile()">👤 My Profile</button>
+                <button class="btn bp qab" id="ceb" onclick="ts.exportCombinedADP()" style="display:none;">📥 Combined Hours</button>
+                <button class="btn bw qab" id="ctob" onclick="ts.exportTimeOffWorksheet()" style="display:none;">🏖️ Combined Time Off</button>
+                <button class="btn bd qab" onclick="ts.clearAllEntries()">🗑️ Clear All Entries</button>
+            </div>
+            <div class="nt">
+                <button class="active" onclick="showTab('ct')">📋 Current Weeks</button>
+                <button onclick="showTab('tv')">👁️ View All Timesheets</button>
+                <button onclick="showTab('mv')">🗄️ My Vault</button>
+                <button onclick="showTab('ma')">📦 My Archive</button>
+                <button id="mvt" onclick="showTab('mgv')" style="display:none;">👥 All Vaults</button>
+                <button id="mat" onclick="showTab('mga')" style="display:none;">📚 All Archives</button>
+                <button id="at" onclick="showTab('ap')" style="display:none;">🔧 Admin Panel</button>
+            </div>
+
+            <div id="ct" class="tc active">
+                <div class="ph">
+                    <h1 class="pt">Current Weekly Timesheets</h1>
+                    <p class="ps">Enter your hours for individual weeks using Start/End times.</p>
+                </div>
+                <div class="gr g4" id="ats">
+                    </div>
+            </div>
+
+            <div id="tv" class="tc">
+                <div class="ph"><h1 class="pt">All Timesheets Viewer</h1><p class="ps">View all your timesheets without downloading</p></div>
+                <div class="vf">
+                    <select id="vyf" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()"><option value="">All Years</option></select>
+                    <select id="vmf" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()"><option value="">All Months</option><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select>
+                    <select id="vsf" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()"><option value="">All Status</option><option value="active">Active</option><option value="vault">Vault</option><option value="archived">Archived</option></select>
+                    <select id="vef_viewer" class="fc" style="width:auto;" onchange="ts.filterTimesheetViewer()" ><option value="">All Employees</option></select>
+                </div>
+                <div class="tv" id="tvc"></div>
+            </div>
+            <div id="mv" class="tc">
+                <div class="ph"><h1 class="pt">My Vault</h1><p class="ps">My completed weekly timesheets (1-2 weeks old)</p></div>
+                <div id="mvc"></div>
+            </div>
+            <div id="ma" class="tc">
+                <div class="ph"><h1 class="pt">My Archive</h1><p class="ps">My historical weekly timesheets (2+ weeks old)</p></div>
+                <div id="mac"></div>
+            </div>
+            <div id="mgv" class="tc">
+                <div class="ph"><h1 class="pt">All Employee Vaults</h1><p class="ps">All completed weekly timesheets (1-2 weeks old)</p></div>
+                <div class="ba">
+                    <label style="font-weight:600;">Bulk Actions:</label>
+                    <button class="btn bs bsm" onclick="ts.bulkEmailAll('vault')">📧 Email All</button>
+                    <button class="btn bp bsm" onclick="ts.exportCombinedADP('vault')">📥 Combined Hours</button>
+                    <button class="btn bw bsm" onclick="ts.exportTimeOffWorksheet('vault')">🏖️ Combined Time Off</button>
+                    <button class="btn bi bsm" onclick="ts.generateVaultReport()">📊 Report</button>
+                </div>
+                <div class="fs"><label class="fl">Filter by Employee:</label><select id="vef_manager_vault" class="fc" onchange="ts.filterManagerVault()"><option value="">All Employees</option></select></div>
+                <div id="mgvc"></div>
+            </div>
+            <div id="mga" class="tc">
+                <div class="ph"><h1 class="pt">All Employee Archives</h1><p class="ps">All historical weekly timesheets (2+ weeks old)</p></div>
+                <div class="ba">
+                    <label style="font-weight:600;">Bulk Actions:</label>
+                    <button class="btn bs bsm" onclick="ts.bulkEmailAll('archive')">📧 Email All</button>
+                    <button class="btn bp bsm" onclick="ts.exportCombinedADP('archive')">📥 Combined Hours</button>
+                    <button class="btn bw bsm" onclick="ts.exportTimeOffWorksheet('archive')">🏖️ Combined Time Off</button>
+                    <button class="btn bi bsm" onclick="ts.generatePayrollReport()">📊 Report</button>
+                </div>
+                <div class="fs"><label class="fl">Filter by Employee:</label><select id="aef_manager_archive" class="fc" onchange="ts.filterManagerArchive()"><option value="">All Employees</option></select></div>
+                <div id="mgac"></div>
+            </div>
+            <div id="ap" class="tc">
+                <div class="ph"><h1 class="pt">🔧 Admin Control Panel</h1><p class="ps">Enhanced system management</p></div>
+                <div class="cd"><div class="ch"><h3 class="ct">System Controls</h3></div><div class="cb"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+                    <button class="btn bp" onclick="ts.exportSystemData()">📤 Export All Data</button>
+                    <button class="btn bs" onclick="ts.exportCombinedADP('all')">📥 Master Hours Export</button>
+                    <button class="btn bw" onclick="ts.exportTimeOffWorksheet('all')">🏖️ Master Time Off Export</button>
+                    <button class="btn bd" onclick="ts.resetSystem()">🔄 Reset System</button>
+                    <button class="btn bi" onclick="ts.viewAuditLogs()">📋 Audit Logs</button>
+                </div></div></div>
+                <div class="cd"><div class="ch"><h3 class="ct">User Management</h3></div><div class="cb" id="um"></div></div>
+                <div class="cd"><div class="ch"><h3 class="ct">System Statistics</h3></div><div class="cb" id="ss"></div></div>
+            </div>
+        </main>
+    </div>
+
+    <div class="to" id="to"><span id="tm"></span></div> <div class="md" id="md"> <div class="mc">
+            <div class="mh"><h3 class="mt" id="modalTitle"></h3><button class="mcl" onclick="closeModal()">×</button></div>
+            <div class="mb" id="modalBody"></div>
+            <div class="mf" id="modalFooter"></div>
+        </div>
+    </div>
+
+<script>
+class EnhancedTimesheetSystem {
+    constructor() {
+        this.db = this.initDatabase();
+        this.cu = null; // currentUser
+        this.st = null; // sessionToken
+        this.la = Date.now(); // lastActivity
+        this.ast = null; // autoSaveTimeout
+        this.vci = null; // vaultCheckInterval
+        this.sto = 60 * 60 * 1000; // sessionTimeout (1 hour)
+        this.fa = new Map(); // failedAttempts
+        this.mfa = 3; // maxFailedAttempts
+        this.lt = 15 * 60 * 1000; // lockoutTime
+        this.am = false; // adminMode
+        this.pp = []; // payPeriods
+        this.init();
+    }
+
+    initDatabase() {
+        const sa = this.testStorage(); // storageAvailable
+        if (sa) {
+            return {
+                u: this.getSecureData('mre_ts_users') || this.initDefaultUsers(),
+                t: this.getSecureData('mre_ts_timesheets') || [],
+                a: this.getSecureData('mre_ts_audit') || []
+            };
+        } else {
+            // Fallback if localStorage is not available (though unlikely in modern browsers)
+            return { u: this.initDefaultUsers(), t: [], a: [] };
+        }
+    }
+
+    testStorage() {
+        try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            return true;
+        } catch (e) {
+            console.warn('localStorage not available, features requiring storage will be affected.');
+            return false;
+        }
+    }
+
+    getSecureData(k) {
+        try {
+            const e = localStorage.getItem(k);
+            return e ? this.decrypt(e) : null;
+        } catch (e) {
+            console.warn(`Failed to get secure data for ${k}:`, e);
+            return null;
+        }
+    }
+
+    setSecureData(k, v) {
+        try {
+            localStorage.setItem(k, this.encrypt(v));
+        } catch (e) {
+            console.warn(`Could not save to localStorage for ${k}:`, e);
+            showToast('Error saving data. Changes might not persist.', 'error');
+        }
+    }
+
+    encrypt(d) { return btoa(JSON.stringify(d)); } // Simplified for example; real encryption is more complex
+    decrypt(e) { return JSON.parse(atob(e)); } // Simplified
+
+    generateToken() { return btoa(Math.random().toString(36).substring(2) + Date.now()); }
+
+    async hashPassword(p) {
+        const enc = new TextEncoder();
+        const d = enc.encode(p + 'MRE_SALT_2024'); // Simple salt
+        const h = await crypto.subtle.digest('SHA-256', d);
+        return btoa(String.fromCharCode(...new Uint8Array(h)));
+    }
+
+    initDefaultUsers() {
+        // Same as original
+        return [
+            {id: 1, name: 'Rachael Richards', email: 'mrselectrictucson@gmail.com', employeeId: 'EMP001', isManager: true, hourlyRate:0.00, overtimeRate:0.00, isSalaried:true, photo: null, password: null, createdAt: new Date().toISOString()},
+            {id: 2, name: 'Brad Richards', email: 'mr.electric.tucson@gmail.com', employeeId: 'EMP002', isManager: true, hourlyRate:0.00, overtimeRate:0.00, isSalaried:true, photo: null, password: null, createdAt: new Date().toISOString()},
+            {id: 3, name: 'Cherish Richards', email: 'mrelectriccherish@gmail.com', employeeId: 'EMP003', isManager: true, hourlyRate:23.55, overtimeRate:35.33, isSalaried:false, photo: null, password: null, createdAt: new Date().toISOString()},
+            {id: 4, name: 'Logan Richards', email: 'tucson@mrelectric.com', employeeId: 'EMP004', isManager: true, hourlyRate:28.55, overtimeRate:42.83, isSalaried:false, photo: null, password: null, createdAt: new Date().toISOString()},
+            {id: 5, name: 'Anastosia Piggue', email: 'mrelectricoffice2@gmail.com', employeeId: 'EMP005', isManager: false, hourlyRate:17.50, overtimeRate:26.25, isSalaried:false, photo: null, password: null, createdAt: new Date().toISOString()},
+            {id: 6, name: 'Bryce Tucker', email: 'mrelectricoffice3@gmail.com', employeeId: 'EMP006', isManager: false, hourlyRate:17.35, overtimeRate:26.03, isSalaried:false, photo: null, password: null, createdAt: new Date().toISOString()},
+            {id: 7, name: 'Ben Tucker', email: 'mrelectricoffice4@gmail.com', employeeId: 'EMP007', isManager: false, hourlyRate:17.00, overtimeRate:25.50, isSalaried:false, photo: null, password: null, createdAt: new Date().toISOString()},
+        ];
+    }
+
+    async init() {
+        for (const u of this.db.u) {
+            if (!u.password) { u.password = await this.hashPassword('SecurePass123!'); }
+            if (!u.hourlyRate && u.hourlyRate !==0) u.hourlyRate = 20.00;
+            if (!u.overtimeRate && u.overtimeRate !==0) u.overtimeRate = u.hourlyRate * 1.5;
+            if (u.isSalaried === undefined) u.isSalaried = false;
+        }
+        this.saveDatabase();
+        this.startConstantAutoSave();
+        this.startVaultManagement();
+        this.monitorSession();
+        this.initializePayPeriods();
+        this.checkExistingSession();
+    }
+
+    checkExistingSession() {
+        const ss = this.getSecureData('mre_ts_session');
+        if (ss && ss.expiry > Date.now()) {
+            this.st = ss.token;
+            this.cu = ss.user;
+            this.am = ss.adminMode || false;
+            this.showApp();
+        }
+    }
+
+    startConstantAutoSave() {
+        // Auto-save on input in relevant fields
+        document.addEventListener('input', (e) => {
+            if (e.target.matches('.ets-time-field, .ets-hours-popup input, .tt input[type="text"]') && this.cu) {
+                 // Added .tt input for notes field in new table
+                this.triggerAutoSave();
+            }
+        });
+        // Fallback interval auto-save
+        setInterval(() => { if (this.cu) { this.autoSave(); } }, 30000); // Increased to 30s
+    }
+
+    triggerAutoSave() {
+        if (this.ast) { clearTimeout(this.ast); }
+        this.ast = setTimeout(() => { this.autoSave(); }, 2000); // Save 2s after last input
+    }
+    
+    startVaultManagement() { // Unchanged
+        this.vci = setInterval(() => { this.processVaultAndArchive(); }, 60 * 60 * 1000);
+        this.processVaultAndArchive();
+    }
+    processVaultAndArchive() { // Unchanged
+        const n = new Date();
+        const owa = new Date(n.getTime() - (7 * 24 * 60 * 60 * 1000)); 
+        const twa = new Date(n.getTime() - (14 * 24 * 60 * 60 * 1000));
+        this.db.t.forEach(t => {
+            const p = this.pp.find(pr => pr.id === t.payPeriodId);
+            if (!p) return;
+            const ep1 = new Date(new Date(p.endDate).getTime() + (24 * 60 * 60 * 1000)); 
+            if (ep1 <= owa && ep1 > twa) {
+                if (t.status !== 'vault') {
+                    this.autoEmailTimesheetBeforeVault(t);
+                    t.status = 'vault'; t.movedToVaultAt = n.toISOString();
+                    this.logAudit('moved_to_vault', {timesheetId: t.id, userId: t.userId});
+                    showToast(`Timesheet for ${this.db.u.find(u => u.id === t.userId)?.name} moved to vault`, 'info');
+                }
+            } else if (ep1 <= twa) {
+                if (t.status !== 'archived') {
+                    t.status = 'archived'; t.movedToArchiveAt = n.toISOString();
+                    this.logAudit('moved_to_archive', {timesheetId: t.id, userId: t.userId});
+                    showToast(`Timesheet for ${this.db.u.find(u => u.id === t.userId)?.name} moved to archive`, 'info');
+                }
+            } else {
+                 if (!t.status || t.status === 'vault' || t.status === 'archived') {
+                    t.status = 'active';
+                }
+            }
+        });
+        this.saveDatabase();
+    }
+    autoEmailTimesheetBeforeVault(t) { // Unchanged
+        try {
+            const u = this.db.u.find(us => us.id === t.userId);
+            const p = this.pp.find(pr => pr.id === t.payPeriodId);
+            if (u && p) {
+                this.sendCombinedADPEmail([t], 'Auto-Export: Moving to Vault');
+                t.autoEmailedAt = new Date().toISOString();
+                t.autoEmailed = true;
+                this.logAudit('timesheet_auto_emailed_before_vault', {timesheetId:t.id, userId:t.userId, userEmail:u.email});
+                console.log(`AUTO-EMAILED: ${u.name} timesheet for week ${this.formatDate(p.startDate)} to ${this.formatDate(p.endDate)}`);
+            }
+        } catch (error) { console.error('Auto-email failed:', error); }
+    }
+    sendCombinedADPEmail(ts, subj) { // Unchanged
+        const cd = this.generateCombinedADPWorkforceNowFormat(ts);
+        const tod = this.generateTimeOffWorksheetFormat(ts);
+        const ec = {
+            to: 'tucson@mrelectric.com', cc: 'mrselectrictucson@gmail.com', subject: subj,
+            body: `ADP WORKFORCENOW IMPORT - SEPARATE FILES\n\nEmployee Count: ${ts.length}\nGenerated: ${new Date().toLocaleString()}\n\nTwo separate files attached:\n1. Hours & Earnings (timesheet data)\n2. Time Off Requests (separate worksheet)\n\nBoth ready for direct ADP WorkforceNow import.\n\nGenerated automatically by MRE Enhanced Timesheet System`,
+            attachments: [
+                {filename: 'ADP_Hours_Combined.csv', content: cd, type: 'text/csv'},
+                {filename: 'ADP_TimeOff_Combined.csv', content: tod, type: 'text/csv'}
+            ]
+        };
+        console.log('COMBINED ADP EMAIL SENT:', ec); // In a real app, this would use an email API
+        return true;
+    }
+
+
+    autoSave() {
+        const i = document.getElementById('asi');
+        i.classList.add('saving');
+        this.saveDatabase();
+        setTimeout(() => { i.classList.remove('saving'); }, 1000);
+    }
+
+    monitorSession() { // Unchanged
+        setInterval(() => {
+            if (this.cu && (Date.now() - this.la > this.sto)) {
+                this.sessionExpired();
+            }
+        }, 60000);
+        document.addEventListener('click', () => this.la = Date.now());
+        document.addEventListener('keypress', () => this.la = Date.now());
+    }
+    sessionExpired() { // Unchanged
+        this.logAudit('session_expired', {userId: this.cu.id});
+        this.logout();
+        showToast('Session expired for security', 'warning');
+    }
+
+    logAudit(a, d = {}) { // Unchanged
+        const e = { id: Date.now(), timestamp: new Date().toISOString(), userId: this.cu?.id, action: a, details: d, ip: 'localhost' };
+        this.db.a.push(e);
+        this.saveDatabase();
+    }
+
+    async login(e, p) { // Unchanged logic, just ensure form IDs are correct
+        const i = e.toLowerCase();
+        const aa = document.getElementById('adminAccess')?.checked;
+
+        const att = this.fa.get(i) || { count: 0, lastAttempt: 0 };
+        if (att.count >= this.mfa) {
+            const tl = this.lt - (Date.now() - att.lastAttempt);
+            if (tl > 0) {
+                const m = Math.ceil(tl / 60000);
+                showToast(`Account locked. Try again in ${m} minutes.`, 'error');
+                return false;
+            } else {
+                this.fa.delete(i);
+            }
+        }
+        const u = this.db.u.find(us => us.email.toLowerCase() === i || us.employeeId.toLowerCase() === i);
+        if (!u) { this.handleFailedLogin(i, 'Invalid credentials'); return false; }
+        if (aa && u.employeeId !== 'EMP004') { showToast('Admin access denied - Logan only', 'error'); return false; }
+        
+        const hp = await this.hashPassword(p);
+        if (u.password !== hp) { this.handleFailedLogin(i, 'Invalid credentials'); return false; }
+
+        this.fa.delete(i);
+        this.cu = u;
+        this.st = this.generateToken();
+        this.am = aa && u.employeeId === 'EMP004';
+        this.setSecureData('mre_ts_session', { token: this.st, user: u, adminMode: this.am, expiry: Date.now() + this.sto });
+        this.logAudit('login_success', { email: u.email, adminMode: this.am });
+        this.showApp();
+        return true;
+    }
+    handleFailedLogin(i, r) { // Unchanged
+        const att = this.fa.get(i) || { count: 0, lastAttempt: 0 };
+        att.count++; att.lastAttempt = Date.now();
+        this.fa.set(i, att);
+        this.logAudit('login_failed', { identifier: i, reason: r, attempts: att.count });
+        showToast('Invalid credentials', 'error');
+    }
+
+    showApp() { // Unchanged
+        document.getElementById('authContainer').style.display = 'none';
+        document.getElementById('appContainer').classList.add('active');
+        document.getElementById('un').textContent = this.cu.name;
+        document.getElementById('ur').textContent = this.cu.isManager ? 'Manager' : 'Employee';
+        const ae = document.getElementById('ua');
+        if (this.cu.photo) {
+            ae.innerHTML = `<img src="${this.cu.photo}" alt="${this.cu.name}">`;
+        } else {
+            ae.textContent = this.cu.name.charAt(0).toUpperCase();
+        }
+
+        if (this.cu.isManager) {
+            document.getElementById('mvt').style.display = 'block';
+            document.getElementById('mat').style.display = 'block';
+            document.getElementById('ceb').style.display = 'block';
+            document.getElementById('ctob').style.display = 'block';
+            document.getElementById('vef_viewer').style.display = 'block'; // Ensure viewer employee filter is visible for managers
+        } else {
+            document.getElementById('vef_viewer').style.display = 'none'; // Hide for non-managers
+        }
+        if (this.am) {
+            document.getElementById('at').style.display = 'block';
+            showToast('Admin mode activated - Enhanced system access enabled', 'warning');
+        }
+        this.loadAllContent();
+    }
+
+    logout() { // Unchanged
+        this.logAudit('logout');
+        this.cu = null; this.st = null;
+        try { localStorage.removeItem('mre_ts_session'); } catch (e) {}
+        if (this.ast) clearTimeout(this.ast);
+        if (this.vci) clearInterval(this.vci);
+        location.reload();
+    }
+
+    saveDatabase() { // Unchanged
+        this.setSecureData('mre_ts_users', this.db.u);
+        this.setSecureData('mre_ts_timesheets', this.db.t);
+        this.setSecureData('mre_ts_audit', this.db.a);
+    }
+    
+    initializePayPeriods() { // Unchanged
+        const n = new Date();
+        const cy = n.getFullYear();
+        const soy = new Date(cy, 0, 1);
+        let fs = new Date(soy); 
+        while (fs.getDay() !== 0) { fs.setDate(fs.getDate() + 1); }
+        const pp = [];
+        let ps = new Date(fs);
+        while (ps.getFullYear() === cy) {
+            const pe = new Date(ps);
+            pe.setDate(pe.getDate() + 6);
+            pp.push({ id: this.formatDateForId(ps), startDate: new Date(ps), endDate: new Date(pe) });
+            ps.setDate(ps.getDate() + 7);
+        }
+        this.pp = pp;
+    }
+    formatDateForId(d) { return d.toISOString().split('T')[0]; } // Unchanged
+
+    loadAllContent() { // Unchanged
+        this.loadCurrentTimesheets();
+        this.loadTimesheetViewer();
+        this.loadMyVault();
+        this.loadMyArchive();
+        if (this.cu.isManager) {
+            this.populateEmployeeFilters(); // Call this before loading manager views
+            this.loadManagerVault();
+            this.loadManagerArchive();
+        }
+        if (this.am) { this.loadAdminPanel(); }
+    }
+
+    loadCurrentTimesheets() { // MODIFIED to use new rendering
+        const n = new Date();
+        const app = this.pp.filter(p => new Date(p.endDate) >= n).slice(0, 4); // Ensure date comparison is correct
+        const c = document.getElementById('ats');
+        c.innerHTML = app.map((p, i) => {
+            const t = this.getOrCreateTimesheet(this.cu.id, p.id);
+            return this.renderWeeklyTimesheetCard(t, p, i + 1, true); // Calls the modified card renderer
+        }).join('');
+         // Add event listeners for popups after rendering
+        this.addPopupCloseListeners();
+    }
+    
+    // New methods for ETS-style interaction
+    timeToMinutes(timeString) {
+        if (!timeString) return 0;
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+
+    // This method will be called when time fields (start, lunchStart, lunchEnd, end) are changed
+    updateEtsTimeField(timesheetId, dayKey, field, value) {
+        const timesheet = this.db.t.find(ts => ts.id === timesheetId);
+        if (!timesheet) return;
+        if (!timesheet.entries[dayKey]) timesheet.entries[dayKey] = this.createEmptyDailyEntry();
+
+        timesheet.entries[dayKey][field] = value; // e.g., extStartTime
+        
+        // Clear timeOff if work time is entered
+        timesheet.entries[dayKey].timeOffType = '';
+        timesheet.entries[dayKey].timeOffHours = 0;
+
+        this.deriveRegularAndOvertime(timesheetId, dayKey);
+        
+        timesheet.lastModified = new Date().toISOString();
+        this.saveDatabase();
+        this.logAudit('ets_time_field_updated', { timesheetId, dayKey, field, value });
+        this.updateWeeklyTimesheetUITotals(timesheetId, dayKey); // Update specific day and week totals in UI
+    }
+
+    // This method will be called when sick/vacation/unpaid hours are changed
+    updateEtsOffHours(timesheetId, dayKey, type, hoursStr) {
+        const hours = parseFloat(hoursStr) || 0;
+        const timesheet = this.db.t.find(ts => ts.id === timesheetId);
+        if (!timesheet) return;
+        if (!timesheet.entries[dayKey]) timesheet.entries[dayKey] = this.createEmptyDailyEntry();
+
+        // Clear other time-off types
+        timesheet.entries[dayKey].timeOffType = '';
+        timesheet.entries[dayKeq].timeOffHours = 0;
+        if (type === 'sick') {
+            timesheet.entries[dayKey].timeOffType = 'sick';
+            timesheet.entries[dayKey].timeOffHours = hours;
+        } else if (type === 'vacation') {
+            timesheet.entries[dayKey].timeOffType = 'vacation';
+            timesheet.entries[dayKey].timeOffHours = hours;
+        } else if (type === 'unpaid') {
+            timesheet.entries[dayKey].timeOffType = 'unpaid';
+            timesheet.entries[dayKey].timeOffHours = hours;
+        }
+
+        // Clear work times if time-off is entered
+        timesheet.entries[dayKey].extStartTime = '';
+        timesheet.entries[dayKey].extLunchStart = '';
+        timesheet.entries[dayKey].extLunchEnd = '';
+        timesheet.entries[dayKey].extEndTime = '';
+        timesheet.entries[dayKey].hours = ''; // MRE regular hours
+        timesheet.entries[dayKey].overtime = ''; // MRE overtime hours
+        
+        timesheet.lastModified = new Date().toISOString();
+        this.saveDatabase();
+        this.logAudit('ets_off_hours_updated', { timesheetId, dayKey, type, hours });
+        this.updateWeeklyTimesheetUITotals(timesheetId, dayKey); // Update specific day and week totals in UI
+        
+        // Update button text
+        const button = document.querySelector(`#ets-table-${timesheetId} tr[data-day="${dayKey}"] .ets-${type}-hours`);
+        if (button) {
+            const displayText = hours > 0 ? `${hours}h` : type.charAt(0).toUpperCase() + type.slice(1);
+            button.textContent = displayText;
+        }
+         // Close the popup
+        const popup = document.getElementById(`ets-${type}-popup-${timesheetId}-${dayKey}`);
+        if (popup) popup.style.display = 'none';
+    }
+
+    deriveRegularAndOvertime(timesheetId, dayKey) {
+        const timesheet = this.db.t.find(ts => ts.id === timesheetId);
+        const dayEntry = timesheet.entries[dayKey];
+
+        let workMinutes = 0;
+        if (dayEntry.extStartTime && dayEntry.extEndTime) {
+            const start = this.timeToMinutes(dayEntry.extStartTime);
+            const end = this.timeToMinutes(dayEntry.extEndTime);
+            let lunchMinutes = 0;
+            if (dayEntry.extLunchStart && dayEntry.extLunchEnd) {
+                const lunchStart = this.timeToMinutes(dayEntry.extLunchStart);
+                const lunchEnd = this.timeToMinutes(dayEntry.extLunchEnd);
+                if (lunchEnd > lunchStart) {
+                    lunchMinutes = lunchEnd - lunchStart;
+                }
+            }
+            if (end > start) {
+                 workMinutes = (end - start) - lunchMinutes;
+            }
+        }
+        const totalWorkHours = Math.max(0, workMinutes / 60);
+
+        if (totalWorkHours > 0) {
+            if (totalWorkHours > 8) {
+                dayEntry.hours = '8.00'; // MRE regular hours
+                dayEntry.overtime = (totalWorkHours - 8).toFixed(2); // MRE overtime hours
+            } else {
+                dayEntry.hours = totalWorkHours.toFixed(2);
+                dayEntry.overtime = '0.00';
+            }
+        } else {
+            dayEntry.hours = '0.00';
+            dayEntry.overtime = '0.00';
+        }
+    }
+    
+    createEmptyDailyEntry() { // Helper for MRE structure
+        return {
+            hours: '', overtime: '', notes: '', timeOffType: '', timeOffHours: 0,
+            extStartTime: '', extLunchStart: '', extLunchEnd: '', extEndTime: ''
+        };
+    }
+
+
+    getOrCreateTimesheet(uid, pid) { // MODIFIED to initialize new ext_ fields
+        let t = this.db.t.find(ts => ts.userId === uid && ts.payPeriodId === pid);
+        if (!t) {
+            t = {
+                id: `${uid}_${pid}`, userId: uid, payPeriodId: pid,
+                entries: this.createEmptyWeeklyEntriesWithExt(), // Use new init
+                createdAt: new Date().toISOString(), lastModified: new Date().toISOString(),
+                status: 'active', exported: false, autoExported: false,
+                // Keep other fields like manuallyExported, lastExportedAt etc.
+            };
+            this.db.t.push(t);
+            this.saveDatabase();
+        } else { // Ensure existing timesheets also have the new ext fields
+            const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            days.forEach(dayKey => {
+                if (!t.entries[dayKey]) {
+                    t.entries[dayKey] = this.createEmptyDailyEntry();
+                } else {
+                    if (t.entries[dayKey].extStartTime === undefined) t.entries[dayKey].extStartTime = '09:00';
+                    if (t.entries[dayKey].extLunchStart === undefined) t.entries[dayKey].extLunchStart = '12:00';
+                    if (t.entries[dayKey].extLunchEnd === undefined) t.entries[dayKey].extLunchEnd = '13:00';
+                    if (t.entries[dayKey].extEndTime === undefined) t.entries[dayKey].extEndTime = '17:00';
+                }
+            });
+        }
+        return t;
+    }
+
+    createEmptyWeeklyEntriesWithExt() { // MODIFIED
+        const ds = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const e = {};
+        ds.forEach(d => {
+            e[d] = { // MRE fields + New ETS fields
+                hours: '', overtime: '', notes: '',
+                timeOffType: '', timeOffHours: 0,
+                extStartTime: '09:00', extLunchStart: '12:00',
+                extLunchEnd: '13:00', extEndTime: '17:00'
+            };
+        });
+        return e;
+    }
+    
+    renderWeeklyTimesheetCard(t, p, wn, ed = false) { // MODIFIED to use new table renderer
+        const u = this.db.u.find(us => us.id === t.userId);
+        // Card structure is mostly MRE's original
+        return `
+            <div class="cd" data-timesheet-id="${t.id}">
+                <div class="ch">
+                    <div>
+                        <h3 class="ct">Week ${wn} - ${u?.name || 'Unknown'}</h3>
+                        <p style="color:var(--g);font-size:14px;">
+                           ${this.formatDate(new Date(p.startDate))} - ${this.formatDate(new Date(p.endDate))}
+                        </p>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="sb sa">Active</div> <div style="margin-top:8px;font-weight:600;">
+                           Pay Rate: ${u.isSalaried ? 'Salaried' : `$${parseFloat(u.hourlyRate).toFixed(2)}/hr | OT: $${parseFloat(u.overtimeRate).toFixed(2)}/hr`}
+                        </div>
+                    </div>
+                </div>
+                <div class="cb">
+                    ${this.renderETSWeeklyTimesheetTable(t, p, ed)}
+                    ${ed ? `
+                    <div class="eb">
+                        <button class="btn bp" onclick="ts.exportTimesheet('${t.id}')">📥 Download Timesheet</button>
+                        <button class="btn bs" onclick="ts.exportIndividualTimeOff('${t.id}')">🏖️ Download Time Off</button>
+                        <button class="btn bg" onclick="ts.emailTimesheet('${t.id}')">📧 Email Both</button>
+                        <button class="btn bi" onclick="ts.printTimesheet('${t.id}')">🖨️ Print</button>
+                    </div>` : ''}
+                </div>
+            </div>`;
+    }
+
+    // NEW: Renders the timesheet table using the ETS component's structure and logic
+    renderETSWeeklyTimesheetTable(timesheet, payPeriod, editable = false) {
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const user = this.db.u.find(u => u.id === timesheet.userId);
+        const startDate = new Date(payPeriod.startDate);
+
+        let tableHTML = `<div class="ets-timesheet-widget"><table class="ets-table" id="ets-table-${timesheet.id}">
+            <thead><tr>
+                <th>Date</th><th>Start</th><th>Lunch Start</th><th>Lunch End</th><th>End</th>
+                <th>Sick</th><th>Vacation</th><th>Unpaid</th><th>Day Total</th><th>Notes</th>
+            </tr></thead><tbody>`;
+
+        let weekTotalHours = 0;
+        let weekRegularHours = 0;
+        let weekOvertimeHours = 0;
+        let weekTotalEarnings = 0;
+
+        daysOfWeek.forEach((dayName, index) => {
+            const dayKey = dayName.toLowerCase();
+            const dayData = timesheet.entries[dayKey] || this.createEmptyDailyEntry();
+            const currentDate = new Date(startDate);
+            currentDate.setDate(startDate.getDate() + index);
+            const isToday = this.isToday(currentDate);
+
+            let dailyWorkMinutes = 0;
+            if (dayData.extStartTime && dayData.extEndTime) {
+                const start = this.timeToMinutes(dayData.extStartTime);
+                const end = this.timeToMinutes(dayData.extEndTime);
+                let lunchMinutes = 0;
+                if (dayData.extLunchStart && dayData.extLunchEnd) {
+                    const lunchStart = this.timeToMinutes(dayData.extLunchStart);
+                    const lunchEnd = this.timeToMinutes(dayData.extLunchEnd);
+                    if (lunchEnd > lunchStart) lunchMinutes = lunchEnd - lunchStart;
+                }
+                if (end > start) dailyWorkMinutes = (end - start) - lunchMinutes;
+            }
+            const dailyWorkHours = Math.max(0, dailyWorkMinutes / 60);
+            
+            let sickH = 0, vacH = 0, unpaidH = 0;
+            if (dayData.timeOffType === 'sick') sickH = parseFloat(dayData.timeOffHours) || 0;
+            if (dayData.timeOffType === 'vacation') vacH = parseFloat(dayData.timeOffHours) || 0;
+            if (dayData.timeOffType === 'unpaid') unpaidH = parseFloat(dayData.timeOffHours) || 0;
+
+            const dayTotalHours = dailyWorkHours + sickH + vacH + unpaidH;
+            weekTotalHours += dayTotalHours;
+            
+            // Use MRE's existing .hours and .overtime for earnings calculation, which are derived
+            const regularDayHours = parseFloat(dayData.hours) || 0;
+            const overtimeDayHours = parseFloat(dayData.overtime) || 0;
+            weekRegularHours += regularDayHours;
+            weekOvertimeHours += overtimeDayHours;
+
+            let dailyEarnings = 0;
+            if (!user.isSalaried && dayData.timeOffType !== 'unpaid') { // Unpaid leave doesn't contribute to earnings
+                 if (dayData.timeOffType === 'sick' || dayData.timeOffType === 'vacation') {
+                    // Assuming paid time off is at regular rate, for the duration of timeOffHours
+                    // This might need more specific business rules for paid leave calculation
+                    dailyEarnings += (parseFloat(dayData.timeOffHours) || 0) * user.hourlyRate;
+                 } else {
+                    dailyEarnings += (regularDayHours * user.hourlyRate) + (overtimeDayHours * user.overtimeRate);
+                 }
+            }
+            weekTotalEarnings += dailyEarnings;
+
+
+            tableHTML += `<tr data-day="${dayKey}" class="${isToday ? 'ets-today-row' : ''} ${currentDate.getDay() === 0 || currentDate.getDay() === 6 ? 'ets-weekend-row' : ''}">
+                <td class="ets-date-column">${currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' })}</td>
+                <td><input type="time" class="ets-time-field" value="${dayData.extStartTime || ''}" ${editable ? `onchange="ts.updateEtsTimeField('${timesheet.id}', '${dayKey}', 'extStartTime', this.value)"` : 'readonly'}></td>
+                <td><input type="time" class="ets-time-field" value="${dayData.extLunchStart || ''}" ${editable ? `onchange="ts.updateEtsTimeField('${timesheet.id}', '${dayKey}', 'extLunchStart', this.value)"` : 'readonly'}></td>
+                <td><input type="time" class="ets-time-field" value="${dayData.extLunchEnd || ''}" ${editable ? `onchange="ts.updateEtsTimeField('${timesheet.id}', '${dayKey}', 'extLunchEnd', this.value)"` : 'readonly'}></td>
+                <td><input type="time" class="ets-time-field" value="${dayData.extEndTime || ''}" ${editable ? `onchange="ts.updateEtsTimeField('${timesheet.id}', '${dayKey}', 'extEndTime', this.value)"` : 'readonly'}></td>
+                
+                <td>${this.createEtsHoursButton(timesheet.id, dayKey, 'sick', sickH, editable)}</td>
+                <td>${this.createEtsHoursButton(timesheet.id, dayKey, 'vacation', vacH, editable)}</td>
+                <td>${this.createEtsHoursButton(timesheet.id, dayKey, 'unpaid', unpaidH, editable)}</td>
+                
+                <td class="ets-total-cell daily-total-cell">${dayTotalHours.toFixed(2)}</td>
+                <td><input type="text" class="tt-notes-field" value="${dayData.notes || ''}" placeholder="Notes" ${editable ? `onchange="ts.updateEntry('${timesheet.id}','${dayKey}','notes',this.value)"` : 'readonly'} style="width:100%; font-size:0.85em; padding:4px; border:1px solid #ddd; border-radius:3px;"></td>
+            </tr>`;
+        });
+
+        tableHTML += `</tbody>
+            <tfoot>
+              <tr class="tr"> <td colspan="5" style="text-align:right; font-weight:bold;">WEEK TOTALS:</td>
+                  <td style="font-weight:bold;" class="week-sick-total">${timesheet.entries ? Object.values(timesheet.entries).reduce((sum, d) => sum + (d.timeOffType === 'sick' ? parseFloat(d.timeOffHours) || 0 : 0), 0).toFixed(2) : '0.00'}h</td>
+                  <td style="font-weight:bold;" class="week-vacation-total">${timesheet.entries ? Object.values(timesheet.entries).reduce((sum, d) => sum + (d.timeOffType === 'vacation' ? parseFloat(d.timeOffHours) || 0 : 0), 0).toFixed(2) : '0.00'}h</td>
+                  <td style="font-weight:bold;" class="week-unpaid-total">${timesheet.entries ? Object.values(timesheet.entries).reduce((sum, d) => sum + (d.timeOffType === 'unpaid' ? parseFloat(d.timeOffHours) || 0 : 0), 0).toFixed(2) : '0.00'}h</td>
+                  <td style="font-weight:bold;" class="week-grand-total-hours">${weekTotalHours.toFixed(2)}h</td>
+                  <td style="font-weight:bold; color:var(--s);" class="week-total-earnings">${user.isSalaried ? 'Salaried' : `$${weekTotalEarnings.toFixed(2)}`}</td>
+              </tr>
+              <tr class="tr" style="background-color: var(--l);">
+                  <td colspan="10" style="text-align:center; font-size:0.8em;">
+                      (Derived MRE: Regular: <span class="week-regular-total">${weekRegularHours.toFixed(2)}</span>h, 
+                      Overtime: <span class="week-overtime-total">${weekOvertimeHours.toFixed(2)}</span>h)
+                  </td>
+              </tr>
+            </tfoot></table></div>`;
+        return tableHTML;
+    }
+    
+    createEtsHoursButton(timesheetId, dayKey, type, hours, editable) {
+        const displayText = hours > 0 ? `${hours}h` : type.charAt(0).toUpperCase() + type.slice(1);
+        const buttonId = `ets-${type}-btn-${timesheetId}-${dayKey}`;
+        const popupId = `ets-${type}-popup-${timesheetId}-${dayKey}`;
+        
+        let onClickAction = '';
+        if (editable) {
+            onClickAction = `ts.toggleEtsHoursPopup('${timesheetId}', '${dayKey}', '${type}', this)`;
+        }
+
+        return `
+            <div style="position: relative;">
+                <button id="${buttonId}" class="ets-hours-btn ets-${type}-hours" 
+                        ${editable ? `onclick="${onClickAction}"` : 'disabled'}
+                        style="${!editable ? 'cursor:not-allowed; opacity:0.7;' : ''}">
+                    ${displayText}
+                </button>
+                ${editable ? `
+                <div class="ets-hours-popup" id="${popupId}" style="display: none;">
+                    <label>${type.charAt(0).toUpperCase() + type.slice(1)} Hours:</label>
+                    <input type="number" min="0" max="24" step="0.5" value="${hours}"
+                           onchange="ts.updateEtsOffHours('${timesheetId}', '${dayKey}', '${type}', this.value)">
+                    <button onclick="document.getElementById('${popupId}').style.display='none';" style="font-size:10px; padding:3px 6px; margin-top:5px; background:var(--g);color:white;border:none;border-radius:3px;">Close</button>
+                </div>` : ''}
+            </div>
+        `;
+    }
+
+    toggleEtsHoursPopup(timesheetId, dayKey, type, buttonElement) {
+        // Close all other popups first
+        document.querySelectorAll('.ets-hours-popup').forEach(popup => {
+            if (popup.id !== `ets-${type}-popup-${timesheetId}-${dayKey}`) {
+                 popup.style.display = 'none';
+            }
+        });
+
+        const popup = document.getElementById(`ets-${type}-popup-${timesheetId}-${dayKey}`);
+        if (popup) {
+            popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+        }
+    }
+    addPopupCloseListeners() {
+        document.addEventListener('click', function(event) {
+            const openPopups = document.querySelectorAll('.ets-hours-popup[style*="display: block"]');
+            openPopups.forEach(popup => {
+                const button = popup.previousElementSibling; // The button that opened this popup
+                if (!popup.contains(event.target) && !button.contains(event.target)) {
+                    popup.style.display = 'none';
+                }
+            });
+        }, true); // Use capture phase to catch clicks early
+    }
+
+
+    isToday(date) {
+        const today = new Date();
+        return date.toDateString() === today.toDateString();
+    }
+    
+    // Original updateEntry, kept for notes and potentially other direct MRE fields if any remain
+    updateEntry(tid, ek, f, v) {
+        const t = this.db.t.find(ts => ts.id === tid);
+        if (!t) return;
+        if (!t.entries[ek]) { t.entries[ek] = this.createEmptyDailyEntry(); }
+        t.entries[ek][f] = v;
+        t.lastModified = new Date().toISOString();
+        this.saveDatabase();
+        this.logAudit('timesheet_entry_updated', { timesheetId: tid, entryKey: ek, field: f, value: v });
+        // If notes are updated, we don't need a full recalc, but if other fields were to use this, a recalc would be needed.
+        // For now, this is mainly for notes.
+        // this.updateWeeklyTimesheetUITotals(tid, ek); // If it affects totals
+    }
+
+    updateWeeklyTimesheetUITotals(timesheetId, changedDayKey) {
+        const timesheet = this.db.t.find(ts => ts.id === timesheetId);
+        if (!timesheet) return;
+        const user = this.db.u.find(u => u.id === timesheet.userId);
+        if (!user) return;
+
+        const table = document.getElementById(`ets-table-${timesheetId}`);
+        if (!table) return;
+
+        let weekTotalHours = 0;
+        let weekRegularHours = 0;
+        let weekOvertimeHours = 0;
+        let weekTotalEarnings = 0;
+        let weekSickTotal = 0;
+        let weekVacationTotal = 0;
+        let weekUnpaidTotal = 0;
+
+        const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        daysOfWeek.forEach(dayKey => {
+            const dayEntry = timesheet.entries[dayKey];
+            if (!dayEntry) return;
+
+            // Recalculate daily total for display
+            let dailyWorkMinutes = 0;
+            if (dayEntry.extStartTime && dayEntry.extEndTime) {
+                const start = this.timeToMinutes(dayEntry.extStartTime);
+                const end = this.timeToMinutes(dayEntry.extEndTime);
+                let lunchMinutes = 0;
+                if (dayEntry.extLunchStart && dayEntry.extLunchEnd) {
+                    const lunchStart = this.timeToMinutes(dayEntry.extLunchStart);
+                    const lunchEnd = this.timeToMinutes(dayEntry.extLunchEnd);
+                    if (lunchEnd > lunchStart) lunchMinutes = lunchEnd - lunchStart;
+                }
+                if (end > start) dailyWorkMinutes = (end - start) - lunchMinutes;
+            }
+            const dailyWorkHoursVal = Math.max(0, dailyWorkMinutes / 60);
+            
+            let sickH = 0, vacH = 0, unpaidH = 0;
+            if (dayEntry.timeOffType === 'sick') sickH = parseFloat(dayEntry.timeOffHours) || 0;
+            if (dayEntry.timeOffType === 'vacation') vacH = parseFloat(dayEntry.timeOffHours) || 0;
+            if (dayEntry.timeOffType === 'unpaid') unpaidH = parseFloat(dayEntry.timeOffHours) || 0;
+            
+            weekSickTotal += sickH;
+            weekVacationTotal += vacH;
+            weekUnpaidTotal += unpaidH;
+
+            const currentDayTotalHours = dailyWorkHoursVal + sickH + vacH + unpaidH;
+            weekTotalHours += currentDayTotalHours;
+
+            const regularDayHours = parseFloat(dayEntry.hours) || 0; // Derived values
+            const overtimeDayHours = parseFloat(dayEntry.overtime) || 0; // Derived values
+            weekRegularHours += regularDayHours;
+            weekOvertimeHours += overtimeDayHours;
+            
+            let dailyEarnings = 0;
+            if (!user.isSalaried && dayEntry.timeOffType !== 'unpaid') {
+                 if (dayEntry.timeOffType === 'sick' || dayEntry.timeOffType === 'vacation') {
+                    dailyEarnings += (parseFloat(dayEntry.timeOffHours) || 0) * user.hourlyRate;
+                 } else {
+                    dailyEarnings += (regularDayHours * user.hourlyRate) + (overtimeDayHours * user.overtimeRate);
+                 }
+            }
+            weekTotalEarnings += dailyEarnings;
+
+            // Update the specific day's total cell in the UI
+            const dayRow = table.querySelector(`tr[data-day="${dayKey}"]`);
+            if (dayRow) {
+                const totalCell = dayRow.querySelector('.daily-total-cell');
+                if (totalCell) totalCell.textContent = currentDayTotalHours.toFixed(2);
+            }
+        });
+
+        // Update weekly summary row in the UI
+        const footer = table.querySelector('tfoot');
+        if (footer) {
+            footer.querySelector('.week-sick-total').textContent = `${weekSickTotal.toFixed(2)}h`;
+            footer.querySelector('.week-vacation-total').textContent = `${weekVacationTotal.toFixed(2)}h`;
+            footer.querySelector('.week-unpaid-total').textContent = `${weekUnpaidTotal.toFixed(2)}h`;
+            footer.querySelector('.week-grand-total-hours').textContent = `${weekTotalHours.toFixed(2)}h`;
+            footer.querySelector('.week-total-earnings').textContent = user.isSalaried ? 'Salaried' : `$${weekTotalEarnings.toFixed(2)}`;
+            footer.querySelector('.week-regular-total').textContent = `${weekRegularHours.toFixed(2)}`;
+            footer.querySelector('.week-overtime-total').textContent = `${weekOvertimeHours.toFixed(2)}`;
+        }
+    }
+
+
+    // --- All other MRE methods (loadTimesheetViewer, filterTimesheetViewer, renderMiniTimesheetTable, etc.) remain unchanged ---
+    // --- Make sure they use the MRE data structure which is now populated by the new ETS input method ---
+    
+    loadTimesheetViewer() { // Unchanged
+        const at = this.db.t.filter(t => this.cu.isManager || t.userId === this.cu.id);
+        const ys = [...new Set(at.map(t => {
+            const p = this.pp.find(pr => pr.id === t.payPeriodId);
+            return p ? new Date(p.startDate).getFullYear() : null;
+        }).filter(Boolean))].sort((a, b) => b - a);
+
+        const yf = document.getElementById('vyf');
+        yf.innerHTML = '<option value="">All Years</option>' + ys.map(y => `<option value="${y}">${y}</option>`).join('');
+
+        if (this.cu.isManager) {
+            const es = this.db.u; // Show all users for manager filter
+            const ef = document.getElementById('vef_viewer'); // Use distinct ID
+            ef.innerHTML = '<option value="">All Employees</option>' + es.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
+        }
+        this.filterTimesheetViewer();
+    }
+
+    filterTimesheetViewer() { // Unchanged
+        const yf = document.getElementById('vyf').value;
+        const mf = document.getElementById('vmf').value;
+        const sf = document.getElementById('vsf').value;
+        const ef = this.cu.isManager ? document.getElementById('vef_viewer').value : '';
+
+
+        let ts_filtered = this.db.t.filter(t => this.cu.isManager || t.userId === this.cu.id);
+
+        if (yf) { ts_filtered = ts_filtered.filter(t => { const p = this.pp.find(pr => pr.id === t.payPeriodId); return p && new Date(p.startDate).getFullYear() == yf; }); }
+        if (mf !== '') { ts_filtered = ts_filtered.filter(t => { const p = this.pp.find(pr => pr.id === t.payPeriodId); return p && new Date(p.startDate).getMonth() == mf; }); }
+        if (sf) { ts_filtered = ts_filtered.filter(t => t.status === sf); }
+        if (ef && this.cu.isManager) { ts_filtered = ts_filtered.filter(t => t.userId == ef); }
+
+
+        const c = document.getElementById('tvc');
+        if (ts_filtered.length === 0) {
+            c.innerHTML = `<div class="es"><div class="esi">👁️</div><h3>No Timesheets Found</h3><p>Try adjusting your filters</p></div>`;
+            return;
+        }
+        ts_filtered.sort((a, b) => {
+            const pa = this.pp.find(p => p.id === a.payPeriodId);
+            const pb = this.pp.find(p => p.id === b.payPeriodId);
+            if (!pa || !pb) return 0;
+            return new Date(pb.startDate) - new Date(pa.startDate);
+        });
+        c.innerHTML = ts_filtered.map(t => {
+            const u = this.db.u.find(us => us.id === t.userId);
+            const p = this.pp.find(pr => pr.id === t.payPeriodId);
+            if(!u || !p) return ''; // Skip if user or pay period not found
+
+            const to = this.calculateTotalHoursFromMRE(t); // Use MRE derived hours
+            const e = this.calculateEarnings(to, u);
+            const sen = this.cu.isManager && t.userId !== this.cu.id;
+            return `
+            <div class="mt vault-item">
+                <div class="mth">
+                    <div>
+                        ${sen ? `<strong>${u.name} (${u.employeeId})</strong><br>` : ''}
+                        <strong>Week of ${this.formatDate(new Date(p.startDate))}</strong> <span class="sb s${t.status}">${t.status}</span>
+                    </div>
+                    <div style="text-align:right;font-size:12px;">
+                        <div><strong>${to.regular}h regular + ${to.overtime}h OT</strong></div>
+                        <div style="color:var(--s);">${u.isSalaried ? 'Salaried' : '$' + e.totalEarnings.toFixed(2)}</div>
+                    </div>
+                </div>
+                <div class="mtb">
+                    ${this.renderMiniTimesheetTable(t, p)}
+                    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn bp bsm" onclick="ts.viewTimesheet('${t.id}')">👁️ View Details</button>
+                        <button class="btn bs bsm" onclick="ts.exportTimesheet('${t.id}')">📥 Hours</button>
+                        <button class="btn bw bsm" onclick="ts.exportIndividualTimeOff('${t.id}')">🏖️ Time Off</button>
+                        <button class="btn bi bsm" onclick="ts.printTimesheet('${t.id}')">🖨️ Print</button>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+    
+    calculateTotalHoursFromMRE(t) { // Helper to get totals from MRE's stored hours/overtime
+        let r = 0; let o = 0;
+        Object.keys(t.entries).forEach(k => {
+            const e = t.entries[k];
+            // Time off hours are separate, sum MRE's direct regular and overtime fields
+            r += parseFloat(e.hours) || 0;
+            o += parseFloat(e.overtime) || 0;
+        });
+        return { regular: r.toFixed(2), overtime: o.toFixed(2) };
+    }
+
+
+    renderMiniTimesheetTable(t,p){ // Unchanged - Renders a compact view, relies on MRE's data structure
+        const ds=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const sd=new Date(p.startDate);
+        let tb=`<table class="tt" style="font-size:12px;"><thead><tr><th>Day</th><th>Date</th><th>Hours</th><th>OT</th><th>Type</th><th>Notes</th></tr></thead><tbody>`;
+        ds.forEach((d,i)=>{
+            const ek=d.toLowerCase();
+            const e=t.entries[ek]||this.createEmptyDailyEntry();
+            const cd=new Date(sd.getTime()+(i*24*60*60*1000));
+            const ito=e.timeOffType&&e.timeOffHours>0;
+            const displayHours = ito ? e.timeOffHours : (parseFloat(e.hours) || '-');
+            const displayOvertime = ito ? '-' : (parseFloat(e.overtime) || '-');
+            const displayType = ito ? `${e.timeOffType.toUpperCase()} (${e.timeOffHours}h)` : 'Work';
+
+            tb+=`<tr ${ito?'style="background:#f0f9ff;"':''}>
+                <td><strong>${d.substring(0,3)}</strong></td>
+                <td>${cd.toLocaleDateString()}</td>
+                <td>${displayHours}</td>
+                <td>${displayOvertime}</td>
+                <td>${displayType}</td>
+                <td style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e.notes||'-'}</td>
+            </tr>`
+        });
+        tb+='</tbody></table>';
+        return tb;
+    }
+
+
+    loadMyVault(){ // Unchanged
+        const mvt=this.db.t.filter(t=>t.userId===this.cu.id&&t.status==='vault');
+        this.renderVaultContent('mvc',mvt,'My Vault');
+    }
+    loadMyArchive(){ // Unchanged
+        const mat=this.db.t.filter(t=>t.userId===this.cu.id&&t.status==='archived');
+        this.renderArchiveContent('mac',mat,'My Archive');
+    }
+    loadManagerVault(){ // Unchanged
+        if(!this.cu.isManager)return;
+        const sui=document.getElementById('vef_manager_vault')?.value;
+        let vt=this.db.t.filter(t=>t.status==='vault');
+        if(sui){vt=vt.filter(t=>t.userId==sui)}
+        this.renderVaultContent('mgvc',vt,'Manager Vault');
+    }
+    loadManagerArchive(){ // Unchanged
+        if(!this.cu.isManager)return;
+        const sui=document.getElementById('aef_manager_archive')?.value;
+        let at=this.db.t.filter(t=>t.status==='archived');
+        if(sui){at=at.filter(t=>t.userId==sui)}
+        this.renderArchiveContent('mgac',at,'Manager Archive');
+    }
+    renderVaultContent(cid,ts_data,tit){ // Unchanged
+        const c=document.getElementById(cid);
+        if(ts_data.length===0){c.innerHTML=`<div class="es"><div class="esi">🗄️</div><h3>No Timesheets in Vault</h3><p>Completed weekly timesheets will appear here 1-2 weeks after completion.</p></div>`;return}
+        const gt=this.groupTimesheetsByMonthYear(ts_data);
+        c.innerHTML=Object.keys(gt).sort((a,b)=>new Date(b)-new Date(a)).map(my=>{const mts=gt[my];return this.renderPeriodGroup(my,mts,'vault')}).join('');
+    }
+    renderArchiveContent(cid,ts_data,tit){ // Unchanged
+        const c=document.getElementById(cid);
+        if(ts_data.length===0){c.innerHTML=`<div class="es"><div class="esi">📦</div><h3>No Timesheets in Archive</h3><p>Historical weekly timesheets will appear here after 2+ weeks.</p></div>`;return}
+        const gt=this.groupTimesheetsByMonthYear(ts_data);
+        c.innerHTML=Object.keys(gt).sort((a,b)=>new Date(b)-new Date(a)).map(my=>{const mts=gt[my];return this.renderPeriodGroup(my,mts,'archive')}).join('');
+    }
+    groupTimesheetsByMonthYear(ts_data){ // Unchanged
+        const g={};
+        ts_data.forEach(t=>{
+            const p=this.pp.find(pr=>pr.id===t.payPeriodId);
+            if(p){
+                const my=new Date(p.endDate).toLocaleDateString('en-US',{year:'numeric',month:'long'});
+                if(!g[my]){g[my]=[]}
+                g[my].push(t);
+            }
+        });
+        return g;
+    }
+    renderPeriodGroup(my,ts_data,typ){ // Unchanged
+        const tl=typ==='vault'?'Vault':'Archive';
+        return`<div class="pg"><div class="pgh">${my} - ${tl}</div><div class="pgc">${ts_data.map(t=>this.renderTimesheetItem(t,typ)).join('')}</div></div>`;
+    }
+    renderTimesheetItem(t,typ){ // Unchanged - uses MRE calculateTotalHoursFromMRE
+        const u=this.db.u.find(us=>us.id===t.userId);
+        const p=this.pp.find(pr=>pr.id===t.payPeriodId);
+        if (!u || !p) return ''; // Safety check
+
+        const to=this.calculateTotalHoursFromMRE(t); // Use MRE derived hours
+        const e=this.calculateEarnings(to,u);
+        const sen=this.cu.isManager&&t.userId!==this.cu.id;
+        return`<div class="ti">
+            <div class="tif">
+                ${sen?`<div style="font-weight:600;color:var(--p);">${u?.name} (${u?.employeeId})</div>`:''}
+                <div style="font-weight:600;">Week of ${this.formatDate(new Date(p.startDate))} - ${this.formatDate(new Date(p.endDate))}</div>
+                <div style="color:var(--g);font-size:14px;">${to.regular}h regular + ${to.overtime}h overtime = ${(parseFloat(to.regular)+parseFloat(to.overtime)).toFixed(2)}h total</div>
+                <div style="color:var(--s);font-weight:600;font-size:14px;">${u.isSalaried?'💼 Salaried Employee':`💰 Total Earnings: $${e.totalEarnings.toFixed(2)}`}</div>
+                <div style="margin-top:8px;">
+                    <span class="${typ==='vault'?'vi':'ai'}">${typ==='vault'?'🗄️ In Vault':'📦 Archived'}</span>
+                    ${t.autoEmailed?'<span style="margin-left:8px;color:var(--s);font-size:12px;">✅ Auto-emailed</span>':''}
+                </div>
+            </div>
+            <div class="tia">
+                <button class="btn bp bsm" onclick="ts.viewTimesheet('${t.id}')">👁️ View</button>
+                <button class="btn bs bsm" onclick="ts.exportTimesheet('${t.id}')">📥 Hours</button>
+                <button class="btn bw bsm" onclick="ts.exportIndividualTimeOff('${t.id}')">🏖️ Time Off</button>
+                <button class="btn bg bsm" onclick="ts.emailTimesheet('${t.id}')">📧 Email</button>
+                <button class="btn bi bsm" onclick="ts.printTimesheet('${t.id}')">🖨️ Print</button>
+            </div>
+        </div>`;
+    }
+
+    populateEmployeeFilters() { // Ensure correct select IDs are used
+        const es = this.db.u.filter(u => !u.isManager || u.id === this.cu.id || this.am); // Admins can see all
+        
+        const viewerFilter = document.getElementById('vef_viewer');
+        if (viewerFilter) {
+            viewerFilter.innerHTML = '<option value="">All Employees</option>' + es.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
+        }
+        const managerVaultFilter = document.getElementById('vef_manager_vault');
+        if (managerVaultFilter) {
+            managerVaultFilter.innerHTML = '<option value="">All Employees</option>' + es.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
+        }
+        const managerArchiveFilter = document.getElementById('aef_manager_archive');
+        if (managerArchiveFilter) {
+            managerArchiveFilter.innerHTML = '<option value="">All Employees</option>' + es.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
+        }
+    }
+    filterManagerVault(){this.loadManagerVault();} // Unchanged
+    filterManagerArchive(){this.loadManagerArchive();} // Unchanged
+
+
+    calculateEarnings(to, u) { // Unchanged - Relies on MRE hours/overtime
+        if (u.isSalaried) { return { regularEarnings: 0, overtimeEarnings: 0, totalEarnings: 0, displayText: 'Salaried' }; }
+        const rh = parseFloat(to.regular) || 0;
+        const oh = parseFloat(to.overtime) || 0;
+        return {
+            regularEarnings: rh * u.hourlyRate,
+            overtimeEarnings: oh * u.overtimeRate,
+            totalEarnings: (rh * u.hourlyRate) + (oh * u.overtimeRate),
+            displayText: null
+        };
+    }
+    formatDate(d) { return new Intl.DateFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(d); } // Unchanged
+    formatADPDate(d) { return new Date(d).toISOString().split('T')[0]; } // Unchanged
+
+
+    // EXPORT AND ACTION METHODS (exportCombinedADP, generateCombinedADPWorkforceNowFormat, etc.)
+    // These should remain largely unchanged as they operate on the MRE data structure.
+    // The key is that this.db.t.entries[dayKey].hours and .overtime are correctly populated
+    // by the new ETS input method (via deriveRegularAndOvertime).
+    exportCombinedADP(typ = 'active') { // Unchanged
+        let ts_data; let fn;
+        if (typ === 'all') { ts_data = this.db.t; fn = 'MRE_Master_ADP_Export'; }
+        else { ts_data = this.db.t.filter(t => t.status === typ); fn = `MRE_${typ.toUpperCase()}_ADP_Export`; }
+        if (ts_data.length === 0) { showToast(`No ${typ} timesheets to export`, 'warning'); return; }
+        const cd = this.generateCombinedADPWorkforceNowFormat(ts_data);
+        this.downloadCSV(cd, `${fn}_${new Date().toISOString().split('T')[0]}.csv`);
+        ts_data.forEach(t => { t.combinedExported = true; t.lastCombinedExportAt = new Date().toISOString(); });
+        this.saveDatabase();
+        this.logAudit('combined_adp_export', { type: typ, count: ts_data.length });
+        showToast(`Combined ADP export completed! ${ts_data.length} timesheets exported.`, 'success');
+    }
+    
+    downloadCSV(csvContent, filename) { // Helper for downloads
+        const b = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(b);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    generateCombinedADPWorkforceNowFormat(ts_data) { // Unchanged
+        let csv = '';
+        csv += 'ADP WorkforceNow Time Entry Import - Combined\n';
+        csv += 'Version,3.0\n'; csv += 'Company Code,MRE\n';
+        csv += 'Export Date,' + new Date().toISOString().split('T')[0] + '\n';
+        csv += 'Export Type,Combined Multi-Employee\n\n';
+        csv += 'Employee File Number,Position ID,Department,Pay Code,Hours,Date,Amount,Rate,Override Rate,Labor Allocation 1,Labor Allocation 2,Notes\n';
+        ts_data.forEach(t => {
+            const u = this.db.u.find(us => us.id === t.userId);
+            const p = this.pp.find(pr => pr.id === t.payPeriodId);
+            if (!u || !p) return;
+            const ds = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            const sd = new Date(p.startDate);
+            ds.forEach((d, di) => {
+                const e = t.entries[d] || this.createEmptyDailyEntry();
+                const cd = new Date(sd.getTime() + (di * 24 * 60 * 60 * 1000));
+                const ito = e.timeOffType && e.timeOffHours > 0;
+
+                if (!ito) {
+                    const rh = parseFloat(e.hours) || 0;
+                    const oh = parseFloat(e.overtime) || 0;
+                    if (rh > 0) { csv += `${u.employeeId},POS001,GENERAL,REG,${rh.toFixed(2)},${this.formatADPDate(cd)},${(rh * u.hourlyRate).toFixed(2)},${u.hourlyRate.toFixed(2)},,DEPT001,,"${e.notes || ''}"\n`; }
+                    if (oh > 0) { csv += `${u.employeeId},POS001,GENERAL,OT,${oh.toFixed(2)},${this.formatADPDate(cd)},${(oh * u.overtimeRate).toFixed(2)},${u.overtimeRate.toFixed(2)},,DEPT001,,"${e.notes || ''} - Overtime"\n`; }
+                } else {
+                    const tocm = { sick: 'SICK', vacation: 'VAC', unpaid: 'UNPAID' };
+                    const toc = tocm[e.timeOffType] || 'OTHER';
+                     // For ADP, time off might not have earnings calculated here but through payroll system based on pay code
+                    const earningsForTimeOff = (e.timeOffType !== 'unpaid' && e.timeOffHours > 0) ? (e.timeOffHours * u.hourlyRate).toFixed(2) : "0.00";
+
+                    csv += `${u.employeeId},POS001,GENERAL,${toc},${parseFloat(e.timeOffHours).toFixed(2)},${this.formatADPDate(cd)},${earningsForTimeOff},${e.timeOffType !== 'unpaid' ? u.hourlyRate.toFixed(2) : '0.00'},,DEPT001,,"${e.notes || e.timeOffType + ' leave'}"\n`;
+                }
+            });
+        });
+        csv += '\nEND OF FILE\n';
+        return csv;
+    }
+
+    generateTimeOffWorksheetFormat(ts_data) { // Unchanged
+        let csv = '';
+        csv += 'ADP WorkforceNow Time Off Request Import - Combined\n';
+        csv += 'Version,3.0\n'; csv += 'Company Code,MRE\n';
+        csv += 'Export Date,' + new Date().toISOString().split('T')[0] + '\n';
+        csv += 'Export Type,Combined Time Off Requests\n\n';
+        csv += 'Employee File Number,Time Off Code,Request Type,Start Date,End Date,Hours Requested,Status,Approval Required,Notes\n';
+        ts_data.forEach(t => {
+            const u = this.db.u.find(us => us.id === t.userId);
+            const p = this.pp.find(pr => pr.id === t.payPeriodId);
+            if (!u || !p) return;
+            const ds = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            const sd = new Date(p.startDate);
+            let hasTimeOff = false;
+            ds.forEach((d, di) => {
+                const e = t.entries[d] || this.createEmptyDailyEntry();
+                const cd = new Date(sd.getTime() + (di * 24 * 60 * 60 * 1000));
+                const ito = e.timeOffType && e.timeOffHours > 0;
+                if (ito) {
+                    hasTimeOff = true;
+                    const tocm = { sick: 'SICK', vacation: 'VAC', unpaid: 'UNPAID' };
+                    const toc = tocm[e.timeOffType] || 'OTHER';
+                    csv += `${u.employeeId},${toc},FULL_DAY,${this.formatADPDate(cd)},${this.formatADPDate(cd)},${parseFloat(e.timeOffHours).toFixed(2)},PENDING,YES,"${e.notes || e.timeOffType + ' leave'}"\n`;
+                }
+            });
+            if (!hasTimeOff) {
+                // csv += `${u.employeeId},NONE,NO_REQUEST,${this.formatADPDate(p.startDate)},${this.formatADPDate(p.endDate)},0.00,N/A,NO,"No time off requested for this period"\n`;
+            }
+        });
+        csv += '\nEND OF FILE\n';
+        return csv;
+    }
+    exportTimeOffWorksheet(typ = 'active') { // Unchanged
+        let ts_data; let fn;
+        if (typ === 'all') { ts_data = this.db.t; fn = 'MRE_Master_TimeOff_Export'; }
+        else { ts_data = this.db.t.filter(t => t.status === typ); fn = `MRE_${typ.toUpperCase()}_TimeOff_Export`; }
+        
+        // Filter further to only include timesheets that actually have time off entries
+        const timesheetsWithTimeOff = ts_data.filter(timesheet => 
+            Object.values(timesheet.entries).some(entry => entry.timeOffType && entry.timeOffHours > 0)
+        );
+
+        if (timesheetsWithTimeOff.length === 0) { 
+            showToast(`No ${typ} timesheets with time off entries to export`, 'warning'); return; 
+        }
+        const tod = this.generateTimeOffWorksheetFormat(timesheetsWithTimeOff);
+        this.downloadCSV(tod, `${fn}_${new Date().toISOString().split('T')[0]}.csv`);
+        this.logAudit('timeoff_export', { type: typ, count: timesheetsWithTimeOff.length });
+        showToast(`Time off worksheet exported! ${timesheetsWithTimeOff.length} timesheets processed.`, 'success');
+    }
+    exportIndividualTimeOff(tid) { // Unchanged
+        const t = this.db.t.find(ts_item => ts_item.id === tid);
+        if (!t) { showToast('Timesheet not found', 'error'); return; }
+
+        const hasTimeOff = Object.values(t.entries).some(entry => entry.timeOffType && entry.timeOffHours > 0);
+        if (!hasTimeOff) {
+            showToast('No time off entries in this timesheet to export.', 'info');
+            return;
+        }
+
+        const u = this.db.u.find(us => us.id === t.userId);
+        const p = this.pp.find(pr => pr.id === t.payPeriodId);
+        if (!u || !p) { showToast('User or Pay Period not found', 'error'); return; }
+
+        const tod = this.generateTimeOffWorksheetFormat([t]);
+        this.downloadCSV(tod, `ADP_TimeOff_${u.name.replace(/\s+/g, '_')}_${p.id}.csv`);
+        this.logAudit('individual_timeoff_exported', { timesheetId: tid });
+        showToast('Time off worksheet downloaded', 'success');
+    }
+    exportTimesheet(tid) { // Unchanged
+        const t = this.db.t.find(ts_item => ts_item.id === tid);
+        const u = this.db.u.find(us => us.id === t.userId);
+        const p = this.pp.find(pr => pr.id === t.payPeriodId);
+        if (!t || !u || !p) { showToast('Data missing for export', 'error'); return; }
+        const ad = this.generateCombinedADPWorkforceNowFormat([t]);
+        this.downloadCSV(ad, `ADP_Timesheet_${u.name.replace(/\s+/g, '_')}_${p.id}.csv`);
+        t.manuallyExported = true; t.lastExportedAt = new Date().toISOString();
+        this.saveDatabase();
+        this.logAudit('timesheet_manually_exported', { timesheetId: tid, format: 'ADP_WorkforceNow', manual: true });
+        showToast('ADP WorkforceNow timesheet downloaded', 'success');
+    }
+    emailTimesheet(tid) { // Unchanged
+        const t = this.db.t.find(ts_item => ts_item.id === tid);
+        const u = this.db.u.find(us => us.id === t.userId);
+        const p = this.pp.find(pr => pr.id === t.payPeriodId);
+         if (!t || !u || !p) { showToast('Data missing for email', 'error'); return; }
+
+        const to = this.calculateTotalHoursFromMRE(t);
+        const e = this.calculateEarnings(to, u);
+        const timesheetData = this.generateCombinedADPWorkforceNowFormat([t]);
+        const timeOffData = this.generateTimeOffWorksheetFormat([t]);
+        const ec = {
+            to: 'tucson@mrelectric.com', cc: 'mrselectrictucson@gmail.com',
+            subject: `MANUAL REQUEST - ADP Import - ${u.name} - ${this.formatDate(new Date(p.startDate))} to ${this.formatDate(new Date(p.endDate))}`,
+            body: `MANUAL TIMESHEET REQUEST\n\nEmployee: ${u.name} (${u.employeeId})\nPay Period: ${this.formatDate(new Date(p.startDate))} - ${this.formatDate(new Date(p.endDate))}\nRequested by: ${this.cu.name}\n\nSUMMARY:\nRegular Hours: ${to.regular}\nOvertime Hours: ${to.overtime}\nTotal Hours: ${(parseFloat(to.regular) + parseFloat(to.overtime)).toFixed(2)}\n\nEARNINGS:\nRegular Earnings: ${e.regularEarnings.toFixed(2)}\nOvertime Earnings: ${e.overtimeEarnings.toFixed(2)}\nTotal Earnings: ${e.totalEarnings.toFixed(2)}\n\nStatus: ${t.status.toUpperCase()}\nThis is a MANUAL request - not part of automatic processing.\n\nTwo ADP WorkforceNow files attached:\n1. Hours & Earnings\n2. Time Off Requests`,
+            attachments: [
+                { filename: 'ADP_Hours.csv', content: timesheetData, type: 'text/csv' },
+                { filename: 'ADP_TimeOff.csv', content: timeOffData, type: 'text/csv' }
+            ]
+        };
+        console.log('MANUAL EMAIL SENT:', ec);
+        this.logAudit('timesheet_manually_emailed', { timesheetId: tid });
+        showToast('Manual timesheet email sent with both files', 'success');
+    }
+    printTimesheet(tid) { // MODIFIED to use new table renderer for print view
+        const t = this.db.t.find(ts_item => ts_item.id === tid);
+        const u = this.db.u.find(us => us.id === t.userId);
+        const p = this.pp.find(pr => pr.id === t.payPeriodId);
+        if (!t || !u || !p) { showToast('Data missing for print', 'error'); return; }
+
+        const pw = window.open('', '_blank');
+        pw.document.write(`<html><head><title>Timesheet - ${u.name}</title>
+            <style>
+                body{font-family:Arial,sans-serif;margin:20px} .header{text-align:center;margin-bottom:20px} 
+                .ets-table{width:100%;border-collapse:collapse;margin-bottom:20px; font-size:10pt;} 
+                .ets-table th, .ets-table td{border:1px solid #ccc;padding:6px;text-align:left} 
+                .ets-table th{background-color:#f0f0f0; text-align:center;} .ets-total-cell, .daily-total-cell {text-align:center !important;}
+                .ets-date-column {min-width:80px;} .ets-time-field, .tt-notes-field {display:none;} /* Hide inputs for print */
+                .ets-hours-btn {border:1px solid #ccc; background: #eee; color: #333; padding: 2px 5px; font-size:9pt; border-radius:3px;}
+                .ets-hours-popup {display:none !important;} /* Hide popups for print */
+                .tr td {font-weight:bold;background-color:#f9f9f9}
+                @media print { button {display:none;} .ets-time-field, .tt-notes-field {border:none; background:transparent; width:auto; padding:0;} input[type="time"]::after { content: attr(value); } /* Show time value */ input[type="text"]::after { content: attr(value); } /* Show notes value */ }
+            </style></head><body>
+            <div class="header"><h1>MRE Electric - Timesheet</h1><h2>${u.name} (${u.employeeId})</h2>
+            <p>Pay Period: ${this.formatDate(new Date(p.startDate))} - ${this.formatDate(new Date(p.endDate))}</p></div>
+            ${this.renderETSWeeklyTimesheetTable(t, p, false)} <button onclick="window.print()">Print This Timesheet</button>
+            </body></html>`);
+        pw.document.close();
+        pw.focus(); // May not work in all browsers due to popup blockers
+        this.logAudit('timesheet_printed', { timesheetId: tid });
+    }
+    viewTimesheet(tid) { // MODIFIED to use new table renderer for modal view
+        const t = this.db.t.find(ts_item => ts_item.id === tid);
+        const u = this.db.u.find(us => us.id === t.userId);
+        const p = this.pp.find(pr => pr.id === t.payPeriodId);
+        if (!t || !u || !p) { showToast('Data missing for view', 'error'); return; }
+
+        const to = this.calculateTotalHoursFromMRE(t);
+        const e = this.calculateEarnings(to, u);
+        const modalBody = `
+            <div style="margin-bottom:20px;">
+                <h4>${u.name} (${u.employeeId})</h4>
+                <p style="color:var(--g);">${this.formatDate(new Date(p.startDate))} - ${this.formatDate(new Date(p.endDate))}</p>
+                <div style="margin-top:8px;">
+                    <span class="sb s${t.status}">${t.status}</span>
+                    ${t.autoEmailed ? '<span style="margin-left:8px;color:var(--s);font-size:12px;">✅ Auto-emailed</span>' : ''}
+                    ${t.manuallyExported ? '<span style="margin-left:8px;color:var(--p);font-size:12px;">📥 Manually exported</span>' : ''}
+                </div>
+                <div style="margin-top:12px;padding:12px;background:#f0f9ff;border-radius:8px;">
+                    <strong>Total Earnings: ${u.isSalaried ? 'Salaried' : '$' + e.totalEarnings.toFixed(2)}</strong><br>
+                    <small>Regular: ${u.isSalaried ? 'N/A' : '$' + e.regularEarnings.toFixed(2)} | Overtime: ${u.isSalaried ? 'N/A' : '$' + e.overtimeEarnings.toFixed(2)}</small>
+                </div>
+            </div>
+            ${this.renderETSWeeklyTimesheetTable(t, p, false)} `;
+        const modalFooter = `
+            <button class="btn bg" onclick="closeModal()">Close</button>
+            <button class="btn bp" onclick="ts.exportTimesheet('${tid}');closeModal();">Export ADP</button>
+            <button class="btn bs" onclick="ts.emailTimesheet('${tid}');closeModal();">Email</button>
+            <button class="btn bi" onclick="ts.printTimesheet('${tid}');closeModal();">Print</button>
+        `;
+        showModal('Timesheet Details', modalBody, modalFooter);
+    }
+
+    fillStandardWeek() { // MODIFIED to work with new ETS fields and derivation
+        const n = new Date();
+        const app = this.pp.filter(p => new Date(p.endDate) >= n).slice(0, 4);
+        if (app.length === 0) { showToast('No active pay periods found', 'error'); return; }
+
+        const mb = `
+            <form id="fwf" onsubmit="event.preventDefault(); ts.submitFillWeek(event);">
+                <div class="fg">
+                    <label class="fl">Select Pay Period:</label>
+                    <select id="fp" class="fc" required>
+                        ${app.map((p, i) => `<option value="${p.id}">Week ${i + 1}: ${this.formatDate(new Date(p.startDate))} - ${this.formatDate(new Date(p.endDate))}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="fg">
+                    <label class="fl">Standard Daily Schedule (e.g., 09:00-17:00 with 1hr lunch for 7 work hours):</label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:5px;">
+                        <div><label class="fl" style="font-size:0.8em">Work Start:</label><input type="time" id="fws_start" class="fc" value="09:00" required></div>
+                        <div><label class="fl" style="font-size:0.8em">Work End:</label><input type="time" id="fws_end" class="fc" value="17:00" required></div>
+                    </div>
+                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <div><label class="fl" style="font-size:0.8em">Lunch Start:</label><input type="time" id="fws_lunch_start" class="fc" value="12:00"></div>
+                        <div><label class="fl" style="font-size:0.8em">Lunch End:</label><input type="time" id="fws_lunch_end" class="fc" value="13:00"></div>
+                    </div>
+                </div>
+                <div class="fg">
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                        <input type="checkbox" id="fw_weekends">Fill weekends too
+                    </label>
+                </div>
+            </form>`;
+        const mf = `
+            <button class="btn bg" onclick="closeModal()">Cancel</button>
+            <button class="btn bs" onclick="document.getElementById('fwf').dispatchEvent(new Event('submit', {bubbles: true, cancelable: true}))">Fill Week</button>`;
+        showModal('Fill Standard Week', mb, mf);
+    }
+    submitFillWeek(e) { // MODIFIED
+        // e.preventDefault(); // Already done in onsubmit
+        const payPeriodId = document.getElementById('fp').value;
+        const workStart = document.getElementById('fws_start').value;
+        const workEnd = document.getElementById('fws_end').value;
+        const lunchStart = document.getElementById('fws_lunch_start').value;
+        const lunchEnd = document.getElementById('fws_lunch_end').value;
+        const fillWeekends = document.getElementById('fw_weekends').checked;
+
+        const timesheet = this.getOrCreateTimesheet(this.cu.id, payPeriodId);
+        const daysToFill = fillWeekends 
+            ? ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+            : ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+
+        daysToFill.forEach(dayKey => {
+            if (!timesheet.entries[dayKey]) timesheet.entries[dayKey] = this.createEmptyDailyEntry();
+            timesheet.entries[dayKey].extStartTime = workStart;
+            timesheet.entries[dayKey].extLunchStart = lunchStart;
+            timesheet.entries[dayKey].extLunchEnd = lunchEnd;
+            timesheet.entries[dayKey].extEndTime = workEnd;
+            // Clear any time off for these days
+            timesheet.entries[dayKey].timeOffType = '';
+            timesheet.entries[dayKey].timeOffHours = 0;
+            // Derive MRE hours/overtime
+            this.deriveRegularAndOvertime(timesheet.id, dayKey);
+        });
+        
+        timesheet.lastModified = new Date().toISOString();
+        this.saveDatabase();
+        this.logAudit('standard_week_filled_ets', { timesheetId: timesheet.id, workStart, workEnd });
+        closeModal();
+        showToast(`Standard week filled for ${workStart}-${workEnd}!`, 'success');
+        this.loadCurrentTimesheets(); // Reload to show changes
+    }
+
+    clearAllEntries() { // MODIFIED to clear new ETS fields as well
+        if (!confirm('Are you sure you want to clear all entries for active timesheets? This cannot be undone.')) { return; }
+        const n = new Date();
+        const app = this.pp.filter(p => new Date(p.endDate) >= n).slice(0, 4);
+        app.forEach((p, i) => {
+            const t = this.getOrCreateTimesheet(this.cu.id, p.id);
+            const ds = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            ds.forEach(dKey => {
+                if (!t.entries[dKey]) t.entries[dKey] = this.createEmptyDailyEntry();
+                // Clear MRE fields
+                t.entries[dKey].hours = '';
+                t.entries[dKey].overtime = '';
+                t.entries[dKey].notes = '';
+                t.entries[dKey].timeOffType = '';
+                t.entries[dKey].timeOffHours = 0;
+                // Clear ETS fields
+                t.entries[dKey].extStartTime = '';
+                t.entries[dKey].extLunchStart = '';
+                t.entries[dKey].extLunchEnd = '';
+                t.entries[dKey].extEndTime = '';
+            });
+            t.lastModified = new Date().toISOString();
+        });
+        this.saveDatabase();
+        this.logAudit('all_active_entries_cleared');
+        showToast('All active timesheet entries cleared', 'success');
+        this.loadCurrentTimesheets(); // Reload to show changes
+    }
+
+    bulkEmailAll(typ){ // Unchanged
+        const ts_data=this.db.t.filter(t=>t.status===typ);
+        if(ts_data.length===0){showToast(`No ${typ} timesheets to email`,'warning');return}
+        console.log(`MANUAL BULK EMAIL: ${ts_data.length} ${typ} timesheets`);
+        const ec = {
+            to: 'tucson@mrelectric.com', cc: 'mrselectrictucson@gmail.com',
+            subject: `MANUAL BULK REQUEST - ${typ.toUpperCase()} Timesheets - ${new Date().toLocaleDateString()}`,
+            body: `MANUAL BULK TIMESHEET REQUEST\n\nRequested by: ${this.cu.name}\nType: ${typ.toUpperCase()}\nCount: ${ts_data.length} timesheets\nDate: ${new Date().toLocaleString()}\n\nThis is a MANUAL bulk request - not automatic processing.\nAll ${ts_data.length} ${typ} timesheets are being sent for manual review.\n\nEmployee List:\n${ts_data.map(t => {
+                const u = this.db.u.find(us => us.id === t.userId);
+                const p = this.pp.find(pr => pr.id === t.payPeriodId);
+                return `- ${u.name} (${this.formatDate(new Date(p.startDate))} to ${this.formatDate(new Date(p.endDate))})`;
+            }).join('\n')}`
+        };
+        console.log('MANUAL BULK EMAIL SENT:', ec); // Placeholder for actual email sending
+        ts_data.forEach(t => { this.logAudit('bulk_manual_email', {timesheetId: t.id, type: typ}); });
+        showToast(`${ts_data.length} ${typ} timesheets manually emailed`, 'success');
+    }
+    generateVaultReport(){ // Unchanged
+        const vt=this.db.t.filter(t=>t.status==='vault');
+        if(vt.length===0){showToast('No vault timesheets for report','warning');return}
+        let r='MRE ELECTRIC VAULT REPORT\n';
+        r+='Generated: '+new Date().toLocaleString()+'\n';
+        r+='='.repeat(60)+'\n\n';
+        const es={};
+        vt.forEach(t=>{
+            const u=this.db.u.find(us=>us.id===t.userId);
+            const to=this.calculateTotalHoursFromMRE(t);
+            const e=this.calculateEarnings(to,u);
+            if(!es[u.id]){es[u.id]={name:u.name,employeeId:u.employeeId,totalHours:0,totalRegularHours:0,totalOvertimeHours:0,totalEarnings:0,periods:0}}
+            es[u.id].totalRegularHours+=parseFloat(to.regular);
+            es[u.id].totalOvertimeHours+=parseFloat(to.overtime);
+            es[u.id].totalHours+=parseFloat(to.regular)+parseFloat(to.overtime);
+            es[u.id].totalEarnings+=e.totalEarnings;
+            es[u.id].periods++;
+        });
+        r+='VAULT EMPLOYEE SUMMARY\n';
+        r+='Employee ID,Name,Total Hours,Regular Hours,OT Hours,Total Earnings,Pay Periods\n';
+        Object.values(es).forEach(e=>{r+=`${e.employeeId},${e.name},${e.totalHours.toFixed(2)},${e.totalRegularHours.toFixed(2)},${e.totalOvertimeHours.toFixed(2)},${e.totalEarnings.toFixed(2)},${e.periods}\n`});
+        this.downloadCSV(r, `MRE_Vault_Report_${new Date().toISOString().split('T')[0]}.csv`);
+        showToast('Vault report generated!','success');
+    }
+    generatePayrollReport(){ // Unchanged
+        const at=this.db.t.filter(t=>t.status==='archived');
+        if(at.length===0){showToast('No archived timesheets for report','warning');return}
+        let r='MRE ELECTRIC COMPREHENSIVE PAYROLL REPORT\n';
+        r+='Generated: '+new Date().toLocaleString()+'\n';
+        r+='='.repeat(60)+'\n\n';
+        const es={};
+        at.forEach(t=>{
+            const u=this.db.u.find(us=>us.id===t.userId);
+            const to=this.calculateTotalHoursFromMRE(t);
+            const e=this.calculateEarnings(to,u);
+            if(!es[u.id]){es[u.id]={name:u.name,employeeId:u.employeeId,totalHours:0,totalRegularHours:0,totalOvertimeHours:0,totalEarnings:0,periods:0}}
+            es[u.id].totalRegularHours+=parseFloat(to.regular);
+            es[u.id].totalOvertimeHours+=parseFloat(to.overtime);
+            es[u.id].totalHours+=parseFloat(to.regular)+parseFloat(to.overtime);
+            es[u.id].totalEarnings+=e.totalEarnings;
+            es[u.id].periods++;
+        });
+        r+='EMPLOYEE SUMMARY\n';
+        r+='Employee ID,Name,Total Hours,Regular Hours,OT Hours,Total Earnings,Pay Periods\n';
+        Object.values(es).forEach(e=>{r+=`${e.employeeId},${e.name},${e.totalHours.toFixed(2)},${e.totalRegularHours.toFixed(2)},${e.totalOvertimeHours.toFixed(2)},${e.totalEarnings.toFixed(2)},${e.periods}\n`});
+        this.downloadCSV(r, `MRE_Payroll_Report_${new Date().toISOString().split('T')[0]}.csv`);
+        showToast('Payroll report generated!','success');
+    }
+
+    // PROFILE METHODS (showProfile, handlePhotoUpload, removePhoto, updateProfile, changePassword) - Unchanged
+    showProfile() {
+        const mb = `
+        <div class="fs"><h4>Profile Photo</h4><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;"><div style="width:80px;height:80px;border-radius:50%;background:var(--l);display:flex;align-items:center;justify-content:center;font-size:32px;overflow:hidden;" id="pp">${this.cu.photo ? `<img src="${this.cu.photo}" alt="Profile Photo" style="width:100%;height:100%;object-fit:cover;">` : this.cu.name.charAt(0).toUpperCase()}</div><div><input type="file" id="ppi" accept="image/*" style="display:none;" onchange="ts.handlePhotoUpload(event)"><button class="btn bp bsm" onclick="document.getElementById('ppi').click()">📷 Change Photo</button>${this.cu.photo ? `<button class="btn bd bsm" onclick="ts.removePhoto()">🗑️ Remove Photo</button>` : ''}</div></div></div>
+        <div class="fs"><h4>Personal Information</h4><form id="pf" onsubmit="ts.updateProfile(event)">
+            <div class="fg"><label class="fl">Display Name</label><input type="text" id="pn" class="fc" value="${this.cu.name}" required></div>
+            <div class="fg"><label class="fl">Email Address</label><input type="email" id="pe" class="fc" value="${this.cu.email}" required></div>
+            <div class="fg"><label class="fl">Employee ID</label><input type="text" class="fc" value="${this.cu.employeeId}" readonly style="background:var(--l);"><small style="color:var(--g);">Employee ID cannot be changed</small></div>
+            <button type="submit" class="btn bp">💾 Save Changes</button></form></div>
+        <div class="fs"><h4>Pay Information</h4><div style="padding:16px;background:var(--l);border-radius:8px;">
+            <div style="margin-bottom:8px;"><strong>Hourly Rate:</strong> ${this.cu.isSalaried ? 'N/A (Salaried)' : '$' + parseFloat(this.cu.hourlyRate).toFixed(2) + '/hour'}</div>
+            <div style="margin-bottom:8px;"><strong>Overtime Rate:</strong> ${this.cu.isSalaried ? 'N/A (Salaried)' : '$' + parseFloat(this.cu.overtimeRate).toFixed(2) + '/hour'}</div>
+            <div><strong>Role:</strong> ${this.cu.isManager ? 'Manager' : 'Employee'}</div>
+            <div><strong>Pay Type:</strong> ${this.cu.isSalaried ? 'Salaried' : 'Hourly'}</div></div></div>
+        <div class="fs"><h4>Change Password</h4><form id="pwf" onsubmit="ts.changePassword(event)">
+            <div class="fg"><label class="fl">Current Password</label><input type="password" id="cp" class="fc" required autocomplete="current-password"></div>
+            <div class="fg"><label class="fl">New Password</label><input type="password" id="np" class="fc" required minlength="8" autocomplete="new-password"><small style="color:var(--g);">Minimum 8 characters</small></div>
+            <div class="fg"><label class="fl">Confirm New Password</label><input type="password" id="cnp" class="fc" required minlength="8" autocomplete="new-password"></div>
+            <button type="submit" class="btn bw">🔑 Change Password</button></form></div>
+        <div class="fs"><h4>Account Statistics</h4><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+            <div style="text-align:center;padding:12px;background:var(--l);border-radius:8px;"><div style="font-size:20px;font-weight:600;color:var(--p);">${this.db.t.filter(t => t.userId === this.cu.id).length}</div><div style="font-size:12px;color:var(--g);">Total Timesheets</div></div>
+            <div style="text-align:center;padding:12px;background:var(--l);border-radius:8px;"><div style="font-size:20px;font-weight:600;color:var(--s);">${new Date(this.cu.createdAt).toLocaleDateString()}</div><div style="font-size:12px;color:var(--g);">Member Since</div></div></div></div>`;
+        const mf = `<button class="btn bg" onclick="closeModal()">Close</button>`;
+        showModal('My Profile', mb, mf);
+    }
+    handlePhotoUpload(e) { // Unchanged
+        const f = e.target.files[0]; if (!f) return;
+        if (f.size > 5 * 1024 * 1024) { showToast('Photo must be smaller than 5MB', 'error'); return; }
+        if (!f.type.startsWith('image/')) { showToast('Please select an image file', 'error'); return; }
+        const r = new FileReader();
+        r.onload = (ev) => {
+            this.cu.photo = ev.target.result; this.saveDatabase();
+            document.getElementById('pp').innerHTML = `<img src="${ev.target.result}" alt="Profile Photo" style="width:100%;height:100%;object-fit:cover;">`;
+            document.getElementById('ua').innerHTML = `<img src="${ev.target.result}" alt="${this.cu.name}" style="width:100%;height:100%;object-fit:cover;">`;
+            showToast('Profile photo updated!', 'success');
+        };
+        r.readAsDataURL(f);
+    }
+    removePhoto() { // Unchanged
+        this.cu.photo = null; this.saveDatabase();
+        document.getElementById('pp').textContent = this.cu.name.charAt(0).toUpperCase();
+        document.getElementById('ua').textContent = this.cu.name.charAt(0).toUpperCase();
+        showToast('Profile photo removed', 'success'); this.showProfile(); // Refresh modal
+    }
+    updateProfile(e) { // Unchanged
+        e.preventDefault();
+        const nn = document.getElementById('pn').value.trim();
+        const ne = document.getElementById('pe').value.trim();
+        if (!nn || !ne) { showToast('Please fill in all fields', 'error'); return; }
+        const eu = this.db.u.find(u => u.id !== this.cu.id && u.email.toLowerCase() === ne.toLowerCase());
+        if (eu) { showToast('This email is already taken', 'error'); return; }
+        this.cu.name = nn; this.cu.email = ne; this.saveDatabase();
+        document.getElementById('un').textContent = nn;
+        if (!this.cu.photo) { document.getElementById('ua').textContent = nn.charAt(0).toUpperCase(); }
+        this.logAudit('profile_updated', { newName: nn, newEmail: ne });
+        showToast('Profile updated successfully!', 'success');
+    }
+    async changePassword(e) { // Unchanged
+        e.preventDefault();
+        const cp = document.getElementById('cp').value;
+        const np = document.getElementById('np').value;
+        const cnp = document.getElementById('cnp').value;
+        if (np !== cnp) { showToast('New passwords do not match', 'error'); return; }
+        if (np.length < 8) { showToast('Password must be at least 8 characters', 'error'); return; }
+        const hc = await this.hashPassword(cp);
+        if (hc !== this.cu.password) { showToast('Current password is incorrect', 'error'); return; }
+        this.cu.password = await this.hashPassword(np); this.saveDatabase();
+        document.getElementById('pwf').reset();
+        this.logAudit('password_changed');
+        showToast('Password changed successfully!', 'success');
+    }
+
+    // ADMIN PANEL METHODS (loadAdminPanel, loadUserManagement, loadSystemStats, etc.) - Unchanged
+    loadAdminPanel(){if(!this.am)return;this.loadUserManagement();this.loadSystemStats();}
+    loadUserManagement(){ // Unchanged
+        const c=document.getElementById('um');
+        c.innerHTML=`<div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:12px;border-radius:6px;margin-bottom:16px;font-weight:600;">⚠️ Admin Mode Active - Changes affect all users immediately</div>
+        <table class="tt"><thead><tr><th>Employee ID</th><th>Name</th><th>Email</th><th>Role</th><th>Pay Type</th><th>Hourly Rate</th><th>Actions</th></tr></thead><tbody>
+        ${this.db.u.map(u=>`<tr>
+            <td>${u.employeeId}</td>
+            <td><input type="text" value="${u.name}" onchange="ts.updateUserField(${u.id},'name',this.value)" style="border:none;background:transparent;width:100%;"></td>
+            <td><input type="email" value="${u.email}" onchange="ts.updateUserField(${u.id},'email',this.value)" style="border:none;background:transparent;width:100%;"></td>
+            <td><select onchange="ts.updateUserField(${u.id},'isManager',this.value==='true')" style="border:none;background:transparent;">
+                <option value="false" ${!u.isManager?'selected':''}>Employee</option><option value="true" ${u.isManager?'selected':''}>Manager</option></select></td>
+            <td><select onchange="ts.updateUserField(${u.id},'isSalaried',this.value==='true')" style="border:none;background:transparent;">
+                <option value="false" ${!u.isSalaried?'selected':''}>Hourly</option><option value="true" ${u.isSalaried?'selected':''}>Salaried</option></select></td>
+            <td>${u.isSalaried?'N/A':`<input type="number" value="${parseFloat(u.hourlyRate).toFixed(2)}" step="0.01" min="0" onchange="ts.updateUserField(${u.id},'hourlyRate',parseFloat(this.value))" style="border:none;background:transparent;width:80px;">`}</td>
+            <td><button class="btn bd bsm" onclick="ts.resetUserPassword(${u.id})">🔑 Reset Password</button></td>
+            </tr>`).join('')}</tbody></table>`;
+    }
+    loadSystemStats(){ // Unchanged
+        const c=document.getElementById('ss');const tu=this.db.u.length;const tt=this.db.t.length;const ta=this.db.a.length;
+        const ss = (() => { try { return localStorage.getItem('mre_ts_users')?.length + localStorage.getItem('mre_ts_timesheets')?.length + localStorage.getItem('mre_ts_audit')?.length || 0; } catch { return 0; } })();
+        c.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+            <div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--p);">${tu}</div><div style="font-size:12px;color:var(--g);">Total Users</div></div>
+            <div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--s);">${tt}</div><div style="font-size:12px;color:var(--g);">Total Timesheets</div></div>
+            <div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--i);">${ta}</div><div style="font-size:12px;color:var(--g);">Audit Entries</div></div>
+            <div style="text-align:center;padding:16px;background:var(--l);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--w);">${(ss/1024).toFixed(1)}KB</div><div style="font-size:12px;color:var(--g);">Data Size</div></div></div>`;
+    }
+    updateUserField(uid,f,v){ // Unchanged
+        if(!this.am)return;const u=this.db.u.find(us=>us.id===uid);if(!u)return;
+        u[f]=v;
+        if(f==='isSalaried'){
+            if(v===true || v ==='true'){u.hourlyRate=0.00;u.overtimeRate=0.00;}
+            else{u.hourlyRate=parseFloat(u.hourlyRate) || 15.00;u.overtimeRate=u.hourlyRate*1.5;}
+        }
+        if(f==='hourlyRate'&&!u.isSalaried){u.overtimeRate=parseFloat(v)*1.5;}
+        this.saveDatabase();this.logAudit('admin_user_updated',{userId:uid,field:f,value:v});
+        showToast(`${u.name}'s ${f} updated`,'success');this.loadUserManagement();
+    }
+    async resetUserPassword(uid){ // Unchanged
+        if(!this.am)return;const u=this.db.u.find(us=>us.id===uid);if(!u)return;
+        if(!confirm(`Reset password for ${u.name}?`))return;
+        u.password=await this.hashPassword('SecurePass123!');this.saveDatabase();
+        this.logAudit('admin_password_reset',{userId:uid});
+        showToast(`Password reset for ${u.name}. Default: SecurePass123!`,'warning');
+    }
+    exportSystemData(){ // Unchanged
+        if(!this.am)return;
+        const sd={users:this.db.u,timesheets:this.db.t,auditLog:this.db.a,exportedAt:new Date().toISOString(),version:'1.0'};
+        this.downloadCSV(JSON.stringify(sd,null,2), `MRE_System_Backup_${new Date().toISOString().split('T')[0]}.json`);
+        showToast('System data exported!','success');
+    }
+    resetSystem(){ // Unchanged
+        if(!this.am)return;
+        if(!confirm('Reset entire system? ALL data will be deleted! This action is IRREVERSIBLE.'))return;
+        if(prompt('Type RESET SYSTEM to confirm deletion:')!=='RESET SYSTEM'){showToast('System reset aborted.','info');return;}
+        try { localStorage.clear(); } catch(e) { console.error("Failed to clear localStorage", e); }
+        showToast('System reset complete. Reloading...','warning');
+        setTimeout(()=>location.reload(),2000);
+    }
+    viewAuditLogs(){ // Unchanged
+        if(!this.am)return;
+        const mb=`<div style="max-height:400px;overflow-y:auto;"><table class="tt"><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Details</th></tr></thead><tbody>
+        ${this.db.a.slice(-100).reverse().map(e=>{ // Show last 100
+            const u=this.db.u.find(us=>us.id===e.userId);
+            return`<tr><td style="font-size:12px;">${new Date(e.timestamp).toLocaleString()}</td><td>${u?.name||'System'}</td><td style="font-size:12px;">${e.action}</td><td style="font-size:11px; word-break:break-all;">${JSON.stringify(e.details).substring(0,100)}...</td></tr>`
+        }).join('')}</tbody></table></div>`;
+        showModal('System Audit Log (Last 100 entries)',mb, `<button class="btn bg" onclick="closeModal()">Close</button>`);
+    }
+
+} // End of EnhancedTimesheetSystem class
+
+const ts = new EnhancedTimesheetSystem();
+
+// Global helper functions (handleLogin, showTab, showToast, showModal, closeModal) - Unchanged
+function handleLogin(e) {
+    e.preventDefault();
+    const em = document.getElementById('loginEmail').value;
+    const pw = document.getElementById('loginPassword').value;
+    ts.login(em, pw).then(s => { if (!s) document.getElementById('loginPassword').value = ''; });
+}
+
+function showTab(tn) {
+    document.querySelectorAll('.tc').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nt button').forEach(t => t.classList.remove('active'));
+    document.getElementById(tn).classList.add('active');
+    event.currentTarget.classList.add('active'); // Use event.currentTarget for safety
+    // Trigger load methods for respective tabs as before
+    switch (tn) {
+        case 'ct': ts.loadCurrentTimesheets(); break;
+        case 'tv': ts.loadTimesheetViewer(); break;
+        case 'mv': ts.loadMyVault(); break;
+        case 'ma': ts.loadMyArchive(); break;
+        case 'mgv': if (ts.cu && ts.cu.isManager) ts.loadManagerVault(); break;
+        case 'mga': if (ts.cu && ts.cu.isManager) ts.loadManagerArchive(); break;
+        case 'ap': if (ts.am) ts.loadAdminPanel(); break;
+    }
+}
+
+function showToast(m, t = 'info') {
+    const to = document.getElementById('to');
+    const tm = document.getElementById('tm');
+    tm.textContent = m;
+    to.className = `to ${t}`;
+    to.style.display = 'block';
+    setTimeout(() => to.style.display = 'none', 4000);
+}
+
+function showModal(ti, bo, fo = '') {
+    document.getElementById('modalTitle').textContent = ti;
+    document.getElementById('modalBody').innerHTML = bo;
+    document.getElementById('modalFooter').innerHTML = fo;
+    document.getElementById('md').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('md').style.display = 'none';
+     document.getElementById('modalBody').innerHTML = ''; // Clear body to prevent old content flash
+    document.getElementById('modalFooter').innerHTML = '';// Clear footer
+}
+
+// Disable context menu and F12/Ctrl+Shift+I/Ctrl+U (Basic anti-tamper) - Unchanged
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key==='J' || e.key==='C')) || (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+    }
+});
+
 </script>
 </body>
 </html>
