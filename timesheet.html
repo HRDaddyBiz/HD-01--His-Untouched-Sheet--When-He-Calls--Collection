@@ -3,22 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR Daddy - Timesheet System</title>
+<title>HR Daddy - Professional Time Tracking</title>
 <style>
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
   --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
   --info: #3b82f6;
   --dark: #1f2937;
   --gray: #6b7280;
+  --gray-light: #9ca3af;
   --light: #f3f4f6;
   --white: #ffffff;
   --border: #e5e7eb;
   --shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.05);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -28,10 +33,49 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--light);
   color: var(--dark);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Loading Spinner */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
 }
 
 /* Auth Container */
@@ -42,56 +86,81 @@ body {
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
+  animation: fadeIn 0.5s ease;
 }
 
 .auth-card {
   background: var(--white);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl);
   width: 100%;
   max-width: 450px;
   overflow: hidden;
+  animation: slideUp 0.6s ease;
 }
 
 .auth-header {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
-  padding: 40px 30px;
+  padding: 48px 32px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
 }
 
 .auth-logo {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 36px;
+  margin: 0 auto 24px;
+  font-size: 42px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
 .auth-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
 }
 
 .auth-subtitle {
   opacity: 0.9;
   font-size: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .auth-body {
-  padding: 30px;
+  padding: 32px;
 }
 
 /* Auth Tabs */
 .auth-tabs {
   display: flex;
-  border-bottom: 2px solid var(--border);
-  margin-bottom: 24px;
+  background: var(--light);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 28px;
 }
 
 .auth-tabs button {
@@ -101,10 +170,11 @@ body {
   border: none;
   color: var(--gray);
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  border-bottom: 2px solid transparent;
-  transition: all 0.3s;
+  border-radius: 8px;
+  transition: var(--transition);
+  position: relative;
 }
 
 .auth-tabs button:hover {
@@ -112,29 +182,32 @@ body {
 }
 
 .auth-tabs button.active {
+  background: var(--white);
   color: var(--primary);
-  border-bottom-color: var(--primary);
+  box-shadow: var(--shadow);
 }
 
 /* Form Elements */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
   color: var(--dark);
+  font-size: 14px;
 }
 
 .form-control {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
-  transition: all 0.3s;
+  transition: var(--transition);
+  background: var(--white);
 }
 
 .form-control:focus {
@@ -143,20 +216,46 @@ body {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+.form-control:disabled {
+  background: var(--light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 /* Buttons */
 .btn {
   padding: 12px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: var(--transition);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn:hover {
@@ -164,18 +263,55 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .btn-primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
 }
 
 .btn-success {
-  background: var(--success);
+  background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
   color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, var(--warning) 0%, #dc2626 100%);
+  color: white;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #b91c1c 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--gray) 0%, var(--dark) 100%);
+  color: white;
+}
+
+.btn-light {
+  background: var(--white);
+  color: var(--dark);
+  border: 1px solid var(--border);
 }
 
 .btn-block {
   width: 100%;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 14px;
 }
 
 /* App Container */
@@ -188,6 +324,7 @@ body {
 .app-container.active {
   display: flex;
   flex-direction: column;
+  animation: fadeIn 0.5s ease;
 }
 
 /* App Header */
@@ -201,6 +338,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.9);
 }
 
 .brand {
@@ -210,6 +349,18 @@ body {
   font-size: 24px;
   font-weight: 700;
   color: var(--primary);
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: var(--shadow-md);
 }
 
 .user-info {
@@ -222,37 +373,319 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-weight: 600;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.user-avatar.admin::after {
+  content: '👑';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 16px;
+}
+
+/* Status Indicator */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.status-indicator.clocked-in {
+  background: #dcfce7;
+  color: var(--success);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.status-indicator.clocked-out {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.status-indicator.on-break {
+  background: #fef3c7;
+  color: var(--warning);
 }
 
 /* Main Content */
 .main-content {
   flex: 1;
   padding: 24px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
-.welcome-card {
+.card {
   background: var(--white);
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: var(--shadow);
-  padding: 40px;
-  text-align: center;
   margin-bottom: 24px;
+  overflow: hidden;
+  transition: var(--transition);
 }
 
-.welcome-title {
-  font-size: 32px;
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 20px;
   font-weight: 700;
   color: var(--dark);
+}
+
+.card-body {
+  padding: 24px;
+}
+
+/* Clock Widget */
+.clock-widget {
+  text-align: center;
+  padding: 48px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.clock-widget::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.clock-time {
+  font-size: 56px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-date {
+  font-size: 20px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+.clock-timezone {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Time Entry Buttons */
+.time-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.time-btn {
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.time-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.time-btn:hover::before {
+  left: 100%;
+}
+
+.time-btn:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: currentColor;
+}
+
+.time-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.time-btn-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-btn-label {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.time-btn-time {
+  font-size: 16px;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+/* Manual Entry Button */
+.manual-entry-section {
+  text-align: center;
+  margin: 32px 0;
+  padding: 24px;
+  background: var(--light);
+  border-radius: 16px;
+  border: 2px dashed var(--border);
+}
+
+.manual-entry-section:hover {
+  border-color: var(--primary);
+}
+
+/* Timesheet Table */
+.timesheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.timesheet-table th,
+.timesheet-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.timesheet-table th {
+  background: var(--light);
+  font-weight: 700;
+  color: var(--gray);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+}
+
+.timesheet-table tr {
+  transition: var(--transition);
+}
+
+.timesheet-table tr:hover {
+  background: var(--light);
+}
+
+/* Time Entry Row */
+.time-entry {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition);
+  background: var(--white);
+}
+
+.time-entry:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.time-entry-date {
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.time-entry-times {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.time-entry-status {
+  font-size: 12px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.time-entry-status.complete {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.time-entry-status.in-progress {
+  background: #dbeafe;
+  color: var(--info);
+}
+
+/* Manual Entry Badge */
+.manual-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--warning);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 8px;
 }
 
 /* Toast Notifications */
@@ -263,22 +696,273 @@ body {
   background: var(--dark);
   color: white;
   padding: 16px 24px;
-  border-radius: 8px;
-  box-shadow: var(--shadow-lg);
-  display: none;
+  border-radius: 12px;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  gap: 12px;
   z-index: 1000;
-  animation: slideIn 0.3s;
+  animation: slideIn 0.3s ease;
   max-width: 400px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(100%);
 }
 
-@keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+.toast.show {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
 .toast.info { background: var(--info); }
+.toast.warning { background: var(--warning); }
+
+.toast-icon {
+  font-size: 20px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+  transform: scale(1);
+}
+
+.modal-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--dark);
+}
+
+.modal-close {
+  background: var(--light);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--gray);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background: var(--danger);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* Request Card */
+.request-card {
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: var(--light);
+  transition: var(--transition);
+}
+
+.request-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.request-info h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.request-info p {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.request-status {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+.status-approved {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.request-times {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.time-item {
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--light);
+}
+
+.time-label {
+  font-size: 11px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.time-value {
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 16px;
+}
+
+.request-reason {
+  margin: 20px 0;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+}
+
+.request-reason h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.request-reason p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+.request-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Form Enhancements */
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+/* Warning Box */
+.warning-box {
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+  border: 1px solid var(--warning);
+  color: #92400e;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: var(--shadow);
+}
+
+.warning-box-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.warning-box-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.warning-box-content p {
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 /* Error message */
 .error-message {
@@ -286,27 +970,91 @@ body {
   font-size: 14px;
   margin-top: 8px;
   display: none;
+  animation: slideUp 0.3s ease;
 }
 
-/* Password requirements */
-.password-requirements {
-  font-size: 12px;
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
   color: var(--gray);
-  margin-top: 8px;
 }
 
-.password-requirements li {
-  margin-left: 20px;
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  font-size: 16px;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  background: var(--danger);
+  color: white;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .auth-header {
-    padding: 30px 20px;
+  .app-header {
+    flex-wrap: wrap;
+    gap: 16px;
   }
   
-  .auth-body {
-    padding: 20px;
+  .time-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  .clock-time {
+    font-size: 40px;
+  }
+  
+  .time-entry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .request-times {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .modal-content {
+    margin: 20px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .app-header,
+  .btn,
+  .modal,
+  .toast {
+    display: none !important;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid var(--border);
+    break-inside: avoid;
   }
 }
 </style>
@@ -317,9 +1065,9 @@ body {
 <div class="auth-container" id="authContainer">
   <div class="auth-card">
     <div class="auth-header">
-      <div class="auth-logo">👔</div>
+      <div class="auth-logo">⏰</div>
       <h1 class="auth-title">HR Daddy</h1>
-      <p class="auth-subtitle">Employee Time Tracking System</p>
+      <p class="auth-subtitle">Professional Time Tracking System</p>
     </div>
     <div class="auth-body">
       <div class="auth-tabs">
@@ -330,16 +1078,20 @@ body {
       <!-- Login Form -->
       <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
         <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" id="loginEmail" required placeholder="your@email.com">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="loginEmail" required 
+                 placeholder="your@email.com" autocomplete="email">
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" class="form-control" id="loginPassword" required placeholder="Enter your password">
+          <input type="password" class="form-control" id="loginPassword" required 
+                 placeholder="Enter your password" autocomplete="current-password">
         </div>
         <div class="error-message" id="loginError"></div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>Sign In</span>
+          </button>
         </div>
       </form>
       
@@ -347,26 +1099,30 @@ body {
       <form id="registerForm" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
         <div class="form-group">
           <label class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="regName" required placeholder="John Smith">
+          <input type="text" class="form-control" id="regName" required 
+                 placeholder="John Smith" autocomplete="name">
         </div>
         <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" id="regEmail" required placeholder="john@company.com">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="regEmail" required 
+                 placeholder="john@company.com" autocomplete="email">
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" class="form-control" id="regPassword" required placeholder="Create a password" minlength="8">
-          <div class="password-requirements">
-            Password must be at least 8 characters long
-          </div>
+          <input type="password" class="form-control" id="regPassword" required 
+                 placeholder="Create a secure password" minlength="8" autocomplete="new-password">
+          <div class="form-hint">Must be at least 8 characters long</div>
         </div>
         <div class="form-group">
           <label class="form-label">Confirm Password</label>
-          <input type="password" class="form-control" id="regPasswordConfirm" required placeholder="Confirm your password">
+          <input type="password" class="form-control" id="regPasswordConfirm" required 
+                 placeholder="Confirm your password" autocomplete="new-password">
         </div>
         <div class="error-message" id="registerError"></div>
         <div class="form-group">
-          <button type="submit" class="btn btn-success btn-block">Create Account</button>
+          <button type="submit" class="btn btn-success btn-block">
+            <span>Create Account</span>
+          </button>
         </div>
       </form>
     </div>
@@ -377,50 +1133,442 @@ body {
 <div class="app-container" id="appContainer">
   <header class="app-header">
     <div class="brand">
-      <span>👔</span>
+      <div class="brand-icon">⏰</div>
       <span>HR Daddy</span>
     </div>
     <div class="user-info">
+      <div class="status-indicator" id="statusIndicator">
+        <span class="loading"></span>
+        <span id="statusText">Loading...</span>
+      </div>
       <div class="user-avatar" id="userAvatar"></div>
       <div>
         <div id="userName" style="font-weight: 600;"></div>
-        <div style="font-size: 12px; color: var(--gray);">Employee</div>
+        <div id="userRole" style="font-size: 12px; color: var(--gray);"></div>
       </div>
-      <button class="btn btn-primary" onclick="logout()">Logout</button>
+      <button class="btn btn-light btn-sm" onclick="logout()">
+        <span>Logout</span>
+      </button>
     </div>
   </header>
 
   <main class="main-content">
-    <div class="welcome-card">
-      <h1 class="welcome-title">Welcome to HR Daddy!</h1>
-      <p style="font-size: 18px; color: var(--gray);">Your timesheet management system</p>
-      <div style="margin-top: 32px;">
-        <p>This is where your timesheet features would go.</p>
-        <p style="margin-top: 16px; color: var(--gray);">The full application functionality can be added here.</p>
+    <!-- Clock Widget -->
+    <div class="clock-widget">
+      <div class="clock-time" id="clockTime">00:00:00</div>
+      <div class="clock-date" id="clockDate">Loading...</div>
+      <div class="clock-timezone">Phoenix Time (MST/Arizona)</div>
+    </div>
+
+    <!-- Time Entry Actions -->
+    <div class="time-actions">
+      <button class="time-btn" id="clockInBtn" onclick="clockIn()" 
+              style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); color: var(--success);">
+        <div class="time-btn-icon">🟢</div>
+        <div class="time-btn-label">Clock In</div>
+        <div class="time-btn-time" id="clockInTime">Ready</div>
+      </button>
+      
+      <button class="time-btn" id="lunchOutBtn" onclick="lunchOut()" disabled 
+              style="background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%); color: var(--warning);">
+        <div class="time-btn-icon">🍽️</div>
+        <div class="time-btn-label">Lunch Break</div>
+        <div class="time-btn-time" id="lunchOutTime">--:--</div>
+      </button>
+      
+      <button class="time-btn" id="lunchInBtn" onclick="lunchIn()" disabled 
+              style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); color: var(--info);">
+        <div class="time-btn-icon">↩️</div>
+        <div class="time-btn-label">Back from Lunch</div>
+        <div class="time-btn-time" id="lunchInTime">--:--</div>
+      </button>
+      
+      <button class="time-btn" id="clockOutBtn" onclick="clockOut()" disabled 
+              style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: var(--danger);">
+        <div class="time-btn-icon">🔴</div>
+        <div class="time-btn-label">Clock Out</div>
+        <div class="time-btn-time" id="clockOutTime">--:--</div>
+      </button>
+    </div>
+
+    <!-- Manual Entry Section -->
+    <div class="manual-entry-section">
+      <button class="btn btn-warning" onclick="showManualEntryForm()">
+        📝 Request Manual Time Entry
+      </button>
+      <div id="pendingRequestsCount" style="display: none; margin-top: 12px;">
+        <span class="badge" id="userPendingBadge">0</span>
+        <span style="color: var(--gray); font-weight: 600;">pending requests</span>
+      </div>
+    </div>
+
+    <!-- Warning Box -->
+    <div class="warning-box">
+      <div class="warning-box-icon">⚠️</div>
+      <div class="warning-box-content">
+        <h4>Important Notice</h4>
+        <p>All time entries are validated against Phoenix time and cannot be modified after submission. 
+           Please ensure accuracy before clicking any time entry button.</p>
+      </div>
+    </div>
+
+    <!-- Today's Entry -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Today's Time Entry</h2>
+      </div>
+      <div class="card-body" id="todayEntry">
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <h3>No entry yet today</h3>
+          <p>Click "Clock In" to start tracking your time</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Entries -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Recent Time Entries</h2>
+      </div>
+      <div class="card-body" id="recentEntries">
+        <div class="empty-state">
+          <div class="empty-state-icon">📅</div>
+          <h3>No recent entries</h3>
+          <p>Your completed time entries will appear here</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Panel (visible only to admins) -->
+    <div class="card" id="adminPanel" style="display: none;">
+      <div class="card-header">
+        <h2 class="card-title">🔧 Admin Panel - Time Entry Requests</h2>
+        <div class="status-indicator" style="background: #fef3c7; color: var(--warning);">
+          <span class="badge" id="pendingCount">0</span>
+          <span>Pending</span>
+        </div>
+      </div>
+      <div class="card-body" id="adminRequests">
+        <div class="empty-state">
+          <div class="empty-state-icon">✅</div>
+          <h3>No pending requests</h3>
+          <p>All time entry requests have been processed</p>
+        </div>
       </div>
     </div>
   </main>
 </div>
 
-<!-- Toast -->
+<!-- Modal for Manual Entry -->
+<div class="modal" id="manualEntryModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Request Manual Time Entry</h3>
+      <button class="modal-close" onclick="closeManualEntryForm()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="manualEntryForm" onsubmit="submitManualEntry(event)">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" id="manualDate" required>
+          <div class="form-hint">Select the date you forgot to clock in/out</div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label">Clock In Time</label>
+            <input type="time" class="form-control" id="manualClockIn" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Clock Out Time</label>
+            <input type="time" class="form-control" id="manualClockOut" required>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label">Lunch Out (Optional)</label>
+            <input type="time" class="form-control" id="manualLunchOut">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Lunch Return (Optional)</label>
+            <input type="time" class="form-control" id="manualLunchIn">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Reason for Manual Entry</label>
+          <textarea class="form-control" id="manualReason" rows="4" required 
+            placeholder="Please explain why you need a manual entry (e.g., forgot to clock in, system was down, etc.)"></textarea>
+        </div>
+        
+        <div class="warning-box">
+          <div class="warning-box-icon">⚠️</div>
+          <div class="warning-box-content">
+            <h4>Important</h4>
+            <p>This request will be sent to administrators for approval. Providing false information may result in disciplinary action.</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>Submit Request</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
 <div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">ℹ️</span>
   <span id="toastMessage"></span>
 </div>
 
 <script>
-// Simple, secure authentication system
+// In-memory storage for sandboxed environments
+const memoryStorage = {
+  data: {},
+  getItem(key) {
+    return this.data[key] || null;
+  },
+  setItem(key, value) {
+    this.data[key] = value;
+  },
+  removeItem(key) {
+    delete this.data[key];
+  },
+  clear() {
+    this.data = {};
+  }
+};
+
+// Use memoryStorage
+const storage = memoryStorage;
+
+// Initialize with test users
+storage.setItem('hrDaddyUsers', JSON.stringify([
+  {
+    id: 1,
+    name: 'John Doe',
+    email: 'user@example.com',
+    password: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // 'password'
+    createdAt: new Date().toISOString(),
+    isAdmin: false
+  },
+  {
+    id: 2,
+    name: 'Jane Smith',
+    email: 'admin@example.com',
+    password: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // 'password'
+    createdAt: new Date().toISOString(),
+    isAdmin: true
+  }
+]));
+
+// Manual time entry request system
+const requestSystem = {
+  requests: [],
+  
+  loadRequests() {
+    const saved = storage.getItem('hrDaddyRequests');
+    if (saved) {
+      this.requests = JSON.parse(saved);
+    }
+  },
+  
+  saveRequests() {
+    storage.setItem('hrDaddyRequests', JSON.stringify(this.requests));
+  },
+  
+  createRequest(data) {
+    const request = {
+      id: Date.now(),
+      userId: auth.getCurrentUser().id,
+      userName: auth.getCurrentUser().name,
+      date: data.date,
+      clockIn: data.clockIn,
+      lunchOut: data.lunchOut,
+      lunchIn: data.lunchIn,
+      clockOut: data.clockOut,
+      reason: data.reason,
+      status: 'pending',
+      submittedAt: new Date().toISOString(),
+      reviewedBy: null,
+      reviewedAt: null,
+      reviewNotes: null
+    };
+    
+    this.requests.push(request);
+    this.saveRequests();
+    return request;
+  },
+  
+  getPendingRequests() {
+    return this.requests.filter(r => r.status === 'pending');
+  },
+  
+  getUserRequests(userId) {
+    return this.requests.filter(r => r.userId === userId);
+  },
+  
+  approveRequest(requestId, adminId, notes = '') {
+    const request = this.requests.find(r => r.id === requestId);
+    if (!request) return false;
+    
+    request.status = 'approved';
+    request.reviewedBy = adminId;
+    request.reviewedAt = new Date().toISOString();
+    request.reviewNotes = notes;
+    
+    // Create the actual time entry
+    const entry = {
+      id: Date.now(),
+      userId: request.userId,
+      date: new Date(request.date + 'T12:00:00').toISOString(),
+      clockIn: new Date(request.date + 'T' + request.clockIn).toISOString(),
+      lunchOut: request.lunchOut ? new Date(request.date + 'T' + request.lunchOut).toISOString() : null,
+      lunchIn: request.lunchIn ? new Date(request.date + 'T' + request.lunchIn).toISOString() : null,
+      clockOut: new Date(request.date + 'T' + request.clockOut).toISOString(),
+      status: 'complete',
+      isManualEntry: true,
+      approvedBy: adminId
+    };
+    
+    timeTracker.entries.push(entry);
+    timeTracker.saveEntries();
+    
+    this.saveRequests();
+    return true;
+  },
+  
+  rejectRequest(requestId, adminId, notes = '') {
+    const request = this.requests.find(r => r.id === requestId);
+    if (!request) return false;
+    
+    request.status = 'rejected';
+    request.reviewedBy = adminId;
+    request.reviewedAt = new Date().toISOString();
+    request.reviewNotes = notes;
+    
+    this.saveRequests();
+    return true;
+  }
+};
+
+// Time tracking system
+const timeTracker = {
+  currentEntry: null,
+  entries: [],
+  
+  // Get Phoenix time (MST - no daylight saving)
+  getPhoenixTime() {
+    const now = new Date();
+    const phoenixOffset = -7 * 60; // -7 hours in minutes
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    return new Date(utc + (phoenixOffset * 60000));
+  },
+  
+  formatTime(date) {
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+  },
+  
+  formatDate(date) {
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  },
+  
+  getTodayEntry() {
+    const today = this.getPhoenixTime().toDateString();
+    return this.entries.find(e => 
+      new Date(e.date).toDateString() === today && 
+      e.userId === auth.getCurrentUser().id
+    );
+  },
+  
+  createTimeEntry(type) {
+    const phoenixTime = this.getPhoenixTime();
+    const user = auth.getCurrentUser();
+    
+    if (!user) return null;
+    
+    let todayEntry = this.getTodayEntry();
+    
+    if (!todayEntry) {
+      todayEntry = {
+        id: Date.now(),
+        userId: user.id,
+        date: phoenixTime.toISOString(),
+        clockIn: null,
+        lunchOut: null,
+        lunchIn: null,
+        clockOut: null,
+        status: 'in-progress'
+      };
+      this.entries.push(todayEntry);
+    }
+    
+    // Validate sequence
+    if (type === 'clockIn' && todayEntry.clockIn) {
+      throw new Error('Already clocked in today');
+    }
+    if (type === 'lunchOut' && (!todayEntry.clockIn || todayEntry.lunchOut)) {
+      throw new Error('Invalid sequence');
+    }
+    if (type === 'lunchIn' && (!todayEntry.lunchOut || todayEntry.lunchIn)) {
+      throw new Error('Invalid sequence');
+    }
+    if (type === 'clockOut' && (!todayEntry.clockIn || todayEntry.clockOut)) {
+      throw new Error('Invalid sequence');
+    }
+    
+    todayEntry[type] = phoenixTime.toISOString();
+    
+    if (todayEntry.clockOut) {
+      todayEntry.status = 'complete';
+    }
+    
+    this.saveEntries();
+    return todayEntry;
+  },
+  
+  saveEntries() {
+    storage.setItem('hrDaddyTimeEntries', JSON.stringify(this.entries));
+  },
+  
+  loadEntries() {
+    const saved = storage.getItem('hrDaddyTimeEntries');
+    if (saved) {
+      this.entries = JSON.parse(saved);
+    }
+  }
+};
+
+// Authentication system
 const auth = {
-  // Store users in localStorage (in production, this would be a backend database)
   getUsers() {
-    return JSON.parse(localStorage.getItem('hrDaddyUsers') || '[]');
+    return JSON.parse(storage.getItem('hrDaddyUsers') || '[]');
   },
   
   saveUsers(users) {
-    localStorage.setItem('hrDaddyUsers', JSON.stringify(users));
+    storage.setItem('hrDaddyUsers', JSON.stringify(users));
   },
   
   getCurrentUser() {
-    const session = localStorage.getItem('hrDaddySession');
+    const session = storage.getItem('hrDaddySession');
     if (session) {
       const data = JSON.parse(session);
       if (data.expiry > Date.now()) {
@@ -430,9 +1578,13 @@ const auth = {
     return null;
   },
   
-  // Hash password (in production, use bcrypt on backend)
+  isAdmin() {
+    const user = this.getCurrentUser();
+    return user && user.isAdmin;
+  },
+  
   hashPassword(password) {
-    // Simple hash for demo - DO NOT use in production
+    // Simple hash for demo - use bcrypt in production
     let hash = 0;
     for (let i = 0; i < password.length; i++) {
       const char = password.charCodeAt(i);
@@ -442,25 +1594,20 @@ const auth = {
     return Math.abs(hash).toString(16);
   },
   
-  // Check if user exists
-  userExists(email) {
-    const users = this.getUsers();
-    return users.some(u => u.email.toLowerCase() === email.toLowerCase());
-  },
-  
-  // Register new user
   register(name, email, password) {
-    if (this.userExists(email)) {
+    const users = this.getUsers();
+    
+    if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
       throw new Error('Email already registered');
     }
     
-    const users = this.getUsers();
     const newUser = {
       id: Date.now(),
       name: name,
       email: email.toLowerCase(),
       password: this.hashPassword(password),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      isAdmin: false
     };
     
     users.push(newUser);
@@ -469,55 +1616,50 @@ const auth = {
     return newUser;
   },
   
-  // Login user
   login(email, password) {
     const users = this.getUsers();
     const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
     
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('Invalid email or password');
     }
     
     if (user.password !== this.hashPassword(password)) {
-      throw new Error('Invalid password');
+      throw new Error('Invalid email or password');
     }
     
-    // Create session
     const sessionData = {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        isAdmin: user.isAdmin || false
       },
       token: Math.random().toString(36).substring(2),
-      expiry: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
+      expiry: Date.now() + (24 * 60 * 60 * 1000)
     };
     
-    localStorage.setItem('hrDaddySession', JSON.stringify(sessionData));
+    storage.setItem('hrDaddySession', JSON.stringify(sessionData));
     
     return sessionData.user;
   },
   
-  // Logout
   logout() {
-    localStorage.removeItem('hrDaddySession');
+    storage.removeItem('hrDaddySession');
   }
 };
 
 // UI Functions
 function showAuthTab(tab) {
-  // Hide all forms
   document.querySelectorAll('.auth-form').forEach(form => {
     form.style.display = 'none';
     form.classList.remove('active');
   });
   
-  // Remove active class from tabs
   document.querySelectorAll('.auth-tabs button').forEach(btn => {
     btn.classList.remove('active');
   });
   
-  // Show selected form and activate tab
   if (tab === 'login') {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('loginForm').classList.add('active');
@@ -528,7 +1670,6 @@ function showAuthTab(tab) {
     document.querySelector('.auth-tabs button:nth-child(2)').classList.add('active');
   }
   
-  // Clear errors
   document.querySelectorAll('.error-message').forEach(err => {
     err.style.display = 'none';
     err.textContent = '';
@@ -544,14 +1685,206 @@ function showError(formId, message) {
 function showToast(message, type = 'info') {
   const toast = document.getElementById('toast');
   const toastMessage = document.getElementById('toastMessage');
+  const toastIcon = document.getElementById('toastIcon');
+  
+  const icons = {
+    success: '✅',
+    error: '❌',
+    warning: '⚠️',
+    info: 'ℹ️'
+  };
   
   toastMessage.textContent = message;
+  toastIcon.textContent = icons[type];
   toast.className = `toast ${type}`;
-  toast.style.display = 'block';
   
+  // Show toast
+  toast.classList.add('show');
+  
+  // Hide after 3 seconds
   setTimeout(() => {
-    toast.style.display = 'none';
+    toast.classList.remove('show');
   }, 3000);
+}
+
+function updateClock() {
+  const phoenixTime = timeTracker.getPhoenixTime();
+  document.getElementById('clockTime').textContent = timeTracker.formatTime(phoenixTime);
+  document.getElementById('clockDate').textContent = timeTracker.formatDate(phoenixTime);
+}
+
+function updateUI() {
+  const todayEntry = timeTracker.getTodayEntry();
+  const statusIndicator = document.getElementById('statusIndicator');
+  const statusText = document.getElementById('statusText');
+  
+  // Reset buttons
+  document.getElementById('clockInBtn').disabled = false;
+  document.getElementById('lunchOutBtn').disabled = true;
+  document.getElementById('lunchInBtn').disabled = true;
+  document.getElementById('clockOutBtn').disabled = true;
+  
+  // Reset times
+  document.getElementById('clockInTime').textContent = 'Ready';
+  document.getElementById('lunchOutTime').textContent = '--:--';
+  document.getElementById('lunchInTime').textContent = '--:--';
+  document.getElementById('clockOutTime').textContent = '--:--';
+  
+  if (todayEntry) {
+    // Update times
+    if (todayEntry.clockIn) {
+      document.getElementById('clockInTime').textContent = timeTracker.formatTime(new Date(todayEntry.clockIn));
+      document.getElementById('clockInBtn').disabled = true;
+    }
+    if (todayEntry.lunchOut) {
+      document.getElementById('lunchOutTime').textContent = timeTracker.formatTime(new Date(todayEntry.lunchOut));
+      document.getElementById('lunchOutBtn').disabled = true;
+    }
+    if (todayEntry.lunchIn) {
+      document.getElementById('lunchInTime').textContent = timeTracker.formatTime(new Date(todayEntry.lunchIn));
+      document.getElementById('lunchInBtn').disabled = true;
+    }
+    if (todayEntry.clockOut) {
+      document.getElementById('clockOutTime').textContent = timeTracker.formatTime(new Date(todayEntry.clockOut));
+      document.getElementById('clockOutBtn').disabled = true;
+    }
+    
+    // Update button states
+    if (todayEntry.clockIn && !todayEntry.clockOut) {
+      document.getElementById('clockOutBtn').disabled = false;
+      
+      if (!todayEntry.lunchOut) {
+        document.getElementById('lunchOutBtn').disabled = false;
+      } else if (todayEntry.lunchOut && !todayEntry.lunchIn) {
+        document.getElementById('lunchInBtn').disabled = false;
+      }
+    }
+    
+    // Update status
+    statusIndicator.innerHTML = '';
+    if (todayEntry.clockIn && !todayEntry.clockOut) {
+      if (todayEntry.lunchOut && !todayEntry.lunchIn) {
+        statusIndicator.className = 'status-indicator on-break';
+        statusIndicator.innerHTML = '<span>🍽️</span><span>On Lunch Break</span>';
+      } else {
+        statusIndicator.className = 'status-indicator clocked-in';
+        statusIndicator.innerHTML = '<span>✅</span><span>Clocked In</span>';
+      }
+    } else {
+      statusIndicator.className = 'status-indicator clocked-out';
+      statusIndicator.innerHTML = '<span>🔴</span><span>Clocked Out</span>';
+    }
+    
+    updateTodayEntry(todayEntry);
+  } else {
+    statusIndicator.className = 'status-indicator clocked-out';
+    statusIndicator.innerHTML = '<span>🔴</span><span>Not Clocked In</span>';
+    document.getElementById('todayEntry').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <h3>No entry yet today</h3>
+        <p>Click "Clock In" to start tracking your time</p>
+      </div>
+    `;
+  }
+  
+  updateRecentEntries();
+}
+
+function updateTodayEntry(entry) {
+  const calculateDuration = (start, end) => {
+    if (!start || !end) return '--:--';
+    const diff = new Date(end) - new Date(start);
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    return `${hours}h ${minutes}m`;
+  };
+  
+  const totalWorked = () => {
+    if (!entry.clockIn) return '--:--';
+    const endTime = entry.clockOut ? new Date(entry.clockOut) : timeTracker.getPhoenixTime();
+    let totalMs = endTime - new Date(entry.clockIn);
+    
+    if (entry.lunchOut && entry.lunchIn) {
+      totalMs -= (new Date(entry.lunchIn) - new Date(entry.lunchOut));
+    }
+    
+    const hours = Math.floor(totalMs / 3600000);
+    const minutes = Math.floor((totalMs % 3600000) / 60000);
+    return `${hours}h ${minutes}m`;
+  };
+  
+  const html = `
+    <table class="timesheet-table">
+      <thead>
+        <tr>
+          <th>Clock In</th>
+          <th>Lunch Out</th>
+          <th>Lunch In</th>
+          <th>Clock Out</th>
+          <th>Total Worked</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${entry.clockIn ? timeTracker.formatTime(new Date(entry.clockIn)) : '--:--'}</td>
+          <td>${entry.lunchOut ? timeTracker.formatTime(new Date(entry.lunchOut)) : '--:--'}</td>
+          <td>${entry.lunchIn ? timeTracker.formatTime(new Date(entry.lunchIn)) : '--:--'}</td>
+          <td>${entry.clockOut ? timeTracker.formatTime(new Date(entry.clockOut)) : '--:--'}</td>
+          <td><strong>${totalWorked()}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+  
+  document.getElementById('todayEntry').innerHTML = html;
+}
+
+function updateRecentEntries() {
+  const user = auth.getCurrentUser();
+  const recentEntries = timeTracker.entries
+    .filter(e => e.userId === user.id && e.status === 'complete')
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
+  
+  if (recentEntries.length === 0) {
+    document.getElementById('recentEntries').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📅</div>
+        <h3>No recent entries</h3>
+        <p>Your completed time entries will appear here</p>
+      </div>
+    `;
+    return;
+  }
+  
+  const html = recentEntries.map(entry => {
+    const date = new Date(entry.date);
+    const totalMs = new Date(entry.clockOut) - new Date(entry.clockIn) - 
+      (entry.lunchIn && entry.lunchOut ? new Date(entry.lunchIn) - new Date(entry.lunchOut) : 0);
+    const hours = Math.floor(totalMs / 3600000);
+    const minutes = Math.floor((totalMs % 3600000) / 60000);
+    
+    return `
+      <div class="time-entry">
+        <div>
+          <div class="time-entry-date">
+            ${date.toLocaleDateString()}
+            ${entry.isManualEntry ? '<span class="manual-badge">📝 Manual</span>' : ''}
+          </div>
+          <div class="time-entry-times">
+            <span>In: ${timeTracker.formatTime(new Date(entry.clockIn))}</span>
+            <span>Out: ${timeTracker.formatTime(new Date(entry.clockOut))}</span>
+          </div>
+        </div>
+        <div>
+          <div class="time-entry-status complete">${hours}h ${minutes}m</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('recentEntries').innerHTML = html;
 }
 
 function showApp(user) {
@@ -559,8 +1892,278 @@ function showApp(user) {
   document.getElementById('appContainer').classList.add('active');
   
   // Update user info
+  const userAvatar = document.getElementById('userAvatar');
+  userAvatar.textContent = user.name.charAt(0).toUpperCase();
+  if (user.isAdmin) {
+    userAvatar.classList.add('admin');
+  }
+  
   document.getElementById('userName').textContent = user.name;
-  document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+  document.getElementById('userRole').textContent = user.isAdmin ? 'Administrator' : 'Employee';
+  
+  // Load data
+  timeTracker.loadEntries();
+  requestSystem.loadRequests();
+  
+  // Show admin panel if admin
+  if (user.isAdmin) {
+    document.getElementById('adminPanel').style.display = 'block';
+    updateAdminPanel();
+    // Update admin panel every 30 seconds
+    setInterval(updateAdminPanel, 30000);
+  }
+  
+  // Start clock
+  updateClock();
+  setInterval(updateClock, 1000);
+  
+  // Update UI
+  updateUI();
+  updatePendingRequests();
+}
+
+// Time entry functions
+function clockIn() {
+  try {
+    const entry = timeTracker.createTimeEntry('clockIn');
+    showToast(`Successfully clocked in at ${timeTracker.formatTime(new Date(entry.clockIn))}`, 'success');
+    updateUI();
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
+}
+
+function lunchOut() {
+  try {
+    const entry = timeTracker.createTimeEntry('lunchOut');
+    showToast(`Lunch break started at ${timeTracker.formatTime(new Date(entry.lunchOut))}`, 'warning');
+    updateUI();
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
+}
+
+function lunchIn() {
+  try {
+    const entry = timeTracker.createTimeEntry('lunchIn');
+    showToast(`Welcome back! Lunch ended at ${timeTracker.formatTime(new Date(entry.lunchIn))}`, 'info');
+    updateUI();
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
+}
+
+function clockOut() {
+  try {
+    const entry = timeTracker.createTimeEntry('clockOut');
+    
+    // Calculate total hours worked
+    const totalMs = new Date(entry.clockOut) - new Date(entry.clockIn) - 
+      (entry.lunchIn && entry.lunchOut ? new Date(entry.lunchIn) - new Date(entry.lunchOut) : 0);
+    const hours = Math.floor(totalMs / 3600000);
+    const minutes = Math.floor((totalMs % 3600000) / 60000);
+    
+    showToast(`Clocked out at ${timeTracker.formatTime(new Date(entry.clockOut))}. Total: ${hours}h ${minutes}m`, 'success');
+    updateUI();
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
+}
+
+// Manual entry functions
+function showManualEntryForm() {
+  const modal = document.getElementById('manualEntryModal');
+  const dateInput = document.getElementById('manualDate');
+  
+  // Set max date to today
+  const today = timeTracker.getPhoenixTime().toISOString().split('T')[0];
+  dateInput.max = today;
+  dateInput.value = '';
+  
+  // Clear form
+  document.getElementById('manualEntryForm').reset();
+  
+  modal.classList.add('show');
+}
+
+function closeManualEntryForm() {
+  const modal = document.getElementById('manualEntryModal');
+  modal.classList.remove('show');
+}
+
+function submitManualEntry(event) {
+  event.preventDefault();
+  
+  const data = {
+    date: document.getElementById('manualDate').value,
+    clockIn: document.getElementById('manualClockIn').value,
+    lunchOut: document.getElementById('manualLunchOut').value,
+    lunchIn: document.getElementById('manualLunchIn').value,
+    clockOut: document.getElementById('manualClockOut').value,
+    reason: document.getElementById('manualReason').value
+  };
+  
+  // Validate times
+  if (data.lunchOut && !data.lunchIn) {
+    showToast('If you took lunch, both lunch out and lunch in times are required', 'error');
+    return;
+  }
+  
+  if (data.lunchIn && !data.lunchOut) {
+    showToast('If you took lunch, both lunch out and lunch in times are required', 'error');
+    return;
+  }
+  
+  if (data.clockIn >= data.clockOut) {
+    showToast('Clock out time must be after clock in time', 'error');
+    return;
+  }
+  
+  if (data.lunchOut && (data.lunchOut <= data.clockIn || data.lunchOut >= data.clockOut)) {
+    showToast('Lunch out time must be between clock in and clock out', 'error');
+    return;
+  }
+  
+  if (data.lunchIn && (data.lunchIn <= data.lunchOut || data.lunchIn >= data.clockOut)) {
+    showToast('Lunch return time must be after lunch out and before clock out', 'error');
+    return;
+  }
+  
+  // Create request
+  requestSystem.createRequest(data);
+  
+  showToast('Manual time entry request submitted for admin approval', 'success');
+  closeManualEntryForm();
+  updatePendingRequests();
+  
+  if (auth.isAdmin()) {
+    updateAdminPanel();
+  }
+}
+
+function updatePendingRequests() {
+  const user = auth.getCurrentUser();
+  const userRequests = requestSystem.getUserRequests(user.id);
+  const pendingCount = userRequests.filter(r => r.status === 'pending').length;
+  
+  const countEl = document.getElementById('pendingRequestsCount');
+  const badge = document.getElementById('userPendingBadge');
+  
+  if (pendingCount > 0) {
+    countEl.style.display = 'block';
+    badge.textContent = pendingCount;
+  } else {
+    countEl.style.display = 'none';
+  }
+}
+
+function updateAdminPanel() {
+  if (!auth.isAdmin()) return;
+  
+  const pendingRequests = requestSystem.getPendingRequests();
+  const pendingCount = pendingRequests.length;
+  
+  document.getElementById('pendingCount').textContent = pendingCount;
+  
+  if (pendingCount === 0) {
+    document.getElementById('adminRequests').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">✅</div>
+        <h3>No pending requests</h3>
+        <p>All time entry requests have been processed</p>
+      </div>
+    `;
+    return;
+  }
+  
+  const html = pendingRequests.map(request => {
+    return `
+      <div class="request-card">
+        <div class="request-header">
+          <div class="request-info">
+            <h4>${request.userName}</h4>
+            <p>Submitted ${new Date(request.submittedAt).toLocaleString()}</p>
+          </div>
+          <span class="request-status status-pending">Pending Review</span>
+        </div>
+        
+        <div class="request-times">
+          <div class="time-item">
+            <div class="time-label">Date</div>
+            <div class="time-value">${new Date(request.date).toLocaleDateString()}</div>
+          </div>
+          <div class="time-item">
+            <div class="time-label">Clock In</div>
+            <div class="time-value">${formatTime12Hour(request.clockIn)}</div>
+          </div>
+          <div class="time-item">
+            <div class="time-label">Lunch Out</div>
+            <div class="time-value">${request.lunchOut ? formatTime12Hour(request.lunchOut) : 'N/A'}</div>
+          </div>
+          <div class="time-item">
+            <div class="time-label">Lunch In</div>
+            <div class="time-value">${request.lunchIn ? formatTime12Hour(request.lunchIn) : 'N/A'}</div>
+          </div>
+          <div class="time-item">
+            <div class="time-label">Clock Out</div>
+            <div class="time-value">${formatTime12Hour(request.clockOut)}</div>
+          </div>
+        </div>
+        
+        <div class="request-reason">
+          <h5>Reason for Manual Entry</h5>
+          <p>${request.reason}</p>
+        </div>
+        
+        <div class="request-actions">
+          <button class="btn btn-success btn-sm" onclick="approveRequest(${request.id})">
+            <span>✅ Approve</span>
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="rejectRequest(${request.id})">
+            <span>❌ Reject</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('adminRequests').innerHTML = html;
+}
+
+function formatTime12Hour(time24) {
+  const [hours, minutes] = time24.split(':');
+  const hour = parseInt(hours);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 || 12;
+  return `${hour12}:${minutes} ${ampm}`;
+}
+
+function approveRequest(requestId) {
+  const notes = prompt('Add notes for approval (optional):');
+  if (notes === null) return; // User cancelled
+  
+  if (requestSystem.approveRequest(requestId, auth.getCurrentUser().id, notes)) {
+    showToast('Request approved and time entry created', 'success');
+    updateAdminPanel();
+    updateUI();
+  } else {
+    showToast('Error approving request', 'error');
+  }
+}
+
+function rejectRequest(requestId) {
+  const notes = prompt('Please provide a reason for rejection:');
+  if (!notes) {
+    showToast('Rejection reason is required', 'error');
+    return;
+  }
+  
+  if (requestSystem.rejectRequest(requestId, auth.getCurrentUser().id, notes)) {
+    showToast('Request rejected', 'info');
+    updateAdminPanel();
+  } else {
+    showToast('Error rejecting request', 'error');
+  }
 }
 
 // Event Handlers
@@ -587,7 +2190,6 @@ async function handleRegister(event) {
   const password = document.getElementById('regPassword').value;
   const passwordConfirm = document.getElementById('regPasswordConfirm').value;
   
-  // Validate passwords match
   if (password !== passwordConfirm) {
     showError('register', 'Passwords do not match');
     return;
@@ -596,8 +2198,6 @@ async function handleRegister(event) {
   try {
     const user = auth.register(name, email, password);
     showToast('Account created successfully!', 'success');
-    
-    // Auto login
     auth.login(email, password);
     showApp(user);
   } catch (error) {
@@ -606,8 +2206,10 @@ async function handleRegister(event) {
 }
 
 function logout() {
-  auth.logout();
-  location.reload();
+  if (confirm('Are you sure you want to logout?')) {
+    auth.logout();
+    location.reload();
+  }
 }
 
 // Check for existing session on load
@@ -616,6 +2218,38 @@ window.addEventListener('DOMContentLoaded', () => {
   if (user) {
     showApp(user);
   }
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (event) => {
+  const modal = document.getElementById('manualEntryModal');
+  if (event.target === modal) {
+    closeManualEntryForm();
+  }
+});
+
+// Add smooth transitions for auth forms
+document.addEventListener('DOMContentLoaded', () => {
+  // Add test account info
+  setTimeout(() => {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm && loginForm.style.display !== 'none') {
+      const hint = document.createElement('div');
+      hint.style.cssText = 'margin-top: 20px; padding: 16px; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); border-radius: 12px; font-size: 14px;';
+      hint.innerHTML = `
+        <strong style="display: block; margin-bottom: 8px;">🔐 Test Accounts:</strong>
+        <div style="display: grid; gap: 8px;">
+          <div>
+            <strong>Employee:</strong> user@example.com / password
+          </div>
+          <div>
+            <strong>Admin:</strong> admin@example.com / password
+          </div>
+        </div>
+      `;
+      loginForm.appendChild(hint);
+    }
+  }, 100);
 });
 </script>
 
